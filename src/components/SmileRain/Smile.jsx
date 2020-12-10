@@ -7,101 +7,87 @@ import { theme } from "../../state/consts";
 
 const useStyles = makeStyles((theme) => ({
   smileObj: {
-    fontSize: "50px",
+    zIndex: 99,
     position: "absolute",
     maxHeight: "100%",
-  },
-  phrase: {
     textAlign: "center",
     fontFamily: "RobotoBold",
     textTransform: "uppercase",
     padding: 5,
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 }));
 
-export const Smile = ({ phrase, duration, id, width, number, sound }) => {
+export const Smile = ({ id, phrase, duration, sound, left, width }) => {
   const classes = useStyles();
-  const [audioFlag, setAudioFlag] = useState(true);
-  const [inProp, setInProp] = useState(false);
-  const [showMessage, setShowMessage] = useState(true);
   const { currentTheme } = useContext(ThemeContext);
+  //Audio
+  const [audioFlag, setAudioFlag] = useState(true);
 
-  const [clientWidth, setClientWidth] = useState(window.innerWidth);
-  useEffect(() => setClientWidth(window.innerWidth));
+  //inProp CSSTransition
+  const [inProp, setInProp] = useState(false);
+
+  //Show Message
+  const [showMessage, setShowMessage] = useState(true);
+  //Пробег по всем смайлам и назначение им скорости анимации
   useEffect(() => {
     document
-      .querySelectorAll(`.smile${duration}`)
-      .forEach((el) => el.style.setProperty("--duration", duration + "s"));
-  }, []);
-  useEffect(() => {
-    setInterval(() => {
-      if (!showMessage) {
-        setShowMessage(true);
-      }
-      if (!audioFlag) {
-        setAudioFlag(true);
-      }
-      if (inProp) {
-        setInProp(false);
-      }
-    }, duration * 1000 - 100);
+      .querySelector(`.smile${id}`)
+      .style.setProperty("--duration", duration + "s");
   }, []);
 
-  const smileHandler = (e) => {
-    if (e.target.childNodes[0] === "") {
-      e.target.style.zIndex = -1;
-    }
+  // За 0.1 секунду до окончания анимации все
+  //флаги приходят в норму, чтобы снова адекватн опоказать фразу
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowMessage(true);
+      setAudioFlag(true);
+      setInProp(false);
+    }, duration * 1000 - 100);
+    return () => clearInterval(interval);
+  }, []);
+
+  //При клике на фразу происходит исчезновение и звук щелчка
+  const smileHandler = () => {
     setInProp(true);
-    if (audioFlag && sound) {
+    if (audioFlag) {
       sound.play();
       setAudioFlag(false);
     }
   };
 
   return (
-    <div
-      onClick={smileHandler}
-      duration={duration}
-      className={classes.smileObj + " " + `smile webkit smile${duration}`}
-      style={{
-        marginLeft: (clientWidth * 0.85) * `0.${number}` + "px",
-        width: width === "xs" ? 100 : 130,
-        height: 50,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        cursor: "pointer",
-      }}
-      id={id}
+    <CSSTransition
+      timeout={300}
+      appear={true}
+      classNames="alert"
+      in={inProp}
+      onEntered={() => setShowMessage(false)}
     >
-      <CSSTransition
-        timeout={300}
-        appear={true}
-        classNames="alert"
-        in={inProp}
-        onEntered={() => setShowMessage(false)}
+      <div
+        onClick={smileHandler}
+        duration={duration}
+        className={classes.smileObj + " " + `smile webkit smile${id}`}
+        style={{
+          left: `${left}%`,
+          width: width === "xs" ? "4%" : "6%",
+          color: currentTheme === "light" ? theme.dark : theme.light,
+          fontSize:
+            width === "xs"
+              ? 13
+              : width === "sm"
+              ? 16
+              : width === "md"
+              ? 17
+              : 18,
+        }}
       >
-        <p
-          className={classes.phrase}
-          style={{
-            color: currentTheme === "light" ? theme.dark : theme.light,
-            width: "100%",
-            zIndex: 99,
-            fontSize:
-              width === "xs"
-                ? 14
-                : width === "sm"
-                ? 16
-                : width === "md"
-                ? 17
-                : 18,
-          }}
-        >
-          {console.log('asdsad')}
-          {showMessage ? phrase : ""}
-        </p>
-      </CSSTransition>
-    </div>
+        {showMessage ? phrase : ""}
+      </div>
+    </CSSTransition>
   );
 };
 

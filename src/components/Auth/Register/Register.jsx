@@ -262,7 +262,10 @@ import { ThemeContext } from "../../../context/themeContext";
               variant='h6'
               style={{
                 marginTop: '20px',
-                color: currentTheme === 'dark' ? 'black' : 'white'
+                color: currentTheme === 'dark' ? 'black' : 'white',
+                display:'flex',
+                justifyContent:'center',
+                alignItems:'center'
               }}
             >{mess}</Typography>
             : null

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Smile from "./Smile";
 import { makeStyles, withWidth } from "@material-ui/core";
 import { v4 as uuidv4 } from "uuid";
@@ -56,39 +56,70 @@ const SmileRain = ({ width, sound }) => {
     { phrase: "где взять рефку❗️❓" },
   ];
 
-  const renderPhrases = (phrases) => {
-    let elements = [];
-    let countOfPhrases = 15;
-    if (width === "xs") {
-      countOfPhrases = 10;
-    }
-    const randomNumbers = [];
-    for (let i = 0; i < countOfPhrases; i++) {
-      for (let g = 0; g < countOfPhrases; g++) {
-        let number = Math.floor(Math.random() * 100);
-        randomNumbers.push(Math.floor(Math.random() * 100));
-      }
-      const phrase = phrases[Math.floor(Math.random() * phrases.length)];
-      phrase.id = uuidv4();
+  let countOfPhrases = 15;
+  if (width === "sm" || width === "xs") {
+    countOfPhrases = 9;
+  }
 
-      let duration = Math.floor(Math.random() * 30);
-      if (duration < 10) {
-        duration += 10;
-      }
-      elements.push(
+  const durations = [
+    7.5,
+    16,
+    6,
+    13,
+    18,
+    5,
+    9,
+    15,
+    7,
+    12.5,
+    9.5,
+    14.5,
+    11.5,
+    8.5,
+  ];
+
+  const lefts = [
+    6,
+    9.07,
+    86,
+    21.21,
+    65.63,
+    35.35,
+    42.42,
+    49.49,
+    56.56,
+    30.28,
+    70.7,
+    77.77,
+    14.14,
+    80,
+  ];
+
+  const renderPhrases = (phrases) => {
+    const elements = [];
+
+    for (let i = 1; i <= countOfPhrases; i++) {
+      const phrase = phrases[Math.floor(Math.random() * phrases.length)].phrase;
+      const left = lefts[i - 1];
+      const duration = durations[i - 1];
+      const id = uuidv4();
+      const element = (
         <Smile
-          id={phrase.id}
-          phrase={phrase.phrase}
+          id={id}
+          phrase={phrase}
+          left={left}
           duration={duration}
-          number={randomNumbers[i]}
           sound={sound}
         />
       );
+      elements.push(element);
     }
+
     return elements;
   };
 
   const [items, setItems] = useState(renderPhrases(phrases));
+
   return <div className={classes.smileOverlay}>{items}</div>;
 };
 
