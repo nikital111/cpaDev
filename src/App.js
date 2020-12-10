@@ -1,15 +1,15 @@
 import { Box, Container } from "@material-ui/core";
 import React, { useEffect, useReducer, useState } from "react";
 import { Redirect, Route, Switch, useHistory } from "react-router-dom";
-import Login from "./components/Auth/Login/Login";
-import  Register  from "./components/Auth/Register/Register";
-import MainHeader from "./components/MainPage/header/MainHeader";
-import MainPage from "./components/MainPage/MainPage";
-import SmileRain from "./components/SmileRain/SmileRain";
-import { ThemeContext } from "./context/themeContext";
-import { useLocalStorageTheme } from "./hooks/useLocalStorageTheme";
-import { DARK, LIGHT, theme } from "./state/consts";
-import { mainReducer } from "./state/mainReducer";
+import Login from "./components/Auth/Login/Login.jsx";
+import  Register  from "./components/Auth/Register/Register.jsx";
+import MainHeader from "./components/MainPage/header/MainHeader.jsx";
+import MainPage from "./components/MainPage/MainPage.jsx";
+import SmileRain from "./components/SmileRain/SmileRain.jsx";
+import { ThemeContext } from "./context/themeContext.js";
+import { useLocalStorageTheme } from "./hooks/useLocalStorageTheme.js";
+import { DARK, LIGHT, theme } from "./state/consts.js";
+import { mainReducer } from "./state/mainReducer.js";
 
 function App({ sound, flag }) {
   const { currentTheme } = useLocalStorageTheme("theme");
