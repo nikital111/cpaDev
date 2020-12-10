@@ -21,9 +21,7 @@ const sound = new Howl({
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-    <div className='cont'>
       <App sound={sound} />
-      </div>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

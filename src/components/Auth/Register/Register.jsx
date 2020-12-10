@@ -8,14 +8,16 @@ import { ThemeContext } from "../../../context/themeContext";
 
 const CssTextField = withStyles({
   root: {
-    '.MuiInputBase-input': {
-      color: '#7575a3'
+    '& .MuiFormHelperText-root':{
+      backgroundColor:'rgb(12, 12, 27)'
     },
-    '& label.Mui-focused': {
+    '& .MuiInputBase-input': {
       color: '#7575a3',
+      height:'36px',
+      backgroundColor:'#0c0c1b'
     },
     '& .MuiInput-underline:after': {
-      borderBottomColor: '#7575a3',
+      display:'hidden'
     },
     '& .MuiOutlinedInput-root': {
       '& fieldset': {
@@ -28,6 +30,14 @@ const CssTextField = withStyles({
         borderColor: '#7575a3',
       },
     },
+  },
+})(TextField);
+
+const CssTextField2 = withStyles({
+  root: {
+    '& .MuiInputBase-input': {
+      height:'36px'
+    }
   },
 })(TextField);
 
@@ -147,7 +157,7 @@ const Register = ({ width }) => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: currentTheme === 'light' ? 'white' : '#1a202c',
+          backgroundColor: currentTheme === 'light' ? 'white' : '#0c0c1b',
           zIndex: '999'
         }}>
         {/* <Typography variant='h4' style={{
@@ -174,6 +184,18 @@ const Register = ({ width }) => {
             backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
             boxShadow: 'none'
           }}>
+          <Box style={{
+            width:'100%',
+            display:'flex',
+            justifyContent:'space-between',
+            alignItems:'center'
+          }}>
+            <Typography variant="h5" style={{
+            width: '100%',
+            color: currentTheme === 'dark' ? '#7575a3' : ''
+          }}>
+            Регистрация
+          </Typography>
           <NavLink
             to="/"
             exact
@@ -183,9 +205,6 @@ const Register = ({ width }) => {
               cursor: 'pointer',
               fontSize: '20px',
               fontWeight: 'bold',
-              position: 'absolute',
-              top: '10px',
-              right: '10px',
               textDecoration: 'none',
               zIndex: '99999'
             }}
@@ -197,12 +216,8 @@ const Register = ({ width }) => {
             </IconButton>
           </NavLink>
 
-          <Typography variant="h5" style={{
-            width: '100%',
-            color: currentTheme === 'dark' ? '#7575a3' : ''
-          }}>
-            Регистрация
-          </Typography>
+          
+          </Box>
           <Box style={{
             position: 'relative',
             width: '100%'
@@ -212,7 +227,6 @@ const Register = ({ width }) => {
                 InputProps={{ className: classes.root }}
                 id="name"
                 placeholder="Укажите ваш логин"
-                label='Логин'
                 onChange={checkErrorName}
                 required
                 error={Boolean(err.name)}
@@ -220,16 +234,15 @@ const Register = ({ width }) => {
                 style={{
                   margin: '60px 0px 15px 0px',
                   width: '264px',
-                  backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
+                  backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   width: '100%'
                 }}
               />
               :
-              <TextField
+              <CssTextField2
                 InputProps={{ className: classes.root }}
                 id="name"
                 placeholder="Укажите ваш логин"
-                label='Логин'
                 onChange={checkErrorName}
                 required
                 error={Boolean(err.name)}
@@ -237,14 +250,14 @@ const Register = ({ width }) => {
                 style={{
                   margin: '60px 0px 15px 0px',
                   width: '264px',
-                  backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
+                  backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   width: '100%'
                 }}
               />}
             <Icon style={{
               position: 'absolute',
               right: "10px",
-              top: '75px',
+              top: '72px',
               color: currentTheme === 'dark' ? '#aeaee0!important' : '',
             }}
             >
@@ -263,7 +276,6 @@ const Register = ({ width }) => {
                 InputProps={{ className: classes.root }}
                 id="pass"
                 placeholder="Введите ваш пароль"
-                label='Пароль'
                 onChange={checkErrorPass}
                 required
                 error={Boolean(err.pass)}
@@ -271,18 +283,17 @@ const Register = ({ width }) => {
                 style={{
                   margin: '15px 0px',
                   width: '264px',
-                  backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
+                  backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   color: currentTheme === 'dark' ? '#aeaee0' : '',
                   width: '100%'
                 }}
                 type={!vis ? 'password' : ''}
               />
               :
-              <TextField
+              <CssTextField2
                 InputProps={{ className: classes.root }}
                 id="pass"
                 placeholder="Введите ваш пароль"
-                label='Пароль'
                 onChange={checkErrorPass}
                 required
                 error={Boolean(err.pass)}
@@ -290,7 +301,7 @@ const Register = ({ width }) => {
                 style={{
                   margin: '15px 0px',
                   width: '264px',
-                  backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
+                  backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   color: currentTheme === 'dark' ? '#aeaee0' : '',
                   width: '100%'
                 }}
@@ -300,7 +311,7 @@ const Register = ({ width }) => {
               <IconButton style={{
                 position: 'absolute',
                 right: "-2px",
-                top: '20px',
+                top: '17px',
               }}
                 onClick={() => { setVis(!vis) }}
               >
@@ -311,8 +322,8 @@ const Register = ({ width }) => {
               :
               <IconButton style={{
                 position: 'absolute',
-                right: "2px",
-                top: '20px'
+                right: "-2px",
+                top: '17px'
               }}
                 onClick={() => { setVis(!vis) }}
               >
@@ -323,7 +334,6 @@ const Register = ({ width }) => {
             }
           </Box>
           <Button
-            disabled={err.name || err.pass ? true : false}
             type='submit'
             variant="contained"
             color="primary"
@@ -334,7 +344,7 @@ const Register = ({ width }) => {
               height: '45px',
               width: '100%'
             }}
-            onClick={registration}
+            onClick={err.pass || err.name ? null : registration}
           >
             Зарегистрироватся
             </Button>

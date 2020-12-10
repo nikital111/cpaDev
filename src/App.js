@@ -34,11 +34,12 @@ function App({ sound, flag }) {
         <MainHeader themeChanger={themeChanger} />
 
         <Box pt={8} style={{
+          overflow:'hidden',
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             maxWidth: "100%",
-            height: "100%"
+            height: "100%",
           }}>
           {<SmileRain sound={sound} />}
 

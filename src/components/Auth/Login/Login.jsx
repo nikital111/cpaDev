@@ -8,8 +8,10 @@ import { ThemeContext } from "../../../context/themeContext";
 
 const CssTextField = withStyles({
   root: {
-    '.MuiInputBase-input': {
-      color: '#7575a3'
+    '& .MuiInputBase-input': {
+      color: '#7575a3',
+      height:'36px',
+      backgroundColor:'#0c0c1b'
     },
     '& label.Mui-focused': {
       color: '#7575a3',
@@ -28,6 +30,14 @@ const CssTextField = withStyles({
         borderColor: '#7575a3',
       },
     },
+  },
+})(TextField);
+
+const CssTextField2 = withStyles({
+  root: {
+    '& .MuiInputBase-input': {
+      height:'36px'
+    }
   },
 })(TextField);
 
@@ -90,6 +100,7 @@ const Login = ({ width }) => {
       <Box
         className='animate__animated animate__fadeInDown'
         style={{
+          overflow:'hidden',
           position: 'absolute',
           top: '0px',
           left: '0px',
@@ -101,16 +112,9 @@ const Login = ({ width }) => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: currentTheme === 'light' ? 'white' : '#1a202c',
-          zIndex: '999'
+          backgroundColor: currentTheme === 'light' ? 'white' : '#0c0c1b',
+          zIndex: '999',
         }}>
-        {/* <Typography variant='h4' style={{
-          marginBottom:'40px',
-          marginTop: width === 'xs' ? '40%' : '0px',
-          color: currentTheme === 'dark' ? '#aeaee0' : ''
-        }}>
-          Добро пожаловать
-        </Typography> */}
         <Paper
           style={{
             zIndex: '99999',
@@ -128,6 +132,18 @@ const Login = ({ width }) => {
             backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
             boxShadow: 'none'
           }}>
+          <Box style={{
+            width:'100%',
+            display:'flex',
+            justifyContent:'space-between',
+            alignItems:'center'
+          }}>
+            <Typography variant="h5" style={{
+            width: '100%',
+            color: currentTheme === 'dark' ? '#7575a3' : ''
+          }}>
+            Авторизация
+          </Typography>
           <NavLink
             to="/"
             exact
@@ -137,9 +153,6 @@ const Login = ({ width }) => {
               cursor: 'pointer',
               fontSize: '20px',
               fontWeight: 'bold',
-              position: 'absolute',
-              top: '10px',
-              right: '10px',
               textDecoration: 'none',
               zIndex: '99999'
             }}
@@ -151,12 +164,8 @@ const Login = ({ width }) => {
             </IconButton>
           </NavLink>
 
-          <Typography variant="h5" style={{
-            width: '100%',
-            color: currentTheme === 'dark' ? '#7575a3' : ''
-          }}>
-            Авторизация
-          </Typography>
+          
+          </Box>
           <Box style={{
             position: 'relative',
             width: '100%'
@@ -166,33 +175,31 @@ const Login = ({ width }) => {
                 InputProps={{ className: classes.root }}
                 id="name"
                 placeholder="Укажите ваш логин"
-                label='Логин'
                 required
                 style={{
                   margin: '60px 0px 15px 0px',
                   width: '264px',
-                  backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
+                  backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   width: '100%'
                 }}
               />
               :
-              <TextField
+              <CssTextField2
                 InputProps={{ className: classes.root }}
                 id="name"
                 placeholder="Укажите ваш логин"
-                label='Логин'
                 required
                 style={{
                   margin: '60px 0px 15px 0px',
                   width: '264px',
-                  backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
+                  backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   width: '100%'
                 }}
               />}
             <Icon style={{
               position: 'absolute',
               right: "10px",
-              top: '75px',
+              top: '72px',
               color: currentTheme === 'dark' ? '#aeaee0!important' : '',
             }}
             >
@@ -211,28 +218,26 @@ const Login = ({ width }) => {
                 InputProps={{ className: classes.root }}
                 id="pass"
                 placeholder="Введите ваш пароль"
-                label='Пароль'
                 required
                 style={{
                   margin: '15px 0px',
                   width: '264px',
-                  backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
+                  backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   color: currentTheme === 'dark' ? '#aeaee0' : '',
                   width: '100%'
                 }}
                 type={!vis ? 'password' : ''}
               />
               :
-              <TextField
+              <CssTextField2
                 InputProps={{ className: classes.root }}
                 id="pass"
                 placeholder="Введите ваш пароль"
-                label='Пароль'
                 required
                 style={{
                   margin: '15px 0px',
                   width: '264px',
-                  backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
+                  backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   color: currentTheme === 'dark' ? '#aeaee0' : '',
                   width: '100%'
                 }}
@@ -242,7 +247,7 @@ const Login = ({ width }) => {
               <IconButton style={{
                 position: 'absolute',
                 right: "-2px",
-                top: '20px',
+                top: '17px',
               }}
                 onClick={() => { setVis(!vis) }}
               >
@@ -253,8 +258,8 @@ const Login = ({ width }) => {
               :
               <IconButton style={{
                 position: 'absolute',
-                right: "2px",
-                top: '20px'
+                right: "-2px",
+                top: '17px',
               }}
                 onClick={() => { setVis(!vis) }}
               >
