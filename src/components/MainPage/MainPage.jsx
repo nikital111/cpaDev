@@ -93,14 +93,14 @@ const MainPage = ({ themeChanger, width }) => {
         >
           {starsJSX}
         </div>
-        <Box style={{ color, marginBottom: "40px" }}>
+        <Box style={{ color:'#ffa000', marginBottom: "40px" }}>
           <Typography
             variant="h1"
             align="center"
             gutterBottom
             style={{ fontFamily: "RobotoBold", fontSize: width === "xs" && 65 }}
           >
-            Speakeasy
+            PlatinumPay
           </Typography>
           <Typography
             variant="h5"
@@ -110,7 +110,7 @@ const MainPage = ({ themeChanger, width }) => {
               fontSize: width === "xs" && 16,
             }}
           >
-            Easely speaking with your friends
+            PlatinumPay
           </Typography>
         </Box>
         <Box>

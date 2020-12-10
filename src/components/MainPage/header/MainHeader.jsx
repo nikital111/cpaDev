@@ -100,7 +100,7 @@ const MainHeader = ({ themeChanger, width }) => {
                 color: currentTheme === "light" ? theme.dark : theme.light,
               }}
             >
-              Speakeasy
+              PlatinumPay
             </NavLink>
           </Typography>
           {width !== "xs" ? (

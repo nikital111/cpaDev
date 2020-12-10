@@ -1,13 +1,52 @@
 import React, { useContext, useState } from "react";
 import Button from "@material-ui/core/Button";
 import withWidth from "@material-ui/core/withWidth";
-import { Container, TextField, makeStyles, Box, Typography, Paper, FormControl,Icon,Hidden, IconButton, StepIcon } from "@material-ui/core";
-import { Visibility,VisibilityOff, People } from '@material-ui/icons';
+import { Container, TextField, makeStyles, Box, Typography, Paper, FormControl, Icon, Hidden, IconButton, StepIcon, withStyles, createStyles, Backdrop } from "@material-ui/core";
+import { Visibility, VisibilityOff, People, Close } from '@material-ui/icons';
 import { NavLink } from "react-router-dom";
 import { ThemeContext } from "../../../context/themeContext";
 
-  const Login = ({width}) => {
-    console.log(width)
+const CssTextField = withStyles({
+  root: {
+    '.MuiInputBase-input': {
+      color: '#7575a3'
+    },
+    '& label.Mui-focused': {
+      color: '#7575a3',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: '#7575a3',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: '#7575a3',
+      },
+      '&:hover fieldset': {
+        borderColor: '#7575a3',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#7575a3',
+      },
+    },
+  },
+})(TextField);
+
+const useStyles = makeStyles(theme =>
+  createStyles({
+    root: {
+      color: '#7575a3',
+      paddingLeft: '4px'
+    },
+    icon: {
+      'MuiSvgIcon-root': {
+        color: '#7575a3'
+      }
+    }
+  })
+);
+
+const Login = ({ width }) => {
+  console.log(width)
   const [mess, setMess] = useState('');
   const [vis, setVis] = useState(false);
   const { currentTheme } = useContext(ThemeContext);
@@ -44,180 +83,274 @@ import { ThemeContext } from "../../../context/themeContext";
       })
   }
 
+  const classes = useStyles();
+
   return (
     <>
-      <Box style={{
-        position: 'absolute',
-        top: '0px',
-        left: '0px',
-        right: '0xp',
-        bottom: '0px',
-        width: '100%',
-        display: "flex",
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
-        <Paper 
+      <Box
         className='animate__animated animate__fadeInDown'
         style={{
-          zIndex: '99999',
-          padding: '40px 30px',
+          position: 'absolute',
+          top: '0px',
+          left: '0px',
+          right: '0xp',
+          bottom: '0px',
+          width: '100%',
+          height: '100%',
           display: "flex",
-          justifyContent:'center',
           flexDirection: 'column',
+          justifyContent: 'center',
           alignItems: 'center',
-          borderRadius: '8px',
-          maxWidth:'80%',
-          minHeight:'350px',
-          position:'relative',
-          border: currentTheme === 'dark' ? null : '1px black solid',
-          marginTop: width === 'xs' ? '40%' : '0px'
+          backgroundColor: currentTheme === 'light' ? 'white' : '#1a202c',
+          zIndex: '999'
         }}>
-          <NavLink
-          to="/"
-          exact
-              style={{
-                color:'red',
-                border:'0px',
-                cursor:'pointer',
-                fontSize:'20px',
-                fontWeight:'bold',
-                position:'absolute',
-                top:'-20px',
-                right:'36px',
-                textDecoration:'none',
-                zIndex:'99999'
-              }}
-          >
-            X
-          </NavLink>
-          <Box style={{
-            position:'absolute',
-            top:'-35px',
-            left:'7%',
-            right:'7%',
-            width:'86%',
-            height:'120px',
-            backgroundColor: currentTheme === 'light' ? '#ffc602' : '#3f51b5',
-            borderRadius:'4px',
-            display:'flex',
-            justifyContent: 'center',
-            alignItems:'center',
-            color: "white"
+        {/* <Typography variant='h4' style={{
+          marginBottom:'40px',
+          marginTop: width === 'xs' ? '40%' : '0px',
+          color: currentTheme === 'dark' ? '#aeaee0' : ''
+        }}>
+          Добро пожаловать
+        </Typography> */}
+        <Paper
+          style={{
+            zIndex: '99999',
+            padding: '40px 20px',
+            display: "flex",
+            flexWrap: 'wrap',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            borderRadius: '8px',
+            maxWidth: width === 'xs' ? '80%' : width === "sm" ? '60%' : width === "md" ? '40%' : '25%',
+            minHeight: '350px',
+            position: 'relative',
+            marginTop: '110px',
+            marginBottom: '40px',
+            backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
+            boxShadow: 'none'
           }}>
-          <Typography variant="h5">
+          <NavLink
+            to="/"
+            exact
+            style={{
+              color: 'red!important',
+              border: '0px',
+              cursor: 'pointer',
+              fontSize: '20px',
+              fontWeight: 'bold',
+              position: 'absolute',
+              top: '10px',
+              right: '10px',
+              textDecoration: 'none',
+              zIndex: '99999'
+            }}
+          >
+            <IconButton >
+              <Close style={{
+                color: '#3f51b5'
+              }}></Close>
+            </IconButton>
+          </NavLink>
+
+          <Typography variant="h5" style={{
+            width: '100%',
+            color: currentTheme === 'dark' ? '#7575a3' : ''
+          }}>
             Авторизация
           </Typography>
-          </Box>
-          {/* <Typography variant="h4" style={{
-            marginBottom: '15px',
-            color: currentTheme === 'light' ? 'white' : '',
-          }}>
-            Авторизация
-          </Typography> */}
           <Box style={{
-            position:'relative'
+            position: 'relative',
+            width: '100%'
           }}>
-            <TextField
-              id="name"
-              placeholder="Укажите ваш логин"
-              label='Логин'
-              required
-              style={{ margin: '60px 0px 15px 0px', width: '264px', backgroundColor: 'white' }}
-            />
+            {currentTheme === 'dark' ?
+              <CssTextField
+                InputProps={{ className: classes.root }}
+                id="name"
+                placeholder="Укажите ваш логин"
+                label='Логин'
+                required
+                style={{
+                  margin: '60px 0px 15px 0px',
+                  width: '264px',
+                  backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
+                  width: '100%'
+                }}
+              />
+              :
+              <TextField
+                InputProps={{ className: classes.root }}
+                id="name"
+                placeholder="Укажите ваш логин"
+                label='Логин'
+                required
+                style={{
+                  margin: '60px 0px 15px 0px',
+                  width: '264px',
+                  backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
+                  width: '100%'
+                }}
+              />}
             <Icon style={{
-              position:'absolute',
-              right:"10px",
-              top:'75px'
+              position: 'absolute',
+              right: "10px",
+              top: '75px',
+              color: currentTheme === 'dark' ? '#aeaee0!important' : '',
             }}
             >
-              <People></People>
+              <People
+                style={{
+                  color: currentTheme === 'dark' ? '#aeaee0' : ''
+                }}></People>
             </Icon>
           </Box>
           <Box style={{
-            position:'relative'
+            position: 'relative',
+            width: '100%'
           }}>
-            <TextField
-              id="pass"
-              placeholder="Введите ваш пароль"
-              label='Пароль'
-              required
-              style={{ margin: '15px 0px', width: '264px', backgroundColor: 'white' }}
-              type={!vis ? 'password' : ''}
-            />
-            {!vis ? 
-            <IconButton style={{
-              position:'absolute',
-              right:"2px",
-              top:'20px'
-            }}
-            onClick={()=>{setVis(!vis)}}
-            >
-              <Visibility></Visibility>
-            </IconButton>
-            :
-            <IconButton style={{
-              position:'absolute',
-              right:"2px",
-              top:'20px'
-            }}
-            onClick={()=>{setVis(!vis)}}
-            >
-              <VisibilityOff></VisibilityOff>
-            </IconButton>
+            {currentTheme === 'dark' ?
+              <CssTextField
+                InputProps={{ className: classes.root }}
+                id="pass"
+                placeholder="Введите ваш пароль"
+                label='Пароль'
+                required
+                style={{
+                  margin: '15px 0px',
+                  width: '264px',
+                  backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
+                  color: currentTheme === 'dark' ? '#aeaee0' : '',
+                  width: '100%'
+                }}
+                type={!vis ? 'password' : ''}
+              />
+              :
+              <TextField
+                InputProps={{ className: classes.root }}
+                id="pass"
+                placeholder="Введите ваш пароль"
+                label='Пароль'
+                required
+                style={{
+                  margin: '15px 0px',
+                  width: '264px',
+                  backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
+                  color: currentTheme === 'dark' ? '#aeaee0' : '',
+                  width: '100%'
+                }}
+                type={!vis ? 'password' : ''}
+              />}
+            {!vis ?
+              <IconButton style={{
+                position: 'absolute',
+                right: "-2px",
+                top: '20px',
+              }}
+                onClick={() => { setVis(!vis) }}
+              >
+                <Visibility style={{
+                  color: currentTheme === 'dark' ? '#aeaee0' : ''
+                }}></Visibility>
+              </IconButton>
+              :
+              <IconButton style={{
+                position: 'absolute',
+                right: "2px",
+                top: '20px'
+              }}
+                onClick={() => { setVis(!vis) }}
+              >
+                <VisibilityOff style={{
+                  color: currentTheme === 'dark' ? '#aeaee0' : ''
+                }}></VisibilityOff>
+              </IconButton>
             }
           </Box>
           <Button type='submit'
-         // variant="outlined"
-            //color="#9c27b0"
+            variant="contained"
+            color="primary"
             style={{
               marginTop: '20px',
-              borderRadius: '11px',
+              borderRadius: '2px',
               fontSize: '15px',
               height: '45px',
-              color:"rgb(63, 81, 181)"
+              width: '100%'
             }}
             onClick={auth}
           >
             Войти
             </Button>
-            {/* <button style={{
-              color:'rgb(63, 81, 181)',
-              border:'0px',
-              margin:'15px 0px ',
-              cursor:'pointer',
-              fontSize:'15px'
-            }}>
-              Уже есть аккаунт?
-            </button> */}
+          <Box style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '100%',
+            alignItems: 'center'
+          }}>
+            <a
+              className='forPass'
+              style={{
+                color: '#4b7cf3',
+                border: '0px',
+                margin: '15px 0px ',
+                cursor: 'pointer',
+                fontSize: '15px',
+                width: '100%',
+                display: 'flex',
+
+              }}
+            >
+              Забыли пароль?
+            </a>
             <NavLink
               to="/register"
               exact
               style={{
-                color:'rgb(63, 81, 181)',
-                border:'0px',
-                margin:'15px 0px ',
-                cursor:'pointer',
-                fontSize:'15px',
+                color: 'rgb(75, 124, 243)',
+                border: '0px',
+                margin: '15px 0px ',
+                cursor: 'pointer',
+                fontSize: '15px',
+                width: '100%',
+                textDecoration: 'none',
+                display: 'flex',
+                justifyContent: 'flex-end'
               }}
             >
               Зарегистрироваться
             </NavLink>
+          </Box>
 
-          {mess ?
-            <Typography
-              variant='h6'
-              style={{
-                marginTop: '20px',
-                color: currentTheme === 'dark' ? 'black' : 'white',
-                display:'flex',
-                justifyContent:'center',
-                alignItems:'center'
-              }}
-            >{mess}</Typography>
-            : null
-          }
         </Paper>
+
+        <Backdrop open={mess} style={{ zIndex: '9999999' }}>
+          <Paper
+            style={{
+              position: 'relative',
+              display: 'flex',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              alignItems: 'center',
+              padding: '40px',
+              borderRadius: '5px'
+            }}>
+            <Typography variant='h4' align='center'>
+              {mess}
+          </Typography>
+          <Button 
+            variant="contained"
+            color="primary"
+            style={{
+              marginTop: '20px',
+              borderRadius: '2px',
+              fontSize: '15px',
+              height: '45px',
+              width: '30%'
+            }}
+            onClick={() => { setMess('') }}
+          >
+            Хорошо
+            </Button>
+          </Paper>
+        </Backdrop>
+
       </Box>
     </>
   );

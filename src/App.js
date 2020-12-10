@@ -38,7 +38,7 @@ function App({ sound, flag }) {
             justifyContent: "center",
             alignItems: "center",
             maxWidth: "100%",
-            maxHeight: "100%"
+            height: "100%"
           }}>
           {<SmileRain sound={sound} />}
 

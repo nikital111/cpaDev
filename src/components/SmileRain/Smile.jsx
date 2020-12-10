@@ -77,12 +77,12 @@ export const Smile = ({ id, phrase, duration, sound, left, width }) => {
           color: currentTheme === "light" ? theme.dark : theme.light,
           fontSize:
             width === "xs"
-              ? 13
-              : width === "sm"
-              ? 16
-              : width === "md"
               ? 17
-              : 18,
+              : width === "sm"
+              ? 20
+              : width === "md"
+              ? 21
+              : 22,
         }}
       >
         {showMessage ? phrase : ""}
