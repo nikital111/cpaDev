@@ -36,16 +36,16 @@ const MainPage = ({ themeChanger, width }) => {
   const color = currentTheme === "light" ? theme.dark : theme.light;
   const renderStars = () => {
     const stars = [
-      { top: "calc(36% - 18px)", left: "calc(23% - 11px)", delay: 10 + "s" },
-      { top: "calc(13% - 2px)", left: "calc(70% - 35px)", delay: 20 + "s" },
-      { top: "calc(65% - 27px)", left: "calc(77% - 38px)", delay: 30 + "s" },
-      { top: "calc(45% - 12px)", left: "calc(63% - 31px)", delay: 40 + "s" },
-      { top: "calc(83% - 41px)", left: "calc(59% - 29px)", delay: 50 + "s" },
-      { top: "calc(96% - 43px)", left: "calc(98% - 49px)", delay: 60 + "s" },
-      { top: "calc(53% - 26px)", left: "calc(68% - 34px)", delay: 70 + "s" },
-      { top: "calc(12% - 3px)", left: "calc(10% - 5px)", delay: 80 + "s" },
-      { top: "calc(70% - 35px)", left: "calc(12% - 6px)", delay: 90 + "s" },
-      { top: "calc(26% - 13px)", left: "calc(37% - 18px)", delay: 100 + "s" },
+      { top: "calc(36% - 18px)", left: "calc(23% - 11px)", delay: 2 + "s" },
+      { top: "calc(13% - 2px)", left: "calc(70% - 35px)", delay: 5 + "s" },
+      { top: "calc(55% - 27px)", left: "calc(77% - 38px)", delay: 5 + "s" },
+      { top: "calc(25% - 12px)", left: "calc(63% - 31px)", delay: 7 + "s" },
+      { top: "calc(83% - 41px)", left: "calc(59% - 29px)", delay: 7 + "s" },
+      { top: "calc(86% - 43px)", left: "calc(98% - 49px)", delay: 11 + "s" },
+      { top: "calc(53% - 26px)", left: "calc(68% - 34px)", delay: 11 + "s" },
+      { top: "calc(12% - 3px)", left: "calc(10% - 5px)", delay: 9 + "s" },
+      { top: "calc(70% - 35px)", left: "calc(12% - 6px)", delay: 9 + "s" },
+      { top: "calc(26% - 13px)", left: "calc(37% - 18px)", delay: 11 + "s" },
     ];
     const items = stars.map((star) => {
       return (
