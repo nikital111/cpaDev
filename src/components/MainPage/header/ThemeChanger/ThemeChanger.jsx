@@ -50,7 +50,7 @@ export const ThemeChanger = ({ themeChanger }) => {
     } else {
       setStylesForIcon((prev) => ({
         ...prev,
-        backgroundColor: "#fff",
+        backgroundColor: "#f5f5f5",
         // "&:hover": { backgroundColor: "#354159" },
         color: "#1a202c",
         border:'none'

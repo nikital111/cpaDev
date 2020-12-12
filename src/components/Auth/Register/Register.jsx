@@ -10,7 +10,11 @@ import { ThemeContext } from "../../../context/themeContext";
 const CssTextField = withStyles({
   root: {
     '& .MuiFormHelperText-root':{
-      backgroundColor:'rgb(12, 12, 27)'
+      backgroundColor:'rgb(20, 19, 34)',
+      margin:'0px',
+      position:'absolute',
+      bottom:'-21px',
+      left:'0px'
     },
     '& .MuiInputBase-input': {
       color: '#7575a3',
@@ -51,6 +55,12 @@ const CssTextField = withStyles({
 
 const CssTextField2 = withStyles({
   root: {
+    '& .MuiFormHelperText-root':{
+      margin:'0px',
+      position:'absolute',
+      bottom:'-21px',
+      left:'0px'
+    },
     '& .MuiInputBase-input': {
       height:'28px',  
       padding:'8px'  
@@ -86,13 +96,7 @@ const CssTextField2 = withStyles({
   },
 })(TextField);
 
-const useStyles = makeStyles(theme =>({
-  regButt:{
-    '&:hover':{
-      backgroundColor:'#42baf9!important'
-    }
-  }
-}));
+
 
 const Register = ({ width }) => {
   const { currentTheme } = useContext(ThemeContext);
@@ -104,22 +108,32 @@ const Register = ({ width }) => {
 
   });
 
+  const useStyles = makeStyles(theme =>({
+    regButt:{
+      '&:hover':{
+        backgroundColor:'#42baf9!important'
+      }
+    }
+  }));
+
   const checkErrorName = (e) => {
     setErr({ ...err, name: '' })
     let value = e.target.value;
 
-    const beginWithoutDigit = /^\D.*$/
-    const withoutSpecialChars = /^[^-() /]*$/
-    const containsLetters = /^.*[a-zA-Z]+.*$/
-    const minimum8Chars = /^.{8,}$/
 
-    if (beginWithoutDigit.test(value) &&
-      withoutSpecialChars.test(value) &&
-      containsLetters.test(value) &&
-      minimum8Chars.test(value)) {
-      setErr({ ...err, name: '' })
+    const containsLetters = /^.*[a-zA-Z0-9]+.*$/
+    const notContainsLetters = /^.*[а-яА-Я]+.*$/
+
+    if(!value) {
+      setErr({ ...err, name: 'Введите имя пользователя' })
+      return
+    }
+    if (
+      notContainsLetters.test(value)
+     ) {
+      setErr({ ...err, name: 'Русская раскладка запрещена!' })
     } else {
-      setErr({ ...err, name: 'Вы некорректно ввели логин!' })
+      setErr({ ...err, name: '' })
     }
 
   }
@@ -128,19 +142,20 @@ const Register = ({ width }) => {
     setErr({ ...err, pass: '' })
     let value = e.target.value;
 
-    const beginWithoutDigit = /^\D.*$/
-    const withoutSpecialChars = /^[^-() /]*$/
-    const containsLetters = /^.*[a-zA-Z]+.*$/
-    const minimum8Chars = /^.{8,}$/
 
-    if (beginWithoutDigit.test(value) &&
-      withoutSpecialChars.test(value) &&
-      containsLetters.test(value) &&
-      minimum8Chars.test(value)
+    const containsLetters = /^.*[a-zA-Z0-9]+.*$/
+    const notContainsLetters = /^.*[а-яА-Я]+.*$/
+
+    if(!value) {
+      setErr({ ...err, pass: 'Введите ваш пароль' })
+    return
+    }
+    if (
+      notContainsLetters.test(value)
     ) {
-      setErr({ ...err, pass: '' })
+      setErr({ ...err, pass: 'Русская раскладка запрещена!' })
     } else {
-      setErr({ ...err, pass: 'Вы некорректно ввели пароль!' })
+      setErr({ ...err, pass: '' })
     }
   }
 
@@ -225,14 +240,14 @@ const Register = ({ width }) => {
             justifyContent: 'flex-start',
             alignItems: 'center',
             borderRadius: '8px',
-            maxWidth: width === 'xs' ? '80%' : width === "sm" ? '60%' : width === "md" ? '40%' : '25%',
+            maxWidth: width === 'xs' ? '80%' : width === "sm" ? '60%' : width === "md" ? '40%' : '450px',
             minHeight: '350px',
             position: 'relative',
             marginTop: '110px',
             marginBottom: '40px',
-            backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
+            backgroundColor: currentTheme === 'dark' ? '#141322' : '',
             boxShadow: 'none',
-            border: currentTheme === 'dark' ? '1px #232135 solid' : ''
+            border: 'none'
           }}>
           <Box style={{
             width:'100%',

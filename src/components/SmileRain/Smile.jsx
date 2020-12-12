@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     fontFamily: "RobotoBold",
     textTransform: "uppercase",
-    padding: '120px 0px',
+    padding: '0px',
     cursor: "pointer",
     display: "flex",
     alignItems: "center",
@@ -74,7 +74,7 @@ export const Smile = ({ id, phrase, duration, sound, left, width }) => {
         style={{
           left: `${left}%`,
           width: width === "xs" ? "4%" : "6%",
-          color: '#E58B12',
+          color: '#f9b942',
           fontSize:
             width === "xs"
               ? 18

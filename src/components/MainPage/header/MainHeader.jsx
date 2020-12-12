@@ -17,7 +17,7 @@ import Fade from "@material-ui/core/Fade";
 import { theme } from "../../../state/consts";
 
 const MainHeader = ({ themeChanger, width }) => {
-  
+
 
   const { currentTheme } = useContext(ThemeContext);
 
@@ -26,7 +26,7 @@ const MainHeader = ({ themeChanger, width }) => {
     root: {
       flexGrow: 1,
     },
-    active:{
+    active: {
       //color:'#E5A800!important' 
     },
     menuButton: {
@@ -43,24 +43,24 @@ const MainHeader = ({ themeChanger, width }) => {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-     // backgroundColor: amber[900],
+      // backgroundColor: amber[900],
       borderRadius: theme.spacing(1),
       padding: theme.spacing(1),
       marginRight: theme.spacing(1),
     },
-    loginNav:{
-      "&:hover": {
-        color:'#9999BB!important',
-      },
-    },
-    loginButton: {
+    loginNav: {
       padding: "8px",
-      color:'#7575a3',
+      color: currentTheme === 'dark' ? 'white' : 'black',
       marginRight: "10px",
       fontFamily: "RobotoRegular",
+      "&:hover": {
+        color: '#9999BB!important',
+      },
     },
-    registerButton: {
-      padding: "8px",
+    registerNav: {
+      boxShadow:'0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)',
+      padding: "10px 8px",
+      borderRadius: '3px',
       backgroundColor: 'rgb(75, 124, 243)',
       "&:hover": {
         backgroundColor: '#42baf9',
@@ -70,9 +70,10 @@ const MainHeader = ({ themeChanger, width }) => {
     menuItem: {
       display: "flex",
       alignItems: "center",
+      justifyContent: 'center'
     },
-    menu:{
-      '& .MuiMenu-paper':{
+    menu: {
+      '& .MuiMenu-paper': {
         backgroundColor: currentTheme === 'dark' ? 'rgb(12, 12, 27)' : 'white'
       }
     },
@@ -92,142 +93,114 @@ const MainHeader = ({ themeChanger, width }) => {
   };
 
   return (
-    <div 
-    className={classes.root}
+    <div
+      className={classes.root}
     >
-      <AppBar position="fixed" style={{boxShadow:'none',borderBottom: currentTheme === 'dark' ? '1px #232135 solid' : ''}}>
-        <Toolbar
+      <AppBar position="fixed" style={{
+    boxShadow: "0 1px 6px 0 rgba(32,33,36,.28)",
+    transition:"box-shadow 250ms"
+    }}>
+      <Toolbar
+        style={{
+          minHeight: 63,
+          backgroundColor: currentTheme === "light" ? theme.light : "#141322",
+          boxShadow: 'none'
+        }}
+      >
+        <Typography
+          variant="h4"
+          className={classes.title}
           style={{
-            minHeight: 63,
-            backgroundColor: currentTheme === "light" ? theme.light : "#141322",
-            boxShadow:'none'
+            fontSize: width === "xs" && 30,
           }}
         >
-          <Typography
-            variant="h4"
-            className={classes.title}
+          <NavLink
+            to="/"
+            exact
             style={{
-              fontSize: width === "xs" && 30,
+              textDecoration: "none",
+              color: currentTheme === "light" ? theme.dark : theme.light,
             }}
           >
+            Logo
+            </NavLink>
+        </Typography>
+        {width !== "xs" ? (
+          <div className={classes.authBlock}>
             <NavLink
-              to="/"
+              className={classes.loginNav}
+              to="/login"
               exact
+              activeClassName={classes.active}
               style={{
                 textDecoration: "none",
-                color: currentTheme === "light" ? theme.dark : theme.light,
               }}
             >
-              PlatinumPay
-            </NavLink>
-          </Typography>
-          {width !== "xs" ? (
-            <div className={classes.authBlock}>
-              <Button
-                variant="text"
-                className={classes.loginButton}
-                disableRipple={true}
-                style={{
-                  boxShadow:'none'
-                }}
-              >
-                <NavLink
-                  className={classes.loginNav}
-                  to="/login"
-                  exact
-                  activeClassName={classes.active}
-                  style={{
-                    color: currentTheme === 'dark' ? '#7575a3' : 'black',
-                  textDecoration: "none" ,
-                  minWidth:'110px'
-                }}
-                >
-                  Войти
+              Войти
                 </NavLink>
-              </Button>
-              <Button
-                variant="contained"
-                className={classes.registerButton}
-                color="primary"
-                disableRipple={true}
-              >
-                <NavLink
-                  to="/register"
-                  activeClassName={classes.active}
-                  style={{ color: "white", textDecoration: "none"}}
-                >
-                  Регистрация
+            <NavLink
+              to="/register"
+              className={classes.registerNav}
+              activeClassName={classes.active}
+              style={{ color: "white", textDecoration: "none" }}
+            >
+              Регистрация
                 </NavLink>
-              </Button>
-            </div>
-          ) : (
+
+          </div>
+        ) : (
             <>
               <IconButton
                 edge="start"
                 className={classes.menuButton}
                 color="inherit"
                 aria-label="menu"
-                style={{ borderRadius: 5, backgroundColor: amber[600], width:'42px',height:'42px',alignItems:'center',padding:'0px' }}
+                style={{ borderRadius: 5, backgroundColor: amber[600], width: '42px', height: '42px', alignItems: 'center', padding: '0px' }}
                 onClick={handleClick}
               >
                 <MenuIcon />
               </IconButton>
               <Menu
-              className={classes.menu}
+                className={classes.menu}
                 id="fade-menu"
                 anchorEl={anchorEl}
                 keepMounted
                 open={open}
                 onClose={handleClose}
                 TransitionComponent={Fade}
-                
+
               >
                 <MenuItem onClick={handleClose} className={classes.menuItem}>
-                  <Button
-                    variant="text"
-                    className={classes.loginButton}
-                    disableRipple={true}
-                    
-                  >
-                    <NavLink
+                  <NavLink
                     className={classes.loginNav}
-                      to="/login"
-                      exact
-                      activeClassName={classes.active}
-                      style={{ 
-                        color: currentTheme === 'dark' ? '#7575a3' : 'black',
+                    to="/login"
+                    exact
+                    activeClassName={classes.active}
+                    style={{
                       textDecoration: "none",
-                      width:'102px'
                     }}
-                    >
-                      Войти
+                  >
+                    Войти
                     </NavLink>
-                  </Button>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                  <Button
-                    variant="contained"
-                    className={classes.registerButton}
-                    color="primary"
-                    disableRipple={true}
+                  <NavLink
+                    className={classes.registerNav}
+                    to="/register"
+                    activeClassName={classes.active}
+                    style={{ color: "white", textDecoration: "none", }}
                   >
-                    <NavLink
-                      to="/register"
-                      activeClassName={classes.active}
-                      style={{ color: "white", textDecoration: "none", }}
-                    >
-                      Регистрация
+                    Регистрация
                     </NavLink>
-                  </Button>
                 </MenuItem>
               </Menu>
             </>
           )}
 
-          <ThemeChanger themeChanger={themeChanger} />
-        </Toolbar>
+        <ThemeChanger themeChanger={themeChanger} />
+      </Toolbar>
       </AppBar>
-    </div>
+    </div >
   );
 };
 

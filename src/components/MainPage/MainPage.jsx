@@ -96,19 +96,20 @@ const MainPage = ({ themeChanger, width }) => {
         </div>
         <Box 
         className='animate__animated animate__fadeIn'
-        style={{ color: currentTheme === 'dark' ? 'white' : 'black', marginBottom: "40px",height:'100%' }}>
+        style={{  marginBottom: "40px",height:'100%' }}>
           <Typography
             variant="h1"
             align="center"
             gutterBottom
-            style={{ fontFamily: "RobotoBold", fontSize: width === "xs" && 65 }}
+            style={{color: currentTheme === 'dark' ? 'white' : 'black', fontFamily: "RobotoBold", fontSize: width === "xs" && 65 }}
           >
-            PlatinumPay
+            Logo
           </Typography>
           <Typography
             variant="h5"
             align="center"
             style={{
+              color: currentTheme === 'dark' ? 'white' : 'black',
               fontFamily: "RobotoRegular",
               fontSize: width === "xs" && 16,
             }}

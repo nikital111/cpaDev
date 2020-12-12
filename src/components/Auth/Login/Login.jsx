@@ -172,14 +172,14 @@ const Login = ({ width }) => {
             justifyContent: 'flex-start',
             alignItems: 'center',
             borderRadius: '8px',
-            maxWidth: width === 'xs' ? '80%' : width === "sm" ? '60%' : width === "md" ? '40%' : '22%',
+            maxWidth: width === 'xs' ? '80%' : width === "sm" ? '60%' : width === "md" ? '40%' : '450px',
             minHeight: '350px',
             position: 'relative',
             marginTop: '110px',
             marginBottom: '40px',
-            backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
+            backgroundColor: currentTheme === 'dark' ? '#141322' : '',
             boxShadow: 'none',
-            border: currentTheme === 'dark' ? '1px #232135 solid' : ''
+            border: 'none'
           }}>
           <Box style={{
             width:'100%',
