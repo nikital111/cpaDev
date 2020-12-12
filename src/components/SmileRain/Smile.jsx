@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     fontFamily: "RobotoBold",
     textTransform: "uppercase",
-    padding: 5,
+    padding: '120px 0px',
     cursor: "pointer",
     display: "flex",
     alignItems: "center",
@@ -39,14 +39,14 @@ export const Smile = ({ id, phrase, duration, sound, left, width }) => {
       .style.setProperty("--duration", duration + "s");
   }, []);
 
-  // За 0.1 секунду до окончания анимации все
+  // За 0.01 секунду до окончания анимации все
   //флаги приходят в норму, чтобы снова адекватн опоказать фразу
   useEffect(() => {
     const interval = setInterval(() => {
       setShowMessage(true);
       setAudioFlag(true);
       setInProp(false);
-    }, duration * 1000 - 100);
+    }, duration * 1000 - 1);
     return () => clearInterval(interval);
   }, []);
 
@@ -74,15 +74,15 @@ export const Smile = ({ id, phrase, duration, sound, left, width }) => {
         style={{
           left: `${left}%`,
           width: width === "xs" ? "4%" : "6%",
-          color: currentTheme === "light" ? theme.dark : theme.light,
+          color: '#E58B12',
           fontSize:
             width === "xs"
-              ? 17
+              ? 18
               : width === "sm"
-              ? 20
-              : width === "md"
               ? 21
-              : 22,
+              : width === "md"
+              ? 22
+              : 23,
         }}
       >
         {showMessage ? phrase : ""}

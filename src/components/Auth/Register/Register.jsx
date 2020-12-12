@@ -1,9 +1,10 @@
 import React, { useContext, useState } from "react";
 import Button from "@material-ui/core/Button";
 import withWidth from "@material-ui/core/withWidth";
-import { Container, TextField, makeStyles, Box, Typography, Paper, IconButton, FormControl, Icon, withStyles, createStyles, Backdrop } from "@material-ui/core";
+import { TextField, makeStyles, Box, Typography, Paper, IconButton, Icon, withStyles, createStyles } from "@material-ui/core";
 import { Visibility, VisibilityOff, People, Close } from '@material-ui/icons';
 import { NavLink } from "react-router-dom";
+import Snackbar from 'node-snackbar';
 import { ThemeContext } from "../../../context/themeContext";
 
 const CssTextField = withStyles({
@@ -13,11 +14,26 @@ const CssTextField = withStyles({
     },
     '& .MuiInputBase-input': {
       color: '#7575a3',
-      height:'36px',
-      backgroundColor:'#0c0c1b'
+      height:'28px',  
+      backgroundColor:'#232135',
+      padding:'8px'  
+    },
+    // '& .MuiInputBase-input:focus': {
+    //   outline:'2px solid #7575a3'
+    // },
+    '& .MuiInput-underline:hover': {
+      outline:'2px solid #7575a3'
     },
     '& .MuiInput-underline:after': {
-      display:'hidden'
+      display:'none',
+      borderBottomColor: '#7575a3',
+    },
+    '& .MuiInput-underline:focus-within': {
+      outline:'2px solid #7575a3'
+    },
+    '& .MuiInput-underline:before': {
+      display:'none',
+      borderBottomColor: '#7575a3',
     },
     '& .MuiOutlinedInput-root': {
       '& fieldset': {
@@ -36,24 +52,47 @@ const CssTextField = withStyles({
 const CssTextField2 = withStyles({
   root: {
     '& .MuiInputBase-input': {
-      height:'36px'
-    }
+      height:'28px',  
+      padding:'8px'  
+    },
+    // '& .MuiInputBase-input:focus': {
+    //   outline:'2px solid #78a3ff'
+    // },
+    '& .MuiInput-underline:hover': {
+      outline:'1px solid #78a3ff'
+    },
+    '& .MuiInput-underline:after': {
+      display:'none',
+      borderBottomColor: '#78a3ff',
+    },
+    '& .MuiInput-underline:focus-within': {
+      outline:'1px solid #78a3ff'
+    },
+    '& .MuiInput-underline:before': {
+      display:'none',
+      borderBottomColor: '#78a3ff',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: '#78a3ff',
+      },
+      '&:hover fieldset': {
+        borderColor: '#78a3ff',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#78a3ff',
+      },
+    },
   },
 })(TextField);
 
-const useStyles = makeStyles(theme =>
-  createStyles({
-    root: {
-      color: '#7575a3',
-      paddingLeft: '4px'
-    },
-    icon: {
-      'MuiSvgIcon-root': {
-        color: '#7575a3'
-      }
+const useStyles = makeStyles(theme =>({
+  regButt:{
+    '&:hover':{
+      backgroundColor:'#42baf9!important'
     }
-  })
-);
+  }
+}));
 
 const Register = ({ width }) => {
   const { currentTheme } = useContext(ThemeContext);
@@ -80,7 +119,7 @@ const Register = ({ width }) => {
       minimum8Chars.test(value)) {
       setErr({ ...err, name: '' })
     } else {
-      setErr({ ...err, name: 'Вы некорректно ввели пароль!' })
+      setErr({ ...err, name: 'Вы некорректно ввели логин!' })
     }
 
   }
@@ -131,12 +170,21 @@ const Register = ({ width }) => {
         if (userData.result) {
           document.cookie = `token=${userData.response.access_token}; path=/;max-age=360000`;
           document.cookie = `level=${userData.response.level}; path=/;max-age=360000`;
-          setMess('Вы успешно зарегистрировались!')
+          showMess('Вы успешно зарегистрировались!')
         }
         else {
-          setMess('Что-то пошло не так, попробуйте еще раз.')
+          showMess('Что-то пошло не так, попробуйте еще раз.')
         }
       })
+  }
+
+  const showMess = (message)=>{
+    Snackbar.show({
+      actionTextColor: '#7575a3', 
+      text: message,
+      actionText: 'ОК',
+      pos: 'bottom-right'
+    });
   }
 
   const classes = useStyles();
@@ -146,6 +194,7 @@ const Register = ({ width }) => {
       <Box
         className='animate__animated animate__fadeInDown'
         style={{
+          zIndex: '999',
           position: 'absolute',
           top: '0px',
           left: '0px',
@@ -157,8 +206,8 @@ const Register = ({ width }) => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: currentTheme === 'light' ? 'white' : '#0c0c1b',
-          zIndex: '999'
+          backgroundColor: currentTheme === 'light' ? 'white' : '#141322',
+          fontFamily:'Mukta",sans-serif'
         }}>
         {/* <Typography variant='h4' style={{
           marginBottom:'40px',
@@ -170,7 +219,7 @@ const Register = ({ width }) => {
         <Paper
           style={{
             zIndex: '99999',
-            padding: '40px 20px',
+            padding: '40px 30px',
             display: "flex",
             flexWrap: 'wrap',
             justifyContent: 'flex-start',
@@ -182,7 +231,8 @@ const Register = ({ width }) => {
             marginTop: '110px',
             marginBottom: '40px',
             backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
-            boxShadow: 'none'
+            boxShadow: 'none',
+            border: currentTheme === 'dark' ? '1px #232135 solid' : ''
           }}>
           <Box style={{
             width:'100%',
@@ -211,7 +261,7 @@ const Register = ({ width }) => {
           >
             <IconButton >
               <Close style={{
-                color: '#3f51b5'
+                color: currentTheme === 'dark' ? '#7575a3' : '#3f51b5'
               }}></Close>
             </IconButton>
           </NavLink>
@@ -226,13 +276,13 @@ const Register = ({ width }) => {
               <CssTextField
                 InputProps={{ className: classes.root }}
                 id="name"
-                placeholder="Укажите ваш логин"
+                placeholder="Введите имя пользователя"
                 onChange={checkErrorName}
                 required
                 error={Boolean(err.name)}
                 helperText={err.name}
                 style={{
-                  margin: '60px 0px 15px 0px',
+                  margin: '30px 0px 10px 0px',
                   width: '264px',
                   backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   width: '100%'
@@ -242,13 +292,13 @@ const Register = ({ width }) => {
               <CssTextField2
                 InputProps={{ className: classes.root }}
                 id="name"
-                placeholder="Укажите ваш логин"
+                placeholder="Введите имя пользователя"
                 onChange={checkErrorName}
                 required
                 error={Boolean(err.name)}
                 helperText={err.name}
                 style={{
-                  margin: '60px 0px 15px 0px',
+                  margin: '30px 0px 10px 0px',
                   width: '264px',
                   backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   width: '100%'
@@ -257,7 +307,7 @@ const Register = ({ width }) => {
             <Icon style={{
               position: 'absolute',
               right: "10px",
-              top: '72px',
+              top: '42px',
               color: currentTheme === 'dark' ? '#aeaee0!important' : '',
             }}
             >
@@ -275,13 +325,13 @@ const Register = ({ width }) => {
               <CssTextField
                 InputProps={{ className: classes.root }}
                 id="pass"
-                placeholder="Введите ваш пароль"
+                placeholder="Введите пароль"
                 onChange={checkErrorPass}
                 required
                 error={Boolean(err.pass)}
                 helperText={err.pass}
                 style={{
-                  margin: '15px 0px',
+                  margin: '10px 0px',
                   width: '264px',
                   backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   color: currentTheme === 'dark' ? '#aeaee0' : '',
@@ -293,13 +343,13 @@ const Register = ({ width }) => {
               <CssTextField2
                 InputProps={{ className: classes.root }}
                 id="pass"
-                placeholder="Введите ваш пароль"
+                placeholder="Введите пароль"
                 onChange={checkErrorPass}
                 required
                 error={Boolean(err.pass)}
                 helperText={err.pass}
                 style={{
-                  margin: '15px 0px',
+                  margin: '10px 0px',
                   width: '264px',
                   backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   color: currentTheme === 'dark' ? '#aeaee0' : '',
@@ -311,7 +361,7 @@ const Register = ({ width }) => {
               <IconButton style={{
                 position: 'absolute',
                 right: "-2px",
-                top: '17px',
+                top: '9px',
               }}
                 onClick={() => { setVis(!vis) }}
               >
@@ -323,7 +373,7 @@ const Register = ({ width }) => {
               <IconButton style={{
                 position: 'absolute',
                 right: "-2px",
-                top: '17px'
+                top: '9px'
               }}
                 onClick={() => { setVis(!vis) }}
               >
@@ -336,8 +386,10 @@ const Register = ({ width }) => {
           <Button
             type='submit'
             variant="contained"
-            color="primary"
+            className={classes.regButt}
             style={{
+              color:'white',
+              backgroundColor: 'rgb(75, 124, 243)',
               marginTop: '20px',
               borderRadius: '2px',
               fontSize: '15px',
@@ -346,7 +398,7 @@ const Register = ({ width }) => {
             }}
             onClick={err.pass || err.name ? null : registration}
           >
-            Зарегистрироватся
+            Зарегистрироваться
             </Button>
           <Box
             style={{
@@ -371,37 +423,6 @@ const Register = ({ width }) => {
             </NavLink>
           </Box>
         </Paper>
-
-        <Backdrop open={mess} style={{ zIndex: '9999999' }}>
-          <Paper
-            style={{
-              position: 'relative',
-              display: 'flex',
-              justifyContent: 'center',
-              flexDirection: 'column',
-              alignItems: 'center',
-              padding: '40px',
-              borderRadius: '5px'
-            }}>
-            <Typography variant='h4' align='center'>
-              {mess}
-            </Typography>
-            <Button
-              variant="contained"
-              color="primary"
-              style={{
-                marginTop: '20px',
-                borderRadius: '2px',
-                fontSize: '15px',
-                height: '45px',
-                width: '30%'
-              }}
-              onClick={() => { setMess('') }}
-            >
-              Хорошо
-            </Button>
-          </Paper>
-        </Backdrop>
 
       </Box>
     </>

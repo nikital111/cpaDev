@@ -15,55 +15,70 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Fade from "@material-ui/core/Fade";
 import { theme } from "../../../state/consts";
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-    fontFamily: "RobotoBold",
-  },
-  authBlock: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: amber[900],
-    borderRadius: theme.spacing(1),
-    padding: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-  loginButton: {
-    padding: "8px",
-    backgroundColor: amber[700],
-    "&:hover": {
-      backgroundColor: amber[800],
-    },
-    marginRight: "10px",
-    fontFamily: "RobotoRegular",
-  },
-  registerButton: {
-    padding: "8px",
-    backgroundColor: amber[700],
-    "&:hover": {
-      backgroundColor: amber[800],
-    },
-    fontFamily: "RobotoRegular",
-  },
-  menuItem: {
-    display: "flex",
-    alignItems: "center",
-    "&:hover": {
-      backgroundColor: "#fff",
-    },
-  },
-}));
+
 const MainHeader = ({ themeChanger, width }) => {
-  const classes = useStyles();
+  
 
   const { currentTheme } = useContext(ThemeContext);
+
+
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+    },
+    active:{
+      //color:'#E5A800!important' 
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+      // '& .MuiTouchRipple-root':{
+      //   display:'none'
+      // }
+    },
+    title: {
+      flexGrow: 1,
+      fontFamily: "RobotoBold",
+    },
+    authBlock: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+     // backgroundColor: amber[900],
+      borderRadius: theme.spacing(1),
+      padding: theme.spacing(1),
+      marginRight: theme.spacing(1),
+    },
+    loginNav:{
+      "&:hover": {
+        color:'#9999BB!important',
+      },
+    },
+    loginButton: {
+      padding: "8px",
+      color:'#7575a3',
+      marginRight: "10px",
+      fontFamily: "RobotoRegular",
+    },
+    registerButton: {
+      padding: "8px",
+      backgroundColor: 'rgb(75, 124, 243)',
+      "&:hover": {
+        backgroundColor: '#42baf9',
+      },
+      fontFamily: "RobotoRegular",
+    },
+    menuItem: {
+      display: "flex",
+      alignItems: "center",
+    },
+    menu:{
+      '& .MuiMenu-paper':{
+        backgroundColor: currentTheme === 'dark' ? 'rgb(12, 12, 27)' : 'white'
+      }
+    },
+  }));
+
+  const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -77,12 +92,15 @@ const MainHeader = ({ themeChanger, width }) => {
   };
 
   return (
-    <div className={classes.root}>
-      <AppBar position="fixed">
+    <div 
+    className={classes.root}
+    >
+      <AppBar position="fixed" style={{boxShadow:'none',borderBottom: currentTheme === 'dark' ? '1px #232135 solid' : ''}}>
         <Toolbar
           style={{
-            minHeight: 85,
-            backgroundColor: currentTheme === "light" ? theme.light : "#3F51B5",
+            minHeight: 63,
+            backgroundColor: currentTheme === "light" ? theme.light : "#141322",
+            boxShadow:'none'
           }}
         >
           <Typography
@@ -106,18 +124,25 @@ const MainHeader = ({ themeChanger, width }) => {
           {width !== "xs" ? (
             <div className={classes.authBlock}>
               <Button
-                variant="contained"
-                color="primary"
+                variant="text"
                 className={classes.loginButton}
                 disableRipple={true}
+                style={{
+                  boxShadow:'none'
+                }}
               >
                 <NavLink
+                  className={classes.loginNav}
                   to="/login"
                   exact
-                  activeClassName="selectedLink"
-                  style={{ color: "#fff", textDecoration: "none" }}
+                  activeClassName={classes.active}
+                  style={{
+                    color: currentTheme === 'dark' ? '#7575a3' : 'black',
+                  textDecoration: "none" ,
+                  minWidth:'110px'
+                }}
                 >
-                  Login
+                  Войти
                 </NavLink>
               </Button>
               <Button
@@ -128,10 +153,10 @@ const MainHeader = ({ themeChanger, width }) => {
               >
                 <NavLink
                   to="/register"
-                  activeClassName="selectedLink"
-                  style={{ color: "#fff", textDecoration: "none" }}
+                  activeClassName={classes.active}
+                  style={{ color: "white", textDecoration: "none"}}
                 >
-                  Register
+                  Регистрация
                 </NavLink>
               </Button>
             </div>
@@ -142,33 +167,40 @@ const MainHeader = ({ themeChanger, width }) => {
                 className={classes.menuButton}
                 color="inherit"
                 aria-label="menu"
-                style={{ borderRadius: 5, backgroundColor: amber[600] }}
+                style={{ borderRadius: 5, backgroundColor: amber[600], width:'42px',height:'42px',alignItems:'center',padding:'0px' }}
                 onClick={handleClick}
               >
                 <MenuIcon />
               </IconButton>
               <Menu
+              className={classes.menu}
                 id="fade-menu"
                 anchorEl={anchorEl}
                 keepMounted
                 open={open}
                 onClose={handleClose}
                 TransitionComponent={Fade}
+                
               >
                 <MenuItem onClick={handleClose} className={classes.menuItem}>
                   <Button
-                    variant="contained"
-                    color="primary"
+                    variant="text"
                     className={classes.loginButton}
                     disableRipple={true}
+                    
                   >
                     <NavLink
+                    className={classes.loginNav}
                       to="/login"
                       exact
-                      activeClassName="selectedLink"
-                      style={{ color: "#fff", textDecoration: "none" }}
+                      activeClassName={classes.active}
+                      style={{ 
+                        color: currentTheme === 'dark' ? '#7575a3' : 'black',
+                      textDecoration: "none",
+                      width:'102px'
+                    }}
                     >
-                      Login
+                      Войти
                     </NavLink>
                   </Button>
                 </MenuItem>
@@ -181,10 +213,10 @@ const MainHeader = ({ themeChanger, width }) => {
                   >
                     <NavLink
                       to="/register"
-                      activeClassName="selectedLink"
-                      style={{ color: "#fff", textDecoration: "none" }}
+                      activeClassName={classes.active}
+                      style={{ color: "white", textDecoration: "none", }}
                     >
-                      Register
+                      Регистрация
                     </NavLink>
                   </Button>
                 </MenuItem>

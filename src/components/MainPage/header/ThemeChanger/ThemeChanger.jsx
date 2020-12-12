@@ -2,19 +2,22 @@ import React, { useContext, useEffect, useState } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
 import Brightness2Icon from "@material-ui/icons/Brightness2";
+import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import { makeStyles } from "@material-ui/core/styles";
 import amber from "@material-ui/core/colors/amber";
 import { ThemeContext } from "../../../../context/themeContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: 48,
-    width: 48,
+    height: 42,
+    width: 42,
     borderRadius: theme.spacing(1),
     fontSize: "32px",
     borderWidth: "2px",
     borderColor: "#1a202c",
     borderStyle: "solid",
+    alignItems:'center',
+    padding:'0px'
   },
 }));
 
@@ -24,7 +27,7 @@ export const ThemeChanger = ({ themeChanger }) => {
   const { currentTheme } = useContext(ThemeContext);
 
   const [icon, setIcon] = useState(
-    currentTheme === "dark" ? "Brightness2Icon" : "Brightness7Icon"
+    currentTheme === "dark" ? "WbSunnyIcon" : "Brightness2Icon"
   );
 
   const [stylesForIcon, setStylesForIcon] = useState({
@@ -36,25 +39,27 @@ export const ThemeChanger = ({ themeChanger }) => {
   });
 
   useEffect(() => {
-    if (currentTheme === "light") {
+    if (currentTheme === "dark") {
       setStylesForIcon((prev) => ({
         ...prev,
-        backgroundColor: "#fff",
-        "&:hover": { backgroundColor: "#CED7EB" },
+        backgroundColor: "#1a202c",
+        // "&:hover": { backgroundColor: "#CED7EB" },
         color: amber[600],
+        border:'none'
       }));
     } else {
       setStylesForIcon((prev) => ({
         ...prev,
-        backgroundColor: "#1a202c",
-        "&:hover": { backgroundColor: "#354159" },
-        color: "#EFEFF0",
+        backgroundColor: "#fff",
+        // "&:hover": { backgroundColor: "#354159" },
+        color: "#1a202c",
+        border:'none'
       }));
     }
   }, [currentTheme]);
 
   const themeHandler = () => {
-    setIcon(currentTheme === "light" ? "Brightness2Icon" : "Brightness7Icon");
+    setIcon(currentTheme === "light" ? "WbSunnyIcon" : "Brightness2Icon");
     themeChanger();
   };
 
@@ -64,7 +69,7 @@ export const ThemeChanger = ({ themeChanger }) => {
       style={{ ...stylesForIcon }}
       onClick={themeHandler}
     >
-      {icon === "Brightness7Icon" ? <Brightness7Icon /> : <Brightness2Icon />}
+      {icon === "Brightness2Icon" ? <Brightness2Icon /> : <WbSunnyIcon />}
     </IconButton>
   );
 };

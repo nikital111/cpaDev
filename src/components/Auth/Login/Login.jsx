@@ -1,22 +1,38 @@
 import React, { useContext, useState } from "react";
 import Button from "@material-ui/core/Button";
 import withWidth from "@material-ui/core/withWidth";
-import { Container, TextField, makeStyles, Box, Typography, Paper, FormControl, Icon, Hidden, IconButton, StepIcon, withStyles, createStyles, Backdrop } from "@material-ui/core";
+import { TextField, makeStyles, Box, Typography, Paper, Icon, IconButton, withStyles, createStyles} from "@material-ui/core";
 import { Visibility, VisibilityOff, People, Close } from '@material-ui/icons';
+import Snackbar from 'node-snackbar';
 import { NavLink } from "react-router-dom";
 import { ThemeContext } from "../../../context/themeContext";
 
 const CssTextField = withStyles({
   root: {
+    '& .MuiFormHelperText-root':{
+      backgroundColor:'rgb(12, 12, 27)'
+    },
     '& .MuiInputBase-input': {
       color: '#7575a3',
-      height:'36px',
-      backgroundColor:'#0c0c1b'
+      height:'28px',
+      backgroundColor:'#232135',
+      padding:'8px'  
     },
-    '& label.Mui-focused': {
-      color: '#7575a3',
+    // '& .MuiInputBase-input:focus': {
+    //   outline:'2px solid #7575a3'
+    // },
+    '& .MuiInput-underline:hover': {
+      outline:'2px solid #7575a3'
     },
     '& .MuiInput-underline:after': {
+      display:'none',
+      borderBottomColor: '#7575a3',
+    },
+    '& .MuiInput-underline:focus-within': {
+      outline:'2px solid #7575a3'
+    },
+    '& .MuiInput-underline:before': {
+      display:'none',
       borderBottomColor: '#7575a3',
     },
     '& .MuiOutlinedInput-root': {
@@ -36,24 +52,47 @@ const CssTextField = withStyles({
 const CssTextField2 = withStyles({
   root: {
     '& .MuiInputBase-input': {
-      height:'36px'
-    }
+      height:'28px',  
+      padding:'8px'  
+    },
+    // '& .MuiInputBase-input:focus': {
+    //   outline:'2px solid #78a3ff'
+    // },
+    '& .MuiInput-underline:hover': {
+      outline:'1px solid #78a3ff'
+    },
+    '& .MuiInput-underline:after': {
+      display:'none',
+      borderBottomColor: '#78a3ff',
+    },
+    '& .MuiInput-underline:focus-within': {
+      outline:'1px solid #78a3ff'
+    },
+    '& .MuiInput-underline:before': {
+      display:'none',
+      borderBottomColor: '#78a3ff',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: '#78a3ff',
+      },
+      '&:hover fieldset': {
+        borderColor: '#78a3ff',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#78a3ff',
+      },
+    },
   },
 })(TextField);
 
-const useStyles = makeStyles(theme =>
-  createStyles({
-    root: {
-      color: '#7575a3',
-      paddingLeft: '4px'
-    },
-    icon: {
-      'MuiSvgIcon-root': {
-        color: '#7575a3'
-      }
+const useStyles = makeStyles(theme =>({
+  logButt:{
+    '&:hover':{
+      backgroundColor:'#42baf9!important'
     }
-  })
-);
+  }
+}));
 
 const Login = ({ width }) => {
   console.log(width)
@@ -85,12 +124,21 @@ const Login = ({ width }) => {
         if (userData.result) {
           document.cookie = `token=${userData.response.access_token}; path=/;max-age=360000`;
           document.cookie = `level=${userData.response.level}; path=/;max-age=360000`;
-          setMess('Авторизация прошла успешно!')
+          showMess('Авторизация прошла успешно!')
         }
         else {
-          setMess('Что-то пошло не так, попробуйте еще раз.')
+          showMess('Что-то пошло не так, попробуйте еще раз.')
         }
       })
+  }
+
+  const showMess = (message)=>{
+    Snackbar.show({
+      actionTextColor: '#7575a3', 
+      text: message,
+      actionText: 'ОК',
+      pos: 'bottom-right'
+    });
   }
 
   const classes = useStyles();
@@ -112,25 +160,26 @@ const Login = ({ width }) => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: currentTheme === 'light' ? 'white' : '#0c0c1b',
+          backgroundColor: currentTheme === 'light' ? 'white' : 'rgb(20, 19, 34)',
           zIndex: '999',
         }}>
         <Paper
           style={{
             zIndex: '99999',
-            padding: '40px 20px',
+            padding: '35px 30px',
             display: "flex",
             flexWrap: 'wrap',
             justifyContent: 'flex-start',
             alignItems: 'center',
             borderRadius: '8px',
-            maxWidth: width === 'xs' ? '80%' : width === "sm" ? '60%' : width === "md" ? '40%' : '25%',
+            maxWidth: width === 'xs' ? '80%' : width === "sm" ? '60%' : width === "md" ? '40%' : '22%',
             minHeight: '350px',
             position: 'relative',
             marginTop: '110px',
             marginBottom: '40px',
             backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
-            boxShadow: 'none'
+            boxShadow: 'none',
+            border: currentTheme === 'dark' ? '1px #232135 solid' : ''
           }}>
           <Box style={{
             width:'100%',
@@ -159,7 +208,7 @@ const Login = ({ width }) => {
           >
             <IconButton >
               <Close style={{
-                color: '#3f51b5'
+                color: currentTheme === 'dark' ? '#7575a3' : '#3f51b5'
               }}></Close>
             </IconButton>
           </NavLink>
@@ -174,10 +223,10 @@ const Login = ({ width }) => {
               <CssTextField
                 InputProps={{ className: classes.root }}
                 id="name"
-                placeholder="Укажите ваш логин"
+                placeholder="Введите имя пользователя"
                 required
                 style={{
-                  margin: '60px 0px 15px 0px',
+                  margin: '30px 0px 10px 0px',
                   width: '264px',
                   backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   width: '100%'
@@ -187,10 +236,10 @@ const Login = ({ width }) => {
               <CssTextField2
                 InputProps={{ className: classes.root }}
                 id="name"
-                placeholder="Укажите ваш логин"
+                placeholder="Введите имя пользователя"
                 required
                 style={{
-                  margin: '60px 0px 15px 0px',
+                  margin: '30px 0px 10px 0px',
                   width: '264px',
                   backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   width: '100%'
@@ -199,7 +248,7 @@ const Login = ({ width }) => {
             <Icon style={{
               position: 'absolute',
               right: "10px",
-              top: '72px',
+              top: '42px',
               color: currentTheme === 'dark' ? '#aeaee0!important' : '',
             }}
             >
@@ -217,10 +266,10 @@ const Login = ({ width }) => {
               <CssTextField
                 InputProps={{ className: classes.root }}
                 id="pass"
-                placeholder="Введите ваш пароль"
+                placeholder="Введите пароль"
                 required
                 style={{
-                  margin: '15px 0px',
+                  margin: '10px 0px',
                   width: '264px',
                   backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   color: currentTheme === 'dark' ? '#aeaee0' : '',
@@ -232,10 +281,10 @@ const Login = ({ width }) => {
               <CssTextField2
                 InputProps={{ className: classes.root }}
                 id="pass"
-                placeholder="Введите ваш пароль"
+                placeholder="Введите пароль"
                 required
                 style={{
-                  margin: '15px 0px',
+                  margin: '10px 0px',
                   width: '264px',
                   backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   color: currentTheme === 'dark' ? '#aeaee0' : '',
@@ -247,7 +296,7 @@ const Login = ({ width }) => {
               <IconButton style={{
                 position: 'absolute',
                 right: "-2px",
-                top: '17px',
+                top: '9px',
               }}
                 onClick={() => { setVis(!vis) }}
               >
@@ -259,7 +308,7 @@ const Login = ({ width }) => {
               <IconButton style={{
                 position: 'absolute',
                 right: "-2px",
-                top: '17px',
+                top: '9px',
               }}
                 onClick={() => { setVis(!vis) }}
               >
@@ -269,15 +318,18 @@ const Login = ({ width }) => {
               </IconButton>
             }
           </Box>
-          <Button type='submit'
+          <Button 
+          className={classes.logButt}
             variant="contained"
-            color="primary"
             style={{
-              marginTop: '20px',
+              color:'white',
+              backgroundColor: 'rgb(75, 124, 243)',
+              marginTop: '10px',
               borderRadius: '2px',
               fontSize: '15px',
               height: '45px',
-              width: '100%'
+              width: '100%',
+              border:'0px'
             }}
             onClick={auth}
           >
@@ -289,7 +341,7 @@ const Login = ({ width }) => {
             width: '100%',
             alignItems: 'center'
           }}>
-            <a
+            {/* <a
               className='forPass'
               style={{
                 color: '#4b7cf3',
@@ -303,7 +355,7 @@ const Login = ({ width }) => {
               }}
             >
               Забыли пароль?
-            </a>
+            </a> */}
             <NavLink
               to="/register"
               exact
@@ -324,38 +376,6 @@ const Login = ({ width }) => {
           </Box>
 
         </Paper>
-
-        <Backdrop open={mess} style={{ zIndex: '9999999' }}>
-          <Paper
-            style={{
-              position: 'relative',
-              display: 'flex',
-              justifyContent: 'center',
-              flexDirection: 'column',
-              alignItems: 'center',
-              padding: '40px',
-              borderRadius: '5px'
-            }}>
-            <Typography variant='h4' align='center'>
-              {mess}
-          </Typography>
-          <Button 
-            variant="contained"
-            color="primary"
-            style={{
-              marginTop: '20px',
-              borderRadius: '2px',
-              fontSize: '15px',
-              height: '45px',
-              width: '30%'
-            }}
-            onClick={() => { setMess('') }}
-          >
-            Хорошо
-            </Button>
-          </Paper>
-        </Backdrop>
-
       </Box>
     </>
   );

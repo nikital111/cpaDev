@@ -11,7 +11,7 @@ import "./mainPage.scss";
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
-    minHeight: `calc(100vh - ${theme.spacing(10)}px)`,
+    minHeight: `calc(100vh)`,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -19,9 +19,9 @@ const useStyles = makeStyles((theme) => ({
   },
   gsBtn: {
     padding: "15px",
-    backgroundColor: amber[700],
+    backgroundColor: 'rgb(75, 124, 243)',
     "&:hover": {
-      backgroundColor: amber[800],
+      backgroundColor: '#42baf9',
     },
     fontFamily: "RobotoBold",
   },
@@ -88,12 +88,15 @@ const MainPage = ({ themeChanger, width }) => {
             right: 0,
             bottom: 0,
             maxWidth: "100%",
-            maxHeight: "100%",
+            height: "100%",
+            overflow:'hidden'
           }}
         >
           {starsJSX}
         </div>
-        <Box style={{ color:'#ffa000', marginBottom: "40px" }}>
+        <Box 
+        className='animate__animated animate__fadeIn'
+        style={{ color: currentTheme === 'dark' ? 'white' : 'black', marginBottom: "40px",height:'100%' }}>
           <Typography
             variant="h1"
             align="center"
@@ -110,7 +113,7 @@ const MainPage = ({ themeChanger, width }) => {
               fontSize: width === "xs" && 16,
             }}
           >
-            PlatinumPay
+            Снимай сливки с трафика вместе с нами!
           </Typography>
         </Box>
         <Box>
@@ -119,8 +122,8 @@ const MainPage = ({ themeChanger, width }) => {
             textDecoration: "none",
           }}
           to='register' exact>
-          <Button variant="contained" color="primary" className={classes.gsBtn}>
-            Getting started
+          <Button variant="contained" color="primary" className={`${classes.gsBtn} animate__animated animate__fadeIn`}>
+          Начать зарабатывать
           </Button>
           </NavLink>
         </Box>
