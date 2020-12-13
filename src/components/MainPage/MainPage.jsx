@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { Container, makeStyles, Box, Typography } from "@material-ui/core";
 import withWidth from "@material-ui/core/withWidth";
@@ -7,6 +8,8 @@ import { theme } from "../../state/consts";
 import { amber } from "@material-ui/core/colors";
 import { ThemeContext } from "../../context/themeContext";
 import { v4 as uuidv4 } from "uuid";
+import Cookies from 'js-cookie';
+import { setData, setLogin } from "../../actions/actions";
 import "./mainPage.scss";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +31,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MainPage = ({ themeChanger, width }) => {
-  console.log(width);
+
+  const dispatch = useDispatch();
+  const myHistory = useHistory()
+  const isLogin = useSelector(state => state.isLogin);
+
+  if (Cookies.get('token')) {
+    if (!isLogin) {
+      dispatch(setLogin())
+      dispatch(setData({
+        token: Cookies.get('token'),
+        level: Cookies.get('level'),
+      }))
+    }
+    myHistory.push('/dashboard');
+  }
+
+  //console.log(width);
   const classes = useStyles();
 
   const { currentTheme } = useContext(ThemeContext);

@@ -1,11 +1,14 @@
 import React, { useContext, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "@material-ui/core/Button";
 import withWidth from "@material-ui/core/withWidth";
 import { TextField, makeStyles, Box, Typography, Paper, Icon, IconButton, withStyles, createStyles} from "@material-ui/core";
 import { Visibility, VisibilityOff, People, Close } from '@material-ui/icons';
 import Snackbar from 'node-snackbar';
-import { NavLink } from "react-router-dom";
+import { Redirect, Route, Switch, useHistory, NavLink } from "react-router-dom";
 import { ThemeContext } from "../../../context/themeContext";
+import Cookies from 'js-cookie';
+import { setData, setLogin } from "../../../actions/actions";
 
 const CssTextField = withStyles({
   root: {
@@ -95,6 +98,24 @@ const useStyles = makeStyles(theme =>({
 }));
 
 const Login = ({ width }) => {
+
+  const dispatch = useDispatch();
+  const myHistory = useHistory()
+  const isLogin = useSelector(state => state.isLogin);
+
+  if (Cookies.get('token')) {
+    console.log('oop')
+    if (!isLogin) {
+      console.log('oop')
+      dispatch(setLogin())
+      dispatch(setData({
+        token: Cookies.get('token'),
+        level: Cookies.get('level'),
+      }))
+    }
+    myHistory.push('/dashboard');
+  }
+
   console.log(width)
   const [mess, setMess] = useState('');
   const [vis, setVis] = useState(false);
@@ -122,9 +143,15 @@ const Login = ({ width }) => {
       .then(userData => {
         console.log(userData)
         if (userData.result) {
-          document.cookie = `token=${userData.response.access_token}; path=/;max-age=360000`;
-          document.cookie = `level=${userData.response.level}; path=/;max-age=360000`;
-          showMess('Авторизация прошла успешно!')
+          Cookies.set('token',userData.response.access_token,{path:'/',sameSite: 'strict',expires:360000});
+          Cookies.set('level',userData.response.level,{path:'/',sameSite: 'strict',expires:360000});
+          dispatch(setData({
+            token:userData.response.access_token,
+            level:userData.response.level
+          }))
+          dispatch(setLogin())
+          showMess('Авторизация прошла успешно!');
+          myHistory.push('/dashboard')
         }
         else {
           showMess('Что-то пошло не так, попробуйте еще раз.')

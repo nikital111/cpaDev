@@ -1,11 +1,15 @@
 import React, { useContext, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "@material-ui/core/Button";
 import withWidth from "@material-ui/core/withWidth";
 import { TextField, makeStyles, Box, Typography, Paper, IconButton, Icon, withStyles, createStyles } from "@material-ui/core";
 import { Visibility, VisibilityOff, People, Close } from '@material-ui/icons';
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import Snackbar from 'node-snackbar';
 import { ThemeContext } from "../../../context/themeContext";
+import Cookies from 'js-cookie';
+import { setData, setLogin } from "../../../actions/actions";
+
 
 const CssTextField = withStyles({
   root: {
@@ -107,6 +111,21 @@ const Register = ({ width }) => {
     pass: ''
 
   });
+
+  const dispatch = useDispatch();
+  const myHistory = useHistory()
+  const isLogin = useSelector(state => state.isLogin);
+
+  if (Cookies.get('token')) {
+    if (!isLogin) {
+      dispatch(setLogin())
+      dispatch(setData({
+        token: Cookies.get('token'),
+        level: Cookies.get('level'),
+      }))
+    }
+    myHistory.push('/dashboard');
+  }
 
   const useStyles = makeStyles(theme =>({
     regButt:{
