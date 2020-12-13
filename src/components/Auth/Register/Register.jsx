@@ -202,8 +202,6 @@ const Register = ({ width }) => {
       .then(userData => {
         console.log(userData)
         if (userData.result) {
-          document.cookie = `token=${userData.response.access_token}; path=/;max-age=360000`;
-          document.cookie = `level=${userData.response.level}; path=/;max-age=360000`;
           showMess('Вы успешно зарегистрировались!')
         }
         else {

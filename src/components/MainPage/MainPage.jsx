@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 import Cookies from 'js-cookie';
 import { setData, setLogin } from "../../actions/actions";
 import "./mainPage.scss";
+import SmileRain from "../SmileRain/SmileRain";
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MainPage = ({ themeChanger, width }) => {
+const MainPage = ({ themeChanger, width,sound }) => {
 
   const dispatch = useDispatch();
   const myHistory = useHistory()
@@ -98,6 +99,7 @@ const MainPage = ({ themeChanger, width }) => {
 
   return (
     <>
+    {<SmileRain sound={sound} />}
       <Container fixed className={classes.mainContainer}>
         <div
           style={{

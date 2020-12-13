@@ -15,8 +15,9 @@ const StatisticsToday = ({ width }) => {
             display: 'flex',
             justifyContent: 'space-between',
             backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
-            width: width === 'lg' ? '25%' : width === 'xl' ? '25%' : '76%',
+            width: width === 'lg' ? '28%' : width === 'xl' ? '29%' : '100%',
             padding: '15px',
+            margin:'10px 10px'
         }
     }));
 
@@ -66,30 +67,28 @@ const StatisticsToday = ({ width }) => {
                 width: '100%'
             }}>
                 <Typography variant="h5" style={{
-                    color: currentTheme === 'dark' ? '#7575a3' : 'black',
+                    color: currentTheme === 'dark' ? '#aeaee0' : 'black',
                     width: '100%',
-                    paddingBottom: '20px'
+                    paddingBottom: '20px',
+                    marginLeft:'10px'
                 }}>
                     Сегодняшняя статистика
               </Typography>
                 <Box style={{
-                    width: '100%',
+                    maxWidth: width === 'xs' ? '97%' : '90%',
                     display: 'flex',
-                    justifyContent: 'flex-start',
+                    justifyContent: 'space-between',
                     flexWrap: 'wrap'
                 }}>
 
                     <Box 
                     className={classes.contStatistics}
-                    style={{
-                        marginRight: width === 'lg' ? '20px' : width === 'xl' ? '20px' : '0px',
-                        margin: width === 'lg' ? '0px' : width === 'xl' ? '0px' : '10px 0px',
-                    }}>
+                    >
                         <Box style={{
                             display: 'flex',
                             justifyContent: 'center',
                             flexDirection: 'column',
-                            color: currentTheme === 'dark' ? '#7575a3' : 'black',
+                            color: currentTheme === 'dark' ? '#aeaee0' : 'black',
                         }}>
                             <Typography variant='h4'>1240</Typography>
                             <Typography variant='h6'>Транзакций</Typography>
@@ -99,14 +98,12 @@ const StatisticsToday = ({ width }) => {
 
                     <Box 
                     className={classes.contStatistics}
-                    style={{
-                        margin: width === 'lg' ? '0px 20px' : width === 'xl' ? '0px 20px' : '10px 0px',
-                    }}>
+                    >
                         <Box style={{
                             display: 'flex',
                             justifyContent: 'center',
                             flexDirection: 'column',
-                            color: currentTheme === 'dark' ? '#7575a3' : 'black',
+                            color: currentTheme === 'dark' ? '#aeaee0' : 'black',
                         }}>
                             <Typography variant='h4'>$256.12</Typography>
                             <Typography variant='h6'>Доход</Typography>
@@ -116,15 +113,12 @@ const StatisticsToday = ({ width }) => {
 
                     <Box
                     className={classes.contStatistics}
-                    style={{
-                        marginLeft: width === 'lg' ? '20px' : width === 'xl' ? '20px' : '0px',
-                        margin: width === 'lg' ? '0px' : width === 'xl' ? '0px' : '10px 0px',
-                    }}>
+                    >
                         <Box style={{
                             display: 'flex',
                             justifyContent: 'center',
                             flexDirection: 'column',
-                            color: currentTheme === 'dark' ? '#7575a3' : 'black',
+                            color: currentTheme === 'dark' ? '#aeaee0' : 'black',
                         }}>
                             <Typography variant='h4'>$56.12</Typography>
                             <Typography variant='h6'>Результат</Typography>

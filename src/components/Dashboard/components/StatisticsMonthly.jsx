@@ -16,8 +16,9 @@ const StatisticsMonthly = ({ width }) => {
             justifyContent: 'flex-start',
             flexDirection: 'column',
             backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
-            width: width === 'lg' ? '17.5%' : width === 'xl' ? '17.5%' : width === 'md' ? '35%' : width === 'sm' ? '76%' : '76%',
+            width: width === 'lg' ? '20%' : width === 'xl' ? '20%' : width === 'md' ? '43%' : width === 'sm' ? '96%' : '96%',
             padding: '15px',
+            margin:'10px 10px'
         }
     }));
 
@@ -34,7 +35,7 @@ const StatisticsMonthly = ({ width }) => {
     const createLine = data => {
         return (
             <LineChart
-                width={width === 'xs' ? 200 : width === 'sm' ? 380 : width === 'md' ? 340 : 220} 
+                width={width === 'xs' ? 265 : width === 'sm' ? 470 : width === 'md' ? 350 : width === 'lg' ? 220 : 300} 
                 height={200} 
                 data={dataLine}
                 margin={{ left: 10 }}
@@ -60,31 +61,29 @@ const StatisticsMonthly = ({ width }) => {
                 marginTop: '25px'
             }}>
                 <Typography variant="h5" style={{
-                    color: currentTheme === 'dark' ? '#7575a3' : 'black',
+                    color: currentTheme === 'dark' ? '#aeaee0' : 'black',
                     width: '100%',
-                    paddingBottom: '20px'
+                    paddingBottom: '20px',
+                    marginLeft:'10px'
                 }}>
                     Статистика за месяц
               </Typography>
                 <Box style={{
-                    width: '100%',
+                    maxWidth: width === 'xs' ? '97%' : '90%',
                     display: 'flex',
-                    justifyContent: 'flex-start',
+                    justifyContent: 'space-between',
                     flexWrap: 'wrap'
                 }}>
 
 
                     <Box
                         className={classes.contStatistics}
-                        style={{
-                            marginRight: width === 'lg' ? '35px' : width === 'xl' ? '35px' : '0px',
-                            margin: width === 'lg' ? '0px' : width === 'xl' ? '0px' : '10px 10px',
-                        }}>
+                        >
                         <Box style={{
                             display: 'flex',
                             justifyContent: 'center',
                             flexDirection: 'column',
-                            color: currentTheme === 'dark' ? '#7575a3' : 'black',
+                            color: currentTheme === 'dark' ? '#aeaee0' : 'black',
                         }}>
                             <Typography variant='h4'>78,367</Typography>
                             <Typography variant='h6'>Всего продаж</Typography>
@@ -94,14 +93,12 @@ const StatisticsMonthly = ({ width }) => {
 
                     <Box
                         className={classes.contStatistics}
-                        style={{
-                            margin: width === 'lg' ? '0px 0px 0px 35px' : width === 'xl' ? '0px 0px 0px 35px' : '10px 10px',
-                        }}>
+                        >
                         <Box style={{
                             display: 'flex',
                             justifyContent: 'center',
                             flexDirection: 'column',
-                            color: currentTheme === 'dark' ? '#7575a3' : 'black',
+                            color: currentTheme === 'dark' ? '#aeaee0' : 'black',
                         }}>
                             <Typography variant='h4'>+90%</Typography>
                             <Typography variant='h6'>Рост продаж</Typography>
@@ -111,14 +108,12 @@ const StatisticsMonthly = ({ width }) => {
 
                     <Box
                         className={classes.contStatistics}
-                        style={{
-                            margin: width === 'lg' ? '0px 35px' : width === 'xl' ? '0px 35px' : '10px 10px',
-                        }}>
+                        >
                         <Box style={{
                             display: 'flex',
                             justifyContent: 'center',
                             flexDirection: 'column',
-                            color: currentTheme === 'dark' ? '#7575a3' : 'black',
+                            color: currentTheme === 'dark' ? '#aeaee0' : 'black',
                         }}>
                             <Typography variant='h4'>900</Typography>
                             <Typography variant='h6'>Завершено</Typography>
@@ -128,15 +123,12 @@ const StatisticsMonthly = ({ width }) => {
 
                     <Box
                         className={classes.contStatistics}
-                        style={{
-                            marginLeft: width === 'lg' ? '35px' : width === 'xl' ? '35px' : '0px',
-                            margin: width === 'lg' ? '0px' : width === 'xl' ? '0px' : '10px 10px',
-                        }}>
+                        >
                         <Box style={{
                             display: 'flex',
                             justifyContent: 'center',
                             flexDirection: 'column',
-                            color: currentTheme === 'dark' ? '#7575a3' : 'black',
+                            color: currentTheme === 'dark' ? '#aeaee0' : 'black',
                         }}>
                             <Typography variant='h4'>$78.62M</Typography>
                             <Typography variant='h6'>Оплачено в крипте</Typography>

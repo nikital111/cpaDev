@@ -1,123 +1,202 @@
 import React, { useContext } from "react";
 import withWidth from "@material-ui/core/withWidth";
 import { useTheme } from '@material-ui/core/styles';
-import { makeStyles, Box, Typography, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText, Divider} from "@material-ui/core";
+import { makeStyles, Box, Typography, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText, Divider, Icon, Hidden } from "@material-ui/core";
 import { People, Close, ChevronRight, ChevronLeft } from '@material-ui/icons';
 import clsx from 'clsx';
 import { ThemeContext } from "../../../context/themeContext";
+import MenuIcon from "@material-ui/icons/Menu";
 
 const Panel = ({ width }) => {
-  const { currentTheme } = useContext(ThemeContext);
-  const [open, setOpen] = React.useState(false);
-  const theme = useTheme();
+    const { currentTheme } = useContext(ThemeContext);
+    const [open, setOpen] = React.useState(false);
+    const theme = useTheme();
 
-  const drawerWidth = width === 'xs' ? '100%' : width === 'sm' ? '35%' : '25%';
+    const drawerWidth = width === 'xs' ? '100%' : width === 'sm' ? '40%' : width === 'md' ? '30%' : '15%';
 
-  const useStyles = makeStyles((theme) => ({
-    menuButton: {
-      marginRight: 36,
-    },
-    hide: {
-      display: 'none',
-    },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
-      whiteSpace: 'nowrap',
-    },
-    drawerOpen: {
-        backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '' ,
-        color: currentTheme === 'dark' ? '#7575a3' : '',
-      width: drawerWidth,
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    },
-    drawerClose: {
-        backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '' ,
-        color: currentTheme === 'dark' ? '#7575a3' : '',
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      overflowX: 'hidden',
-      width: theme.spacing(7),
-      [theme.breakpoints.up('sm')]: {
-        width: theme.spacing(9),
-      },
-    },
-    toolbar: {
-        
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
-      ...theme.mixins.toolbar,
-    },
-    content: {
-      flexGrow: 1,
-      padding: theme.spacing(3),
-    },
-  }));
+    const useStyles = makeStyles((theme) => ({
+        menuButton: {
+            marginRight: 36,
+        },
+        hide: {
+            display: 'none',
+        },
+        drawer: {
+            width: drawerWidth,
+            flexShrink: 0,
+            whiteSpace: 'nowrap',
+            '& .MuiListItem-root': {
 
-  const handleDrawer = () => {
-    setOpen(!open);
-  };
+            }
+        },
+        drawerOpen: {
+            backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
+            color: currentTheme === 'dark' ? '#7575a3' : '',
+            width: drawerWidth,
+            boxShadow: '2px 1px 16px 5px rgba(0,0,0,0.35)',
+            transition: theme.transitions.create('width', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+        },
+        drawerClose: {
+            display: width === 'xs' ? 'none' : 'visible',
+            backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
+            color: currentTheme === 'dark' ? '#7575a3' : '',
+            transition: theme.transitions.create('width', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.leavingScreen,
+            }),
+            overflowX: 'hidden',
+            width: theme.spacing(7),
+            [theme.breakpoints.up('sm')]: {
+                width: theme.spacing(9),
+            },
+        },
+        toolbar: {
 
-  const classes = useStyles();
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            padding: theme.spacing(0, 1),
+            // necessary for content to be below app bar
+            ...theme.mixins.toolbar,
+        },
+        content: {
+            flexGrow: 1,
+            padding: theme.spacing(3),
+        },
+    }));
 
-  return (
-    <>
-      <Drawer
-        variant="permanent"
-        className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
-        })
-    }
-        classes={{
-          paper: clsx({
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
-          }),
-        }}
-      >
-        <List>
-            <ListItem>
-            <ListItemIcon><Typography style={{color: currentTheme === 'dark' ? '#7575a3' : '',}} variant="h5">Logo</Typography></ListItemIcon>
-            <ListItemText><Typography variant="h5">PlatinumPay</Typography></ListItemText>
-            </ListItem>
-            <Divider />
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon style={{color: currentTheme === 'dark' ? '#7575a3' : '',}}>{index % 2 === 0 ? <People /> : <Close />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon style={{color: currentTheme === 'dark' ? '#7575a3' : '',}}>{index % 2 === 0 ? <People /> : <Close />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-          <ListItem>
-              <ListItemIcon>
-              <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawer} style={{color: currentTheme === 'dark' ? '#7575a3' : '',}}>
-            {!open ? <ChevronRight /> : <ChevronLeft />}
-          </IconButton>
-        </div>
-              </ListItemIcon>
-          </ListItem>
-        </List>
-      </Drawer>
-    </>
-  );
+    const handleDrawer = () => {
+        setOpen(!open);
+    };
+
+    const classes = useStyles();
+
+    return (
+        <>
+
+
+            <IconButton
+            onClick={handleDrawer}
+                style={{
+                    backgroundColor: '#001529',
+                    position: 'fixed',
+                    top: '10%',
+                    left: '10px',
+                    zIndex: '999',
+                    color: 'red'
+                }}>
+                <MenuIcon style={{
+                    color:'#aeaee0'
+                }}></MenuIcon>
+            </IconButton>
+
+
+
+            <Drawer
+                variant="permanent"
+                className={clsx(classes.drawer, {
+                    [classes.drawerOpen]: open,
+                    [classes.drawerClose]: !open,
+                })
+                }
+                classes={{
+                    paper: clsx({
+                        [classes.drawerOpen]: open,
+                        [classes.drawerClose]: !open,
+                    }),
+                }}
+            >
+                <List>
+                    <ListItem>
+                        {!open ?
+                            <ListItemIcon><Typography style={{ color: currentTheme === 'dark' ? '#7575a3' : '', }} variant="h5">Logo</Typography></ListItemIcon>
+                            :
+                            <ListItemText><Typography variant="h5">PlatinumPay</Typography></ListItemText>
+                        }
+                    </ListItem>
+                    <Divider />
+                    {open
+                        ?
+                        ['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                            <ListItem button key={text} style={{
+                                display: 'flex',
+                                justifyContent: 'center'
+                            }}>
+                                <ListItemText primary={text} />
+                                <ListItemIcon style={{ color: currentTheme === 'dark' ? '#7575a3' : '', }}>{index % 2 === 0 ? <People /> : <Close />}</ListItemIcon>
+                            </ListItem>
+                        ))
+                        :
+                        ['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                            <ListItem button key={text} style={{
+                                display: 'flex',
+                                justifyContent: 'center'
+                            }}>
+                                <ListItemIcon style={{
+                                    color: currentTheme === 'dark' ? '#7575a3' : '',
+                                    display: 'flex',
+                                    justifyContent: 'center'
+                                }}>{index % 2 === 0 ? <People /> : <Close />}</ListItemIcon>
+                            </ListItem>
+                        ))}
+                </List>
+                <Divider />
+                <List>
+                    {open
+                        ?
+                        ['All mail', 'Trash', 'Spam'].map((text, index) => (
+                            <ListItem button key={text} style={{
+                                display: 'flex',
+                                justifyContent: 'center'
+                            }}>
+                                <ListItemText primary={text} />
+                                <ListItemIcon style={{ color: currentTheme === 'dark' ? '#7575a3' : '', }}>{index % 2 === 0 ? <People /> : <Close />}</ListItemIcon>
+                            </ListItem>
+                        ))
+                        :
+                        ['All mail', 'Trash', 'Spam'].map((text, index) => (
+                            <ListItem button key={text} style={{
+                                display: 'flex',
+                                justifyContent: 'center'
+                            }}>
+                                <ListItemIcon style={{
+                                    color: currentTheme === 'dark' ? '#7575a3' : '',
+                                    display: 'flex',
+                                    justifyContent: 'center'
+                                }}>
+                                    {index % 2 === 0 ? <People /> : <Close />}
+                                </ListItemIcon>
+                            </ListItem>
+                        ))}
+                    <ListItem
+                        onClick={handleDrawer}
+                        style={{
+                            justifyContent: 'center',
+                            backgroundColor: currentTheme === 'dark' ? '#14142d' : '',
+                            cursor: 'pointer'
+                        }}>
+                        <ListItemIcon style={{
+                            display: 'flex',
+                            justifyContent: 'center'
+                        }}>
+                            <div className={classes.toolbar}>
+                                <Icon style={{
+                                    color: currentTheme === 'dark' ? '#7575a3' : '',
+                                    width: '100%'
+                                }}>
+                                    {!open ? <ChevronRight /> : <ChevronLeft />}
+                                </Icon>
+                            </div>
+                        </ListItemIcon>
+                    </ListItem>
+                </List>
+            </Drawer>
+
+        </>
+    );
 };
 
 export default withWidth()(Panel);

@@ -12,6 +12,7 @@ import Cookies from 'js-cookie';
 import Panel from "./components/Panel";
 import StatisticsToday from "./components/StatisticsToday";
 import StatisticsMonthly from './components/StatisticsMonthly';
+import Referrals from "./components/Referrals";
 
 
 
@@ -33,7 +34,7 @@ const Dashboard = ({ width }) => {
 
   return (
     <>
-      <Panel />
+      
       <Box
         className='animate__animated animate__fadeIn'
         style={{
@@ -44,8 +45,8 @@ const Dashboard = ({ width }) => {
           bottom: '0px',
           width: '100%',
           minHeight: '100%',
-          padding:'90px 0px 0px 12%',
-          paddingLeft: width === 'xs' ? '16%' : '12%',
+          paddingTop:'90px',
+          paddingLeft: width === 'xs' ? '5%' : width === 'sm' ? '16%' : width === 'md' ? '10%' : width === 'lg' ? '7%' : '7%',
           display: "flex",
           flexDirection: 'column',
           justifyContent: 'flex-start',
@@ -53,8 +54,10 @@ const Dashboard = ({ width }) => {
           backgroundColor: currentTheme === 'light' ? 'white' : 'rgb(20, 19, 34)',
           zIndex: '999',
         }}>
+            <Panel />
       <StatisticsToday />
       <StatisticsMonthly />
+      <Referrals />
       </Box>
     </>
   );
