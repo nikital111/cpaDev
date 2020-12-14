@@ -24,6 +24,7 @@ const MainHeader = ({ themeChanger, width }) => {
 
   const dispatch = useDispatch();
   const isLogin = useSelector(state => state.isLogin);
+  const openPanel = useSelector(state => state.openPanel);
   if (Cookies.get('token')) {
     if (!isLogin) {
       dispatch(setLogin())
@@ -112,7 +113,8 @@ const MainHeader = ({ themeChanger, width }) => {
     >
       <AppBar position="fixed" style={{
         boxShadow: "0 1px 6px 0 rgba(32,33,36,.28)",
-        transition: "box-shadow 250ms"
+        transition: "box-shadow 250ms",
+        zIndex:'11'
       }}>
         <Toolbar
           style={{
@@ -137,6 +139,13 @@ const MainHeader = ({ themeChanger, width }) => {
               }}
             >
               {isLogin ? '' : 'Logo'}
+              {isLogin ? 
+            !openPanel ?
+              <Typography style={{ color: currentTheme === 'dark' ? '#7575a3' : '', zIndex:'112'}} variant="h5">Logo</Typography>
+              :
+              <Typography style={{ color: currentTheme === 'dark' ? '#7575a3' : '', zIndex:'112'}} variant="h5">PlatinumPay</Typography>
+            : null
+            }
             </NavLink>
           </Typography>
           {width !== "xs" ?

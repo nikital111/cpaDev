@@ -15,7 +15,7 @@ const StatisticsToday = ({ width }) => {
             display: 'flex',
             justifyContent: 'space-between',
             backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
-            width: width === 'lg' ? '28%' : width === 'xl' ? '29%' : '100%',
+            width: width === 'lg' ? '26vw' : width === 'xl' ? '25vw' : width === 'md' ? '91vw' : width === 'sm' ? '91vw' : '91vw',
             padding: '15px',
             margin:'10px 10px'
         }
@@ -64,18 +64,18 @@ const StatisticsToday = ({ width }) => {
                 display: 'flex',
                 justifyContent: 'center',
                 flexDirection: 'column',
-                width: '100%'
+                width: '100vw'
             }}>
                 <Typography variant="h5" style={{
                     color: currentTheme === 'dark' ? '#aeaee0' : 'black',
-                    width: '100%',
+                    width: '100vw',
                     paddingBottom: '20px',
                     marginLeft:'10px'
                 }}>
                     Сегодняшняя статистика
               </Typography>
                 <Box style={{
-                    maxWidth: width === 'xs' ? '97%' : '90%',
+                    maxWidth: width === 'xs' ? '90vw' : width === 'sm' ? '80vw' : width === 'md' ? '86vw' : width === 'lg' ? '90vw' : '90vw',
                     display: 'flex',
                     justifyContent: 'space-between',
                     flexWrap: 'wrap'

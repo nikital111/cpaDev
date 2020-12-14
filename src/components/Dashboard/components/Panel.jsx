@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import withWidth from "@material-ui/core/withWidth";
 import { useTheme } from '@material-ui/core/styles';
 import { makeStyles, Box, Typography, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText, Divider, Icon, Hidden } from "@material-ui/core";
@@ -6,12 +7,13 @@ import { People, Close, ChevronRight, ChevronLeft } from '@material-ui/icons';
 import clsx from 'clsx';
 import { ThemeContext } from "../../../context/themeContext";
 import MenuIcon from "@material-ui/icons/Menu";
+import { setOpenPanel } from "../../../actions/actions";
 
 const Panel = ({ width }) => {
     const { currentTheme } = useContext(ThemeContext);
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
-
+    const dispatch = useDispatch();
     const drawerWidth = width === 'xs' ? '100%' : width === 'sm' ? '40%' : width === 'md' ? '30%' : '15%';
 
     const useStyles = makeStyles((theme) => ({
@@ -25,11 +27,13 @@ const Panel = ({ width }) => {
             width: drawerWidth,
             flexShrink: 0,
             whiteSpace: 'nowrap',
-            '& .MuiListItem-root': {
-
-            }
+            '& .MuiListItem-button':{
+                height:'3em'
+            },
+            
         },
         drawerOpen: {
+            paddingTop:'63px',
             backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
             color: currentTheme === 'dark' ? '#7575a3' : '',
             width: drawerWidth,
@@ -40,6 +44,7 @@ const Panel = ({ width }) => {
             }),
         },
         drawerClose: {
+            marginTop:'63px',
             display: width === 'xs' ? 'none' : 'visible',
             backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
             color: currentTheme === 'dark' ? '#7575a3' : '',
@@ -48,9 +53,9 @@ const Panel = ({ width }) => {
                 duration: theme.transitions.duration.leavingScreen,
             }),
             overflowX: 'hidden',
-            width: theme.spacing(7),
+            width: theme.spacing(9),
             [theme.breakpoints.up('sm')]: {
-                width: theme.spacing(9),
+                width: theme.spacing(11),
             },
         },
         toolbar: {
@@ -70,6 +75,7 @@ const Panel = ({ width }) => {
 
     const handleDrawer = () => {
         setOpen(!open);
+        dispatch(setOpenPanel())
     };
 
     const classes = useStyles();
@@ -78,12 +84,13 @@ const Panel = ({ width }) => {
         <>
 
 
+            <Hidden smUp>
             <IconButton
             onClick={handleDrawer}
                 style={{
                     backgroundColor: '#001529',
                     position: 'fixed',
-                    top: '10%',
+                    top: '10vh',
                     left: '10px',
                     zIndex: '999',
                     color: 'red'
@@ -92,6 +99,7 @@ const Panel = ({ width }) => {
                     color:'#aeaee0'
                 }}></MenuIcon>
             </IconButton>
+            </Hidden>
 
 
 
@@ -109,18 +117,26 @@ const Panel = ({ width }) => {
                     }),
                 }}
             >
+              
+               
+                
                 <List>
-                    <ListItem>
-                        {!open ?
-                            <ListItemIcon><Typography style={{ color: currentTheme === 'dark' ? '#7575a3' : '', }} variant="h5">Logo</Typography></ListItemIcon>
-                            :
-                            <ListItemText><Typography variant="h5">PlatinumPay</Typography></ListItemText>
-                        }
-                    </ListItem>
-                    <Divider />
+                <ListItemText style={{
+                        color:'#232135',
+                        paddingLeft: open ? '10px' : ''
+                    }}>
+                {!open ?
+                 <Divider style={{
+                        backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
+                        margin:'10px 0px'
+                    }} />
+                :          
+                "APPS"
+                }
+                </ListItemText>
                     {open
                         ?
-                        ['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                        ['All mail', 'Trash', 'Spam'].map((text, index) => (
                             <ListItem button key={text} style={{
                                 display: 'flex',
                                 justifyContent: 'center'
@@ -130,7 +146,7 @@ const Panel = ({ width }) => {
                             </ListItem>
                         ))
                         :
-                        ['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                        ['All mail', 'Trash', 'Spam'].map((text, index) => (
                             <ListItem button key={text} style={{
                                 display: 'flex',
                                 justifyContent: 'center'
@@ -139,12 +155,71 @@ const Panel = ({ width }) => {
                                     color: currentTheme === 'dark' ? '#7575a3' : '',
                                     display: 'flex',
                                     justifyContent: 'center'
-                                }}>{index % 2 === 0 ? <People /> : <Close />}</ListItemIcon>
+                                }}>
+                                    {index % 2 === 0 ? <People /> : <Close />}
+                                </ListItemIcon>
                             </ListItem>
                         ))}
-                </List>
-                <Divider />
+                        </List>
+                        
+
                 <List>
+                <ListItemText style={{
+                        color:'#232135',
+                        paddingLeft: open ? '10px' : ''
+                    }}>
+                {!open ?
+                 <Divider style={{
+                        backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
+                        margin:'10px 0px'
+                    }} />
+                :          
+                "APPS"
+                }
+                </ListItemText>
+                    {open
+                        ?
+                        ['All mail', 'Trash', 'Spam'].map((text, index) => (
+                            <ListItem button key={text} style={{
+                                display: 'flex',
+                                justifyContent: 'center'
+                            }}>
+                                <ListItemText primary={text} />
+                                <ListItemIcon style={{ color: currentTheme === 'dark' ? '#7575a3' : '', }}>{index % 2 === 0 ? <People /> : <Close />}</ListItemIcon>
+                            </ListItem>
+                        ))
+                        :
+                        ['All mail', 'Trash', 'Spam'].map((text, index) => (
+                            <ListItem button key={text} style={{
+                                display: 'flex',
+                                justifyContent: 'center'
+                            }}>
+                                <ListItemIcon style={{
+                                    color: currentTheme === 'dark' ? '#7575a3' : '',
+                                    display: 'flex',
+                                    justifyContent: 'center'
+                                }}>
+                                    {index % 2 === 0 ? <People /> : <Close />}
+                                </ListItemIcon>
+                            </ListItem>
+                        ))}
+                        </List>
+
+                
+                <List>
+                <ListItemText style={{
+                        color:'#232135',
+                        paddingLeft: open ? '10px' : ''
+                    }}>
+                {!open ?
+                 <Divider style={{
+                        backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
+                        margin:'10px 0px'
+                    }} />
+                :          
+                "APPS"
+                }
+                </ListItemText>
                     {open
                         ?
                         ['All mail', 'Trash', 'Spam'].map((text, index) => (
@@ -193,6 +268,7 @@ const Panel = ({ width }) => {
                         </ListItemIcon>
                     </ListItem>
                 </List>
+                
             </Drawer>
 
         </>

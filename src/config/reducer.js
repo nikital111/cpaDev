@@ -1,6 +1,7 @@
 const initialState = {
     isLogin:false,
-    userData: {}
+    userData: {},
+    openPanel:false
   };
   
   const reduce = (state = initialState, action) => {
@@ -9,6 +10,13 @@ const initialState = {
         return {
           ...state,
           isLogin: !state.isLogin
+        };
+      }
+
+      case "OPEN_PANEL": {
+        return {
+          ...state,
+          openPanel: !state.openPanel
         };
       }
 

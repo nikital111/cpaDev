@@ -16,7 +16,7 @@ const StatisticsMonthly = ({ width }) => {
             justifyContent: 'flex-start',
             flexDirection: 'column',
             backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
-            width: width === 'lg' ? '20%' : width === 'xl' ? '20%' : width === 'md' ? '43%' : width === 'sm' ? '96%' : '96%',
+            width: width === 'lg' ? '18vw' : width === 'xl' ? '18vw' : width === 'md' ? '83vw' : width === 'sm' ? '96vw' : '96vw',
             padding: '15px',
             margin:'10px 10px'
         }
@@ -35,7 +35,7 @@ const StatisticsMonthly = ({ width }) => {
     const createLine = data => {
         return (
             <LineChart
-                width={width === 'xs' ? 265 : width === 'sm' ? 470 : width === 'md' ? 350 : width === 'lg' ? 220 : 300} 
+                width={width === 'xs' ? 265 : width === 'sm' ? 470 : width === 'md' ? 750 : width === 'lg' ? 220 : 300} 
                 height={200} 
                 data={dataLine}
                 margin={{ left: 10 }}
@@ -57,22 +57,22 @@ const StatisticsMonthly = ({ width }) => {
                 display: 'flex',
                 justifyContent: 'center',
                 flexDirection: 'column',
-                width: '100%',
+                width: '100vw',
                 marginTop: '25px'
             }}>
                 <Typography variant="h5" style={{
                     color: currentTheme === 'dark' ? '#aeaee0' : 'black',
-                    width: '100%',
+                    width: '100vw',
                     paddingBottom: '20px',
                     marginLeft:'10px'
                 }}>
                     Статистика за месяц
               </Typography>
                 <Box style={{
-                    maxWidth: width === 'xs' ? '97%' : '90%',
+                    maxWidth: width === 'xs' ? '90vw' : width === 'sm' ? '80vw' : width === 'md' ? '86vw' : width === 'lg' ? '90vw' : '90vw',
                     display: 'flex',
                     justifyContent: 'space-between',
-                    flexWrap: 'wrap'
+                    flexWrap: 'wrap',
                 }}>
 
 

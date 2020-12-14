@@ -28,7 +28,7 @@ const Referrals = ({ width }) => {
                 justifyContent:'center'
             },
             '& .MuiDataGrid-colCell-draggable':{
-                width:'100%',
+                width:'100vw',
                 display:'flex',
                 justifyContent:'center'
             },
@@ -40,7 +40,7 @@ const Referrals = ({ width }) => {
                 color: currentTheme === 'dark' ? '#aeaee0!important' : '#595c97!important',
                 backgroundColor: currentTheme === 'dark' ? 'rgb(20, 19, 34)' : 'white',
                 margin:'15px',
-                fontSize:'24px',
+                fontSize:'21px',
             }
         }
     }));
@@ -87,23 +87,26 @@ const Referrals = ({ width }) => {
                 display: 'flex',
                 justifyContent: 'center',
                 flexDirection: 'column',
-                width: '100%',
+                width: '100vw',
                 margin: '20px 10px'
             }}>
 
 
                 <Box style={{
                     backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
-                    maxWidth: width === 'xs' ? '97%' : '89%',
+                    maxWidth: width === 'xs' ? '73vw' : width === 'sm' ? '70vw' : width === 'md' ? '78.5vw' : width === 'lg' ? '84.5vw' : '86.5vw',
                     margin: '10px',
                     border: currentTheme === 'dark' ? '1px solid #232135' : 'none',
-                    padding:'15px'
+                    padding:'15px 35px 35px 15px',
+                    display:'flex',
+                    justifyContent:'center',
+                    flexDirection:'column'
                 }}>
 
 
                     <Typography variant="h5" style={{
                         color: currentTheme === 'dark' ? '#aeaee0' : 'black',
-                        width: '100%',
+                        width: '100vw',
                         padding: '0px 0px 20px 0px',
                         margin: '20px 0px',
                         // borderBottom:'1px solid rgb(174, 174, 224)'
@@ -112,7 +115,7 @@ const Referrals = ({ width }) => {
               </Typography>
 
 
-                    <div className={classes.grid} style={{ height: 400, width: '98%' }}>
+                    <div className={classes.grid} style={{ height: 400, width: width === 'xs' ? '70vw' : width === 'sm' ? '70vw' : width === 'md' ? '80vw' : width === 'lg' ? '84vw' : '86vw' }}>
                         <DataGrid  rows={rows} columns={columns} pageSize={5}  />
                     </div>
 

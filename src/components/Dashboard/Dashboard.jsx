@@ -13,6 +13,9 @@ import Panel from "./components/Panel";
 import StatisticsToday from "./components/StatisticsToday";
 import StatisticsMonthly from './components/StatisticsMonthly';
 import Referrals from "./components/Referrals";
+import Cards from "./components/Cards";
+import Accounts from "./components/Accounts";
+import Transactions from "./components/Transactions";
 
 
 
@@ -22,9 +25,7 @@ const Dashboard = ({ width }) => {
   const { currentTheme } = useContext(ThemeContext);
   const myHistory = useHistory();
 
-  if(!Cookies.get('token')){
-    myHistory.push('/login')
-  }
+
 
   const useStyles = makeStyles((theme) => ({
 
@@ -43,21 +44,23 @@ const Dashboard = ({ width }) => {
           left: '0px',
           right: '0xp',
           bottom: '0px',
-          width: '100%',
-          minHeight: '100%',
+          width: '100vw',
           paddingTop:'90px',
-          paddingLeft: width === 'xs' ? '5%' : width === 'sm' ? '16%' : width === 'md' ? '10%' : width === 'lg' ? '7%' : '7%',
+          paddingLeft: width === 'xs' ? '5vw' : width === 'sm' ? '16vw' : width === 'md' ? '10vw' : width === 'lg' ? '7vw' : '7vw',
           display: "flex",
           flexDirection: 'column',
           justifyContent: 'flex-start',
           alignItems: 'center',
           backgroundColor: currentTheme === 'light' ? 'white' : 'rgb(20, 19, 34)',
-          zIndex: '999',
+          zIndex: '9',
         }}>
             <Panel />
       <StatisticsToday />
       <StatisticsMonthly />
       <Referrals />
+      <Cards />
+      <Accounts />
+      <Transactions />
       </Box>
     </>
   );
