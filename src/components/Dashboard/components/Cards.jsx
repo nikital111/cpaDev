@@ -36,7 +36,6 @@ const Cards = ({ width }) => {
                 display: 'flex',
                 justifyContent: 'center',
                 flexDirection: 'column',
-                width: '100vw'
             }}>
 
                 <Typography variant="h5" style={{
@@ -49,7 +48,7 @@ const Cards = ({ width }) => {
               </Typography>
 
                 <Box style={{
-                    maxWidth: width === 'xs' ? '90vw' : width === 'sm' ? '80vw' : width === 'md' ? '86vw' : width === 'lg' ? '90vw' : '90vw',
+                    width: width === 'xs' ? 'calc(100vw - 35px)' : 'calc(100vw - 125px)',
                     display: 'flex',
                     justifyContent: 'space-between',
                     flexWrap: 'wrap'

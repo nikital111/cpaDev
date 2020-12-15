@@ -12,35 +12,35 @@ const Referrals = ({ width }) => {
 
     const useStyles = makeStyles((theme) => ({
         grid: {
-            '& .MuiIconButton-label':{
+            '& .MuiIconButton-label': {
                 color: currentTheme === 'dark' ? '#aeaee0' : '#595c97'
             },
-            '& .MuiDataGrid-root .MuiDataGrid-cellRight':{
-                    textAlign:'left'
+            '& .MuiDataGrid-root .MuiDataGrid-cellRight': {
+                textAlign: 'left'
             },
-            '& .MuiDataGrid-root .MuiDataGrid-cell':{
-                border:'none'
+            '& .MuiDataGrid-root .MuiDataGrid-cell': {
+                border: 'none'
             },
-            '& .MuiDataGrid-root .MuiDataGrid-colCellTitleContainer':{
-                justifyContent:'center'
+            '& .MuiDataGrid-root .MuiDataGrid-colCellTitleContainer': {
+                justifyContent: 'center'
             },
-            '& .MuiDataGrid-root .MuiDataGrid-colCellRight .MuiDataGrid-colCellTitleContainer':{
-                justifyContent:'center'
+            '& .MuiDataGrid-root .MuiDataGrid-colCellRight .MuiDataGrid-colCellTitleContainer': {
+                justifyContent: 'center'
             },
-            '& .MuiDataGrid-colCell-draggable':{
-                width:'100vw',
-                display:'flex',
-                justifyContent:'center'
+            '& .MuiDataGrid-colCell-draggable': {
+                width: '100vw',
+                display: 'flex',
+                justifyContent: 'center'
             },
-            '& .MuiTablePagination-root':{
+            '& .MuiTablePagination-root': {
                 color: currentTheme === 'dark' ? '#aeaee0!important' : '#595c97!important'
             },
-            '& .MuiDataGrid-root':{
-                border:'none',
+            '& .MuiDataGrid-root': {
+                border: 'none',
                 color: currentTheme === 'dark' ? '#aeaee0!important' : '#595c97!important',
                 backgroundColor: currentTheme === 'dark' ? 'rgb(20, 19, 34)' : 'white',
-                margin:'15px',
-                fontSize:'21px',
+                margin: '15px',
+                fontSize: '21px',
             }
         }
     }));
@@ -87,36 +87,40 @@ const Referrals = ({ width }) => {
                 display: 'flex',
                 justifyContent: 'center',
                 flexDirection: 'column',
-                width: '100vw',
-                margin: '20px 10px'
+                margin: '20px 10px',
+                backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
+                border: currentTheme === 'dark' ? '1px solid #232135' : 'none',
+                padding: '35px',
             }}>
 
 
+                <Typography variant="h5" style={{
+                    color: currentTheme === 'dark' ? '#aeaee0' : 'black',
+                    width: '100vw',
+                    padding: '0px 0px 20px 0px',
+                    margin: '20px 0px',
+                    // borderBottom:'1px solid rgb(174, 174, 224)'
+                }}>
+                    Последние рефералы
+              </Typography>
+
                 <Box style={{
-                    backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
-                    maxWidth: width === 'xs' ? '73vw' : width === 'sm' ? '70vw' : width === 'md' ? '78.5vw' : width === 'lg' ? '84.5vw' : '86.5vw',
+                    
+                    width: width === 'xs' ? 'calc(100vw - 35px)' : 'calc(100vw - 125px)',
                     margin: '10px',
-                    border: currentTheme === 'dark' ? '1px solid #232135' : 'none',
-                    padding:'15px 35px 35px 15px',
-                    display:'flex',
-                    justifyContent:'center',
-                    flexDirection:'column'
+                   
+                    padding: '15px 35px 35px 15px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    flexDirection: 'column'
                 }}>
 
 
-                    <Typography variant="h5" style={{
-                        color: currentTheme === 'dark' ? '#aeaee0' : 'black',
-                        width: '100vw',
-                        padding: '0px 0px 20px 0px',
-                        margin: '20px 0px',
-                        // borderBottom:'1px solid rgb(174, 174, 224)'
-                    }}>
-                        Последние рефералы
-              </Typography>
+
 
 
                     <div className={classes.grid} style={{ height: 400, width: width === 'xs' ? '70vw' : width === 'sm' ? '70vw' : width === 'md' ? '80vw' : width === 'lg' ? '84vw' : '86vw' }}>
-                        <DataGrid  rows={rows} columns={columns} pageSize={5}  />
+                        <DataGrid rows={rows} columns={columns} pageSize={5} />
                     </div>
 
 

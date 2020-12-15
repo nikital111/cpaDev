@@ -16,7 +16,7 @@ const StatisticsMonthly = ({ width }) => {
             justifyContent: 'flex-start',
             flexDirection: 'column',
             backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
-            width: width === 'lg' ? '18vw' : width === 'xl' ? '18vw' : width === 'md' ? '83vw' : width === 'sm' ? '96vw' : '96vw',
+            width: width === 'lg' ? '18vw' : width === 'xl' ? '20vw' : width === 'md' ? '100vw' : width === 'sm' ? '100vw' : '100vw',
             padding: '15px',
             margin:'10px 10px'
         }
@@ -57,7 +57,6 @@ const StatisticsMonthly = ({ width }) => {
                 display: 'flex',
                 justifyContent: 'center',
                 flexDirection: 'column',
-                width: '100vw',
                 marginTop: '25px'
             }}>
                 <Typography variant="h5" style={{
@@ -69,7 +68,7 @@ const StatisticsMonthly = ({ width }) => {
                     Статистика за месяц
               </Typography>
                 <Box style={{
-                    maxWidth: width === 'xs' ? '90vw' : width === 'sm' ? '80vw' : width === 'md' ? '86vw' : width === 'lg' ? '90vw' : '90vw',
+                    width: width === 'xs' ? 'calc(100vw - 35px)' : 'calc(100vw - 125px)',
                     display: 'flex',
                     justifyContent: 'space-between',
                     flexWrap: 'wrap',

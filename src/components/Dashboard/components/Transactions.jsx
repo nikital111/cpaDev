@@ -20,7 +20,7 @@ const Accounts = ({ width }) => {
             justifyContent:'center',
             color: currentTheme === 'dark' ? '#aeaee0' : 'black',
             backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
-            width: '96vw',
+            width: '100vw',
             border: currentTheme === 'dark' ? '1px solid #232135' : 'none',
             borderRadius:'8px',
             borderLeft:'5px #41b883 solid',
@@ -36,7 +36,6 @@ const Accounts = ({ width }) => {
                 display: 'flex',
                 justifyContent: 'center',
                 flexDirection: 'column',
-                width: '100vw',
                 marginTop: '25px'
             }}>
                 <Typography variant="h5" style={{
@@ -48,7 +47,7 @@ const Accounts = ({ width }) => {
                     Последние транзакции
               </Typography>
                 <Box style={{
-                    maxWidth: width === 'xs' ? '90vw' : width === 'sm' ? '80vw' : width === 'md' ? '86vw' : width === 'lg' ? '90vw' : '90vw',
+                    width: width === 'xs' ? 'calc(100vw - 35px)' : 'calc(100vw - 125px)',
                     display: 'flex',
                     justifyContent: 'space-between',
                     flexWrap: 'wrap',

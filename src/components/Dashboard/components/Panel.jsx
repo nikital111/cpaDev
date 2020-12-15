@@ -2,49 +2,48 @@ import React, { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import withWidth from "@material-ui/core/withWidth";
 import { useTheme } from '@material-ui/core/styles';
-import { makeStyles, Box, Typography, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText, Divider, Icon, Hidden } from "@material-ui/core";
+import { makeStyles, Box, Typography, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText, Divider, Icon, Hidden, Accordion, AccordionSummary, AccordionDetails } from "@material-ui/core";
 import { People, Close, ChevronRight, ChevronLeft } from '@material-ui/icons';
 import clsx from 'clsx';
 import { ThemeContext } from "../../../context/themeContext";
 import MenuIcon from "@material-ui/icons/Menu";
 import { setOpenPanel } from "../../../actions/actions";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const Panel = ({ width }) => {
     const { currentTheme } = useContext(ThemeContext);
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const dispatch = useDispatch();
-    const drawerWidth = width === 'xs' ? '100%' : width === 'sm' ? '40%' : width === 'md' ? '30%' : '15%';
+    const drawerWidth = '280px';
 
     const useStyles = makeStyles((theme) => ({
-        menuButton: {
-            marginRight: 36,
-        },
         hide: {
             display: 'none',
         },
         drawer: {
-            width: drawerWidth,
+
             flexShrink: 0,
+
             whiteSpace: 'nowrap',
-            '& .MuiListItem-button':{
-                height:'3em'
+            '& .MuiDrawer-paper': {
+                top: '63px',
+                height: 'calc(100vh - 103px)',
+                boxShadow: '2px 1px 16px 5px rgba(0,0,0,0.35)',
             },
-            
+
         },
         drawerOpen: {
-            paddingTop:'63px',
+
             backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
             color: currentTheme === 'dark' ? '#7575a3' : '',
             width: drawerWidth,
-            boxShadow: '2px 1px 16px 5px rgba(0,0,0,0.35)',
             transition: theme.transitions.create('width', {
                 easing: theme.transitions.easing.sharp,
                 duration: theme.transitions.duration.enteringScreen,
             }),
         },
         drawerClose: {
-            marginTop:'63px',
             display: width === 'xs' ? 'none' : 'visible',
             backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
             color: currentTheme === 'dark' ? '#7575a3' : '',
@@ -53,24 +52,70 @@ const Panel = ({ width }) => {
                 duration: theme.transitions.duration.leavingScreen,
             }),
             overflowX: 'hidden',
-            width: theme.spacing(9),
-            [theme.breakpoints.up('sm')]: {
-                width: theme.spacing(11),
+            width: '80px'
+        },
+        buttClose: {
+            transition: theme.transitions.create('width', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.leavingScreen,
+            }),
+            width: '80px'
+        },
+        buttOpen: {
+            transition: theme.transitions.create('width', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+            width: drawerWidth
+        },
+        root: {
+            '& .MuiAccordionDetails-root':{
+                padding:'0px 0px 10px 0px'
             },
-        },
-        toolbar: {
+            '& .MuiAccordionSummary-root.Mui-expanded': {
+                minHeight: 'none',
+                backgroundColor: '#232135'
+            },
+            '& .MuiAccordion-root.Mui-expanded': {
+                margin: '0px'
+            },
+            '& .MuiAccordionSummary-expandIcon': {
+                color: 'rgb(117, 117, 163)'
+            },
+            '& .MuiCollapse-container': {
+                backgroundColor: '#232135'
+            },
+            '& .MuiAccordion-root:before': {
+                display: 'none'
+            },
+            '& .MuiPaper-root': {
+                backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
+                color: 'rgb(117, 117, 163)',
+                textAlign: 'center',
+                '&:hover':{
+                    backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
+                    color:'#4b7cf3'
+                }
 
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            padding: theme.spacing(0, 1),
-            // necessary for content to be below app bar
-            ...theme.mixins.toolbar,
+
+            }
         },
-        content: {
-            flexGrow: 1,
-            padding: theme.spacing(3),
+        liAcc:{
+            width:'100%',
+            cursor:'pointer',
+            padding:'10px 0px 10px 30px',
+            margin:'5px 0px',
+            color:'rgb(117, 117, 163)',
+            textAlign:'left',
+            '&:hover':{
+                color:'#4b7cf3'
+            }
         },
+        ulAcc:{
+            width:'100%',
+            listStyleType:'none',
+            padding:'0px'
+        }
     }));
 
     const handleDrawer = () => {
@@ -85,20 +130,20 @@ const Panel = ({ width }) => {
 
 
             <Hidden smUp>
-            <IconButton
-            onClick={handleDrawer}
-                style={{
-                    backgroundColor: '#001529',
-                    position: 'fixed',
-                    top: '10vh',
-                    left: '10px',
-                    zIndex: '999',
-                    color: 'red'
-                }}>
-                <MenuIcon style={{
-                    color:'#aeaee0'
-                }}></MenuIcon>
-            </IconButton>
+                <IconButton
+                    onClick={handleDrawer}
+                    style={{
+                        backgroundColor: '#001529',
+                        position: 'fixed',
+                        top: '10vh',
+                        left: '10px',
+                        zIndex: '999',
+                        color: 'red'
+                    }}>
+                    <MenuIcon style={{
+                        color: '#aeaee0'
+                    }}></MenuIcon>
+                </IconButton>
             </Hidden>
 
 
@@ -117,141 +162,197 @@ const Panel = ({ width }) => {
                     }),
                 }}
             >
-              
-               
-                
-                <List>
-                <ListItemText style={{
-                        color:'#232135',
-                        paddingLeft: open ? '10px' : ''
-                    }}>
-                {!open ?
-                 <Divider style={{
-                        backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
-                        margin:'10px 0px'
-                    }} />
-                :          
-                "APPS"
-                }
-                </ListItemText>
-                    {open
-                        ?
-                        ['All mail', 'Trash', 'Spam'].map((text, index) => (
-                            <ListItem button key={text} style={{
-                                display: 'flex',
-                                justifyContent: 'center'
-                            }}>
-                                <ListItemText primary={text} />
-                                <ListItemIcon style={{ color: currentTheme === 'dark' ? '#7575a3' : '', }}>{index % 2 === 0 ? <People /> : <Close />}</ListItemIcon>
-                            </ListItem>
-                        ))
-                        :
-                        ['All mail', 'Trash', 'Spam'].map((text, index) => (
-                            <ListItem button key={text} style={{
-                                display: 'flex',
-                                justifyContent: 'center'
-                            }}>
-                                <ListItemIcon style={{
-                                    color: currentTheme === 'dark' ? '#7575a3' : '',
-                                    display: 'flex',
-                                    justifyContent: 'center'
-                                }}>
-                                    {index % 2 === 0 ? <People /> : <Close />}
-                                </ListItemIcon>
-                            </ListItem>
-                        ))}
-                        </List>
-                        
+
+
+
 
                 <List>
-                <ListItemText style={{
-                        color:'#232135',
-                        paddingLeft: open ? '10px' : ''
-                    }}>
-                {!open ?
-                 <Divider style={{
-                        backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
-                        margin:'10px 0px'
-                    }} />
-                :          
-                "APPS"
-                }
-                </ListItemText>
-                    {open
-                        ?
-                        ['All mail', 'Trash', 'Spam'].map((text, index) => (
-                            <ListItem button key={text} style={{
-                                display: 'flex',
-                                justifyContent: 'center'
-                            }}>
-                                <ListItemText primary={text} />
-                                <ListItemIcon style={{ color: currentTheme === 'dark' ? '#7575a3' : '', }}>{index % 2 === 0 ? <People /> : <Close />}</ListItemIcon>
-                            </ListItem>
-                        ))
-                        :
-                        ['All mail', 'Trash', 'Spam'].map((text, index) => (
-                            <ListItem button key={text} style={{
-                                display: 'flex',
-                                justifyContent: 'center'
-                            }}>
-                                <ListItemIcon style={{
-                                    color: currentTheme === 'dark' ? '#7575a3' : '',
-                                    display: 'flex',
-                                    justifyContent: 'center'
-                                }}>
-                                    {index % 2 === 0 ? <People /> : <Close />}
-                                </ListItemIcon>
-                            </ListItem>
-                        ))}
-                        </List>
 
-                
-                <List>
-                <ListItemText style={{
-                        color:'#232135',
-                        paddingLeft: open ? '10px' : ''
-                    }}>
-                {!open ?
-                 <Divider style={{
-                        backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
-                        margin:'10px 0px'
-                    }} />
-                :          
-                "APPS"
-                }
-                </ListItemText>
-                    {open
-                        ?
-                        ['All mail', 'Trash', 'Spam'].map((text, index) => (
-                            <ListItem button key={text} style={{
-                                display: 'flex',
-                                justifyContent: 'center'
-                            }}>
-                                <ListItemText primary={text} />
-                                <ListItemIcon style={{ color: currentTheme === 'dark' ? '#7575a3' : '', }}>{index % 2 === 0 ? <People /> : <Close />}</ListItemIcon>
-                            </ListItem>
-                        ))
-                        :
-                        ['All mail', 'Trash', 'Spam'].map((text, index) => (
-                            <ListItem button key={text} style={{
-                                display: 'flex',
-                                justifyContent: 'center'
-                            }}>
-                                <ListItemIcon style={{
-                                    color: currentTheme === 'dark' ? '#7575a3' : '',
-                                    display: 'flex',
-                                    justifyContent: 'center'
-                                }}>
-                                    {index % 2 === 0 ? <People /> : <Close />}
-                                </ListItemIcon>
-                            </ListItem>
-                        ))}
+                    <div className={classes.root}>
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<><ExpandMoreIcon /><ExpandMoreIcon /></>}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                            >
+                                <Typography className={classes.heading}>Apps</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                
+                                    <ul className={classes.ulAcc}>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                    </ul>
+                                
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel2a-content"
+                                id="panel2a-header"
+                            >
+                                <Typography className={classes.heading}>Extra apps</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                
+                                    <ul className={classes.ulAcc}>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                    </ul>
+                                
+                            </AccordionDetails>
+                        </Accordion>
+
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                            >
+                                <Typography className={classes.heading}>Ecommerce</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                
+                                    <ul className={classes.ulAcc}>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                    </ul>
+                                
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel2a-content"
+                                id="panel2a-header"
+                            >
+                                <Typography className={classes.heading}>Auth Pages</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                
+                                    <ul className={classes.ulAcc}>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                    </ul>
+                                
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                            >
+                                <Typography className={classes.heading}>Widgets</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                
+                                    <ul className={classes.ulAcc}>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                    </ul>
+                                
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel2a-content"
+                                id="panel2a-header"
+                            >
+                                <Typography className={classes.heading}>Cards</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                
+                                    <ul className={classes.ulAcc}>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                    </ul>
+                                
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                            >
+                                <Typography className={classes.heading}>Tables</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                
+                                    <ul className={classes.ulAcc}>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                    </ul>
+                                
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel2a-content"
+                                id="panel2a-header"
+                            >
+                                <Typography className={classes.heading}>Charts</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                
+                                    <ul className={classes.ulAcc}>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                        <li className={classes.liAcc}>Profile</li>
+                                    </ul>
+                                
+                            </AccordionDetails>
+                        </Accordion>
+
+                    </div>
+
                     <ListItem
+                        className={clsx(classes.drawer, {
+                            [classes.buttOpen]: open,
+                            [classes.buttClose]: !open,
+                        })
+                        }
+                        classes={{
+                            paper: clsx({
+                                [classes.buttOpen]: open,
+                                [classes.buttClose]: !open,
+                            }),
+                        }}
                         onClick={handleDrawer}
                         style={{
                             justifyContent: 'center',
-                            backgroundColor: currentTheme === 'dark' ? '#14142d' : '',
-                            cursor: 'pointer'
+                            backgroundColor: currentTheme === 'dark' ? '#14142d' : 'white',
+                            cursor: 'pointer',
+                            position: 'fixed',
+                            bottom: '0px',
+                            height: '40px',
                         }}>
                         <ListItemIcon style={{
                             display: 'flex',
@@ -268,7 +369,7 @@ const Panel = ({ width }) => {
                         </ListItemIcon>
                     </ListItem>
                 </List>
-                
+
             </Drawer>
 
         </>

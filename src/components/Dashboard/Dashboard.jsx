@@ -46,7 +46,7 @@ const Dashboard = ({ width }) => {
           bottom: '0px',
           width: '100vw',
           paddingTop:'90px',
-          paddingLeft: width === 'xs' ? '5vw' : width === 'sm' ? '16vw' : width === 'md' ? '10vw' : width === 'lg' ? '7vw' : '7vw',
+          paddingLeft: width === 'xs' ? '45px' : '135px',
           display: "flex",
           flexDirection: 'column',
           justifyContent: 'flex-start',
