@@ -15,11 +15,15 @@ import SmileRain from "../SmileRain/SmileRain";
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
-    minHeight: `calc(100vh)`,
+    height: '100vh',
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    position: 'relative',
+    width:'100vw!important',
+    margin:'0px',
+    padding:'0px'
   },
   gsBtn: {
     padding: "15px",
@@ -99,8 +103,9 @@ const MainPage = ({ themeChanger, width,sound }) => {
 
   return (
     <>
-    {<SmileRain sound={sound} />}
-      <Container fixed className={classes.mainContainer}>
+    
+      <Box fixed className={classes.mainContainer}>
+      {<SmileRain sound={sound} />}
         <div
           style={{
             position: "fixed",
@@ -117,7 +122,7 @@ const MainPage = ({ themeChanger, width,sound }) => {
         </div>
         <Box 
         className='animate__animated animate__fadeIn'
-        style={{  marginBottom: "40px",height:'100%' }}>
+        style={{  marginBottom: "40px" }}>
           <Typography
             variant="h1"
             align="center"
@@ -149,7 +154,7 @@ const MainPage = ({ themeChanger, width,sound }) => {
           </Button>
           </NavLink>
         </Box>
-      </Container>
+      </Box>
     </>
   );
 };

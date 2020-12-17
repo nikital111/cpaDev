@@ -36,18 +36,18 @@ const Accounts = ({ width }) => {
                 display: 'flex',
                 justifyContent: 'center',
                 flexDirection: 'column',
-                marginTop: '25px'
+                marginTop: '25px',
+                width: width === 'xs' ? 'calc(100vw - 35px)' : 'calc(100vw - 145px)',
             }}>
-                <Typography variant="h5" style={{
+                <Typography variant={width === 'xs' ? 'h6' : 'h5'} style={{
                     color: currentTheme === 'dark' ? '#aeaee0' : 'black',
-                    width: '100vw',
                     paddingBottom: '20px',
                     marginLeft:'10px'
                 }}>
                     Последние транзакции
               </Typography>
                 <Box style={{
-                    width: width === 'xs' ? 'calc(100vw - 35px)' : 'calc(100vw - 125px)',
+                    width: width === 'xs' ? 'calc(100vw - 35px)' : 'calc(100vw - 145px)',
                     display: 'flex',
                     justifyContent: 'space-between',
                     flexWrap: 'wrap',
@@ -70,8 +70,8 @@ const Accounts = ({ width }) => {
                                flexWrap:'wrap',
                                padding:'20px 20px'
                            }}>
-                               <Typography variant='h5' style={{width:'100%'}}>+$10,264</Typography>
-                               <Typography variant='h6' style={{width:'100%',color: currentTheme === 'light' ? '#595c97' : ''}}>4512-XXXX-1678-7528</Typography>
+                               <Typography variant={width === 'xs' ? 'h6' : 'h5'} style={{width:'100%'}}>+$10,264</Typography>
+                               <Typography variant={width === 'xs' ? 'h7' : 'h6'} style={{width:'100%',color: currentTheme === 'light' ? '#595c97' : ''}}>4512-XXXX-1678-7528</Typography>
                            </Box>
                            <Icon style={{
                             width: 'auto',
@@ -118,8 +118,8 @@ const Accounts = ({ width }) => {
                                flexWrap:'wrap',
                                padding:'20px 20px'
                            }}>
-                               <Typography variant='h5' style={{width:'100%'}}>-$1,125</Typography>
-                               <Typography variant='h6' style={{width:'100%',color: currentTheme === 'light' ? '#595c97' : ''}}>4512-XXXX-1678-7528</Typography>
+                               <Typography variant={width === 'xs' ? 'h6' : 'h5'} style={{width:'100%'}}>-$1,125</Typography>
+                               <Typography variant={width === 'xs' ? 'h7' : 'h6'} style={{width:'100%',color: currentTheme === 'light' ? '#595c97' : ''}}>4512-XXXX-1678-7528</Typography>
                            </Box>
                            <Icon style={{
                             width: 'auto',
@@ -163,8 +163,8 @@ const Accounts = ({ width }) => {
                                flexWrap:'wrap',
                                padding:'20px 20px'
                            }}>
-                               <Typography variant='h5' style={{width:'100%'}}>+$10,264</Typography>
-                               <Typography variant='h6' style={{width:'100%',color: currentTheme === 'light' ? '#595c97' : ''}}>4512-XXXX-1678-7528</Typography>
+                               <Typography variant={width === 'xs' ? 'h6' : 'h5'} style={{width:'100%'}}>+$10,264</Typography>
+                               <Typography variant={width === 'xs' ? 'h7' : 'h6'} style={{width:'100%',color: currentTheme === 'light' ? '#595c97' : ''}}>4512-XXXX-1678-7528</Typography>
                            </Box>
                            <Icon style={{
                             width: 'auto',
@@ -211,8 +211,8 @@ const Accounts = ({ width }) => {
                                flexWrap:'wrap',
                                padding:'20px 20px'
                            }}>
-                               <Typography variant='h5' style={{width:'100%'}}>-$1,125</Typography>
-                               <Typography variant='h6' style={{width:'100%',color: currentTheme === 'light' ? '#595c97' : ''}}>4512-XXXX-1678-7528</Typography>
+                               <Typography variant={width === 'xs' ? 'h6' : 'h5'} style={{width:'100%'}}>-$1,125</Typography>
+                               <Typography variant={width === 'xs' ? 'h7' : 'h6'} style={{width:'100%',color: currentTheme === 'light' ? '#595c97' : ''}}>4512-XXXX-1678-7528</Typography>
                            </Box>
                            <Icon style={{
                             width: 'auto',

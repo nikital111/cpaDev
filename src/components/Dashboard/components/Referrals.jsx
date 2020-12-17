@@ -12,6 +12,7 @@ const Referrals = ({ width }) => {
 
     const useStyles = makeStyles((theme) => ({
         grid: {
+            
             '& .MuiIconButton-label': {
                 color: currentTheme === 'dark' ? '#aeaee0' : '#595c97'
             },
@@ -40,28 +41,39 @@ const Referrals = ({ width }) => {
                 color: currentTheme === 'dark' ? '#aeaee0!important' : '#595c97!important',
                 backgroundColor: currentTheme === 'dark' ? 'rgb(20, 19, 34)' : 'white',
                 margin: '15px',
-                fontSize: '21px',
+                fontSize: width === 'xs' ? '15px' : width === 'sm' ? '15px' : width === 'md' ? '15px' : '21px',
+                
+            },
+            '& .MuiDataGrid-root .MuiDataGrid-window':{
+                '&::-webkit-scrollbar':{
+                    width: '5px',
+                    backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
+                    
+                  },
+                  '&::-webkit-scrollbar-thumb':{
+                    backgroundColor: currentTheme === 'dark' ? '#32304b!important' : '#c8c4db',
+                  }
             }
         }
     }));
 
 
     const columns = [
-        { field: 'id', headerName: 'ID', width: 170 },
-        { field: 'firstName', headerName: 'First name', width: 230 },
-        { field: 'lastName', headerName: 'Last name', width: 230 },
+        { field: 'id', headerName: 'ID', width: 70 },
+        { field: 'firstName', headerName: 'First name', width: 200 },
+        { field: 'lastName', headerName: 'Last name', width: 200 },
         {
             field: 'age',
             headerName: 'Age',
             type: 'number',
-            width: 190,
+            width: 90,
         },
         {
             field: 'fullName',
             headerName: 'Full name',
             description: 'This column has a value getter and is not sortable.',
             sortable: false,
-            width: 260,
+            width: 230,
             valueGetter: (params) =>
                 `${params.getValue('firstName') || ''} ${params.getValue('lastName') || ''}`,
         },
@@ -90,42 +102,29 @@ const Referrals = ({ width }) => {
                 margin: '20px 10px',
                 backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                 border: currentTheme === 'dark' ? '1px solid #232135' : 'none',
-                padding: '35px',
+                padding: width === 'xs' ? '15px 23px 0px 7px' : '15px',
+                width: 'fit-content'
             }}>
 
 
-                <Typography variant="h5" style={{
+                <Typography variant={width === 'xs' ? 'h6' : 'h5'} style={{
                     color: currentTheme === 'dark' ? '#aeaee0' : 'black',
-                    width: '100vw',
-                    padding: '0px 0px 20px 0px',
-                    margin: '20px 0px',
+                    width: width === 'xs' ? 'calc(100vw - 106px)' : 'calc(100vw - 210px)',
+                    
+                    margin: '20px 10px',
                     // borderBottom:'1px solid rgb(174, 174, 224)'
                 }}>
                     Последние рефералы
               </Typography>
 
-                <Box style={{
-                    
-                    width: width === 'xs' ? 'calc(100vw - 35px)' : 'calc(100vw - 125px)',
-                    margin: '10px',
-                   
-                    padding: '15px 35px 35px 15px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    flexDirection: 'column'
-                }}>
 
-
-
-
-
-                    <div className={classes.grid} style={{ height: 400, width: width === 'xs' ? '70vw' : width === 'sm' ? '70vw' : width === 'md' ? '80vw' : width === 'lg' ? '84vw' : '86vw' }}>
+                    <div className={classes.grid} style={{
+                         height: 400, 
+                         width: width === 'xs' ? 'calc(100vw - 100px)' : 'calc(100vw - 225px)',
+                         marginBottom:'25px'
+                         }}>
                         <DataGrid rows={rows} columns={columns} pageSize={5} />
                     </div>
-
-
-                </Box>
-
 
             </Box>
         </>

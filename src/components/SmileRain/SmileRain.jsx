@@ -6,7 +6,6 @@ import { v4 as uuidv4 } from "uuid";
 const useStyles = makeStyles({
   smileOverlay: {
     position: "absolute",
-    height:'100%',
     top: 0,
     left: 0,
     right: 0,

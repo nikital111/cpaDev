@@ -21,7 +21,7 @@ const Cards = ({ width }) => {
             position: 'relative',
             padding: '25px',
             backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
-            width: width === 'lg' ? '24vw' : width === 'xl' ? '25vw' : width === 'md' ? '91vw' : width === 'sm' ? '91vw' : '91vw',
+            width: width === 'lg' ? '24vw' : width === 'xl' ? '25vw' : width === 'md' ? '100vw' : width === 'sm' ? '100vw' : '100vw',
             border: currentTheme === 'dark' ? '1px solid #232135' : 'none',
             margin: '10px',
         }
@@ -36,11 +36,11 @@ const Cards = ({ width }) => {
                 display: 'flex',
                 justifyContent: 'center',
                 flexDirection: 'column',
+                width: width === 'xs' ? 'calc(100vw - 35px)' : 'calc(100vw - 145px)',
             }}>
 
-                <Typography variant="h5" style={{
+                <Typography variant={width === 'xs' ? 'h6' : 'h5'} style={{
                     color: currentTheme === 'dark' ? '#aeaee0' : 'black',
-                    width: '100vw',
                     paddingBottom: '20px',
                     marginLeft: '10px'
                 }}>
@@ -48,7 +48,7 @@ const Cards = ({ width }) => {
               </Typography>
 
                 <Box style={{
-                    width: width === 'xs' ? 'calc(100vw - 35px)' : 'calc(100vw - 125px)',
+                    width: width === 'xs' ? 'calc(100vw - 35px)' : 'calc(100vw - 145px)',
                     display: 'flex',
                     justifyContent: 'space-between',
                     flexWrap: 'wrap'
@@ -58,7 +58,7 @@ const Cards = ({ width }) => {
                         className={classes.cards}
                     >
 
-                        <Typography variant='h6' style={{
+                        <Typography variant={width === 'xs' ? 'h7' : 'h6'} style={{
                             position: 'absolute',
                             top: '13px',
                             right: '-15px',
@@ -76,20 +76,20 @@ const Cards = ({ width }) => {
                             marginBottom: '15px'
                         }}>
                             <StarBorderIcon style={{
-                                fontSize: '70px',
+                                fontSize: width === 'xs' ? '40px' : '70px',
                                 color: currentTheme === 'light' ? '#595c97' : ''
                             }}></StarBorderIcon>
                         </Icon>
 
-                        <Typography variant='h4' style={{ marginBottom: '5px' }}>David Beckham</Typography>
-                        <Typography variant='h6' style={{ marginBottom: '15px',color: currentTheme === 'light' ? '#595c97' : '' }}>8748-XXXX-1678-5416</Typography>
-                        <Typography variant='h6' style={{color: currentTheme === 'light' ? '#595c97' : ''}}>MASTERCARD</Typography>
+                        <Typography variant={width === 'xs' ? 'h5' : 'h4'} style={{ marginBottom: '5px' }}>David Beckham</Typography>
+                        <Typography variant={width === 'xs' ? 'h7' : 'h6'} style={{ marginBottom: '15px',color: currentTheme === 'light' ? '#595c97' : '' }}>8748-XXXX-1678-5416</Typography>
+                        <Typography variant={width === 'xs' ? 'h7' : 'h6'} style={{color: currentTheme === 'light' ? '#595c97' : ''}}>MASTERCARD</Typography>
                         <Divider style={{
                             backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
                             margin: '20px 0px',
                             width: '100%'
                         }} />
-                        <Typography variant='h6' style={{color: currentTheme === 'light' ? '#595c97' : ''}}>Expires at 03/22</Typography>
+                        <Typography variant={width === 'xs' ? 'h7' : 'h6'} style={{color: currentTheme === 'light' ? '#595c97' : ''}}>Expires at 03/22</Typography>
                     </Box>
 
 
@@ -97,7 +97,7 @@ const Cards = ({ width }) => {
                         className={classes.cards}
                     >
 
-                        <Typography variant='h6' style={{
+                        <Typography variant={width === 'xs' ? 'h7' : 'h6'} style={{
                             position: 'absolute',
                             top: '13px',
                             right: '-15px',
@@ -115,20 +115,20 @@ const Cards = ({ width }) => {
                             marginBottom: '15px'
                         }}>
                             <StarBorderIcon style={{
-                                fontSize: '70px',
+                                fontSize: width === 'xs' ? '40px' : '70px',
                                 color: currentTheme === 'light' ? '#595c97' : ''
                             }}></StarBorderIcon>
                         </Icon>
 
-                        <Typography variant='h4' style={{ marginBottom: '5px' }}>David Beckham</Typography>
-                        <Typography variant='h6' style={{ marginBottom: '15px',color: currentTheme === 'light' ? '#595c97' : '' }}>8748-XXXX-1678-5416</Typography>
-                        <Typography variant='h6' style={{color: currentTheme === 'light' ? '#595c97' : ''}}>MASTERCARD</Typography>
+                        <Typography variant={width === 'xs' ? 'h5' : 'h4'} style={{ marginBottom: '5px' }}>David Beckham</Typography>
+                        <Typography variant={width === 'xs' ? 'h7' : 'h6'} style={{ marginBottom: '15px',color: currentTheme === 'light' ? '#595c97' : '' }}>8748-XXXX-1678-5416</Typography>
+                        <Typography variant={width === 'xs' ? 'h7' : 'h6'} style={{color: currentTheme === 'light' ? '#595c97' : ''}}>MASTERCARD</Typography>
                         <Divider style={{
                             backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
                             margin: '20px 0px',
                             width: '100%'
                         }} />
-                        <Typography variant='h6' style={{color: currentTheme === 'light' ? '#595c97' : ''}}>Expires at 03/22</Typography>
+                        <Typography variant={width === 'xs' ? 'h7' : 'h6'} style={{color: currentTheme === 'light' ? '#595c97' : ''}}>Expires at 03/22</Typography>
                     </Box>
 
 
@@ -137,7 +137,7 @@ const Cards = ({ width }) => {
                         className={classes.cards}
                     >
 
-                        <Typography variant='h6' style={{
+                        <Typography variant={width === 'xs' ? 'h7' : 'h6'} style={{
                             position: 'absolute',
                             top: '13px',
                             right: '-15px',
@@ -155,20 +155,20 @@ const Cards = ({ width }) => {
                             marginBottom: '15px'
                         }}>
                             <StarBorderIcon style={{
-                                fontSize: '70px',
+                                fontSize: width === 'xs' ? '40px' : '70px',
                                 color: currentTheme === 'light' ? '#595c97' : ''
                             }}></StarBorderIcon>
                         </Icon>
 
-                        <Typography variant='h4' style={{ marginBottom: '5px' }}>David Beckham</Typography>
-                        <Typography variant='h6' style={{ marginBottom: '15px',color: currentTheme === 'light' ? '#595c97' : '' }}>8748-XXXX-1678-5416</Typography>
-                        <Typography variant='h6' style={{color: currentTheme === 'light' ? '#595c97' : ''}}>MASTERCARD</Typography>
+                        <Typography variant={width === 'xs' ? 'h5' : 'h4'} style={{ marginBottom: '5px' }}>David Beckham</Typography>
+                        <Typography variant={width === 'xs' ? 'h7' : 'h6'} style={{ marginBottom: '15px',color: currentTheme === 'light' ? '#595c97' : '' }}>8748-XXXX-1678-5416</Typography>
+                        <Typography variant={width === 'xs' ? 'h7' : 'h6'} style={{color: currentTheme === 'light' ? '#595c97' : ''}}>MASTERCARD</Typography>
                         <Divider style={{
                             backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
                             margin: '20px 0px',
                             width: '100%'
                         }} />
-                        <Typography variant='h6' style={{color: currentTheme === 'light' ? '#595c97' : ''}}>Expires at 03/22</Typography>
+                        <Typography variant={width === 'xs' ? 'h7' : 'h6'} style={{color: currentTheme === 'light' ? '#595c97' : ''}}>Expires at 03/22</Typography>
                     </Box>
 
                 </Box>

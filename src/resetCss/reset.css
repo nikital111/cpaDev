@@ -11,9 +11,7 @@
 html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
-  overflow-x: hidden;
-  overflow-y: auto;
-  height: 100%;
+
 }
 
 /* Sections
@@ -27,7 +25,6 @@ body {
   margin: 0;
   font-family: "RobotoRegular";
   transition: 0.5s all;
-  height: 100%;
 }
 
 /**

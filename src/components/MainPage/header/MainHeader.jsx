@@ -113,8 +113,7 @@ const MainHeader = ({ themeChanger, width }) => {
     >
       <AppBar position="fixed" style={{
         boxShadow: "0 1px 6px 0 rgba(32,33,36,.28)",
-        transition: "box-shadow 250ms",
-        zIndex:'11'
+        transition: "box-shadow 250ms"
       }}>
         <Toolbar
           style={{

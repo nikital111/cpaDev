@@ -35,7 +35,7 @@ const Dashboard = ({ width }) => {
 
   return (
     <>
-      
+      <Panel />
       <Box
         className='animate__animated animate__fadeIn'
         style={{
@@ -44,17 +44,13 @@ const Dashboard = ({ width }) => {
           left: '0px',
           right: '0xp',
           bottom: '0px',
-          width: '100vw',
+          width: width === 'xs' ? 'calc(100vw - 35px)' : 'calc(100vw - 145px)',
           paddingTop:'90px',
-          paddingLeft: width === 'xs' ? '45px' : '135px',
-          display: "flex",
-          flexDirection: 'column',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
+          paddingLeft: width === 'xs' ? '15px' : '105px',
           backgroundColor: currentTheme === 'light' ? 'white' : 'rgb(20, 19, 34)',
           zIndex: '9',
         }}>
-            <Panel />
+            
       <StatisticsToday />
       <StatisticsMonthly />
       <Referrals />

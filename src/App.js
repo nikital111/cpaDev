@@ -45,14 +45,7 @@ function App({ sound, flag }) {
       <Provider store={store}>
         <MainHeader themeChanger={themeChanger} />
 
-        <Box pt={8} style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            maxWidth: "100%",
-            maxHeight: "100%",
-            padding:'0px'
-          }}>
+
 
           <Switch>
             <Route path="/" exact>
@@ -68,7 +61,7 @@ function App({ sound, flag }) {
               <Dashboard />
             </Route>
           </Switch>
-        </Box>
+
         </Provider>
       </ThemeContext.Provider>
     </>

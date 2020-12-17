@@ -5,7 +5,7 @@ import { makeStyles, Box, Typography, IconButton, Drawer, List, ListItem, ListIt
 import { People, Close, ChevronRight, ChevronLeft } from '@material-ui/icons';
 import clsx from 'clsx';
 import { ThemeContext } from "../../../context/themeContext";
-import { Area, AreaChart, CartesianGrid, Label, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
+import { Area, AreaChart, CartesianGrid, Label, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 const StatisticsMonthly = ({ width }) => {
     const { currentTheme } = useContext(ThemeContext);
@@ -16,9 +16,10 @@ const StatisticsMonthly = ({ width }) => {
             justifyContent: 'flex-start',
             flexDirection: 'column',
             backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
-            width: width === 'lg' ? '18vw' : width === 'xl' ? '20vw' : width === 'md' ? '100vw' : width === 'sm' ? '100vw' : '100vw',
+            width: width === 'lg' ? '18vw' : width === 'xl' ? '20vw' : width === 'md' ? '37vw' : width === 'sm' ? '100vw' : '100vw',
             padding: '15px',
-            margin:'10px 10px'
+            margin:'10px 10px',
+            border: currentTheme === 'dark' ? '1px solid #232135' : 'none',
         }
     }));
 
@@ -34,11 +35,9 @@ const StatisticsMonthly = ({ width }) => {
 
     const createLine = data => {
         return (
-            <LineChart
-                width={width === 'xs' ? 265 : width === 'sm' ? 470 : width === 'md' ? 750 : width === 'lg' ? 220 : 300} 
-                height={200} 
+            <ResponsiveContainer width='98%' height={200}>
+                <LineChart
                 data={dataLine}
-                margin={{ left: 10 }}
                 syncId="test"
             >
                 {/* <CartesianGrid stroke='none' verticalFill={['#0c0c1b', '#0c0c1b']} horizontalFill={['rgb(117, 117, 163)', 'rgb(117, 117, 163)']} /> */}
@@ -46,6 +45,8 @@ const StatisticsMonthly = ({ width }) => {
                 {/* <Tooltip itemStyle={{color:'rgb(117, 117, 163)'}} /> */}
                 <Line type='monotone' dataKey='uv' stroke='#4b7cf3' strokeWidth="4px" />
             </LineChart>
+            </ResponsiveContainer>
+            
         )
     }
 
@@ -57,18 +58,18 @@ const StatisticsMonthly = ({ width }) => {
                 display: 'flex',
                 justifyContent: 'center',
                 flexDirection: 'column',
-                marginTop: '25px'
+                marginTop: '25px',
+                width: width === 'xs' ? 'calc(100vw - 35px)' : 'calc(100vw - 145px)',
             }}>
-                <Typography variant="h5" style={{
+                <Typography variant={width === 'xs' ? 'h6' : 'h5'} style={{
                     color: currentTheme === 'dark' ? '#aeaee0' : 'black',
-                    width: '100vw',
                     paddingBottom: '20px',
                     marginLeft:'10px'
                 }}>
                     Статистика за месяц
               </Typography>
                 <Box style={{
-                    width: width === 'xs' ? 'calc(100vw - 35px)' : 'calc(100vw - 125px)',
+                    width: width === 'xs' ? 'calc(100vw - 35px)' : 'calc(100vw - 145px)',
                     display: 'flex',
                     justifyContent: 'space-between',
                     flexWrap: 'wrap',
@@ -84,8 +85,8 @@ const StatisticsMonthly = ({ width }) => {
                             flexDirection: 'column',
                             color: currentTheme === 'dark' ? '#aeaee0' : 'black',
                         }}>
-                            <Typography variant='h4'>78,367</Typography>
-                            <Typography variant='h6'>Всего продаж</Typography>
+                            <Typography variant={width === 'xs' ? 'h5' : 'h4'}>78,367</Typography>
+                            <Typography variant={width === 'xs' ? 'h7' : 'h6'}>Всего продаж</Typography>
                         </Box>
                         <Box>{createLine}</Box>
                     </Box>
@@ -99,8 +100,8 @@ const StatisticsMonthly = ({ width }) => {
                             flexDirection: 'column',
                             color: currentTheme === 'dark' ? '#aeaee0' : 'black',
                         }}>
-                            <Typography variant='h4'>+90%</Typography>
-                            <Typography variant='h6'>Рост продаж</Typography>
+                            <Typography variant={width === 'xs' ? 'h5' : 'h4'}>+90%</Typography>
+                            <Typography variant={width === 'xs' ? 'h7' : 'h6'}>Рост продаж</Typography>
                         </Box>
                         <Box>{createLine}</Box>
                     </Box>
@@ -114,8 +115,8 @@ const StatisticsMonthly = ({ width }) => {
                             flexDirection: 'column',
                             color: currentTheme === 'dark' ? '#aeaee0' : 'black',
                         }}>
-                            <Typography variant='h4'>900</Typography>
-                            <Typography variant='h6'>Завершено</Typography>
+                            <Typography variant={width === 'xs' ? 'h5' : 'h4'}>900</Typography>
+                            <Typography variant={width === 'xs' ? 'h7' : 'h6'}>Завершено</Typography>
                         </Box>
                         <Box>{createLine}</Box>
                     </Box>
@@ -129,8 +130,8 @@ const StatisticsMonthly = ({ width }) => {
                             flexDirection: 'column',
                             color: currentTheme === 'dark' ? '#aeaee0' : 'black',
                         }}>
-                            <Typography variant='h4'>$78.62M</Typography>
-                            <Typography variant='h6'>Оплачено в крипте</Typography>
+                            <Typography variant={width === 'xs' ? 'h5' : 'h4'}>$78.62M</Typography>
+                            <Typography variant={width === 'xs' ? 'h7' : 'h6'}>Оплачено в крипте</Typography>
                         </Box>
                         <Box>{createLine}</Box>
 
