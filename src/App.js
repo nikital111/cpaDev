@@ -1,5 +1,4 @@
-import { Box } from "@material-ui/core";
-import React, {  useReducer, useState } from "react";
+import React, {  useReducer } from "react";
 import {  Route, Switch } from "react-router-dom";
 import Login from "./components/Auth/Login/Login.jsx";
 import  Register  from "./components/Auth/Register/Register.jsx";
@@ -64,6 +63,7 @@ function App({ sound, flag }) {
 
         </Provider>
       </ThemeContext.Provider>
+      
     </>
   );
 }

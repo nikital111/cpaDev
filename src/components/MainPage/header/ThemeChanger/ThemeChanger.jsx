@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import IconButton from "@material-ui/core/IconButton";
-import Brightness7Icon from "@material-ui/icons/Brightness7";
 import Brightness2Icon from "@material-ui/icons/Brightness2";
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import { makeStyles } from "@material-ui/core/styles";

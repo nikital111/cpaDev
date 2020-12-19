@@ -1,16 +1,12 @@
-import React, { useContext, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
+import React, { useContext } from "react";
+import { NavLink } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import { Container, makeStyles, Box, Typography } from "@material-ui/core";
+import { makeStyles, Box, Typography } from "@material-ui/core";
 import withWidth from "@material-ui/core/withWidth";
-import { theme } from "../../state/consts";
-import { amber } from "@material-ui/core/colors";
 import { ThemeContext } from "../../context/themeContext";
 import { v4 as uuidv4 } from "uuid";
-import Cookies from 'js-cookie';
-import { setData, setLogin } from "../../actions/actions";
 import "./mainPage.scss";
+import "./MainPageStyles.css"
 import SmileRain from "../SmileRain/SmileRain";
 
 const useStyles = makeStyles((theme) => ({
@@ -21,9 +17,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     position: 'relative',
-    width:'100vw!important',
-    margin:'0px',
-    padding:'0px'
+    width: '100vw!important',
+    margin: '0px',
+    padding: '0px'
   },
   gsBtn: {
     padding: "15px",
@@ -35,29 +31,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MainPage = ({ themeChanger, width,sound }) => {
-
-  const dispatch = useDispatch();
-  const myHistory = useHistory()
-  const isLogin = useSelector(state => state.isLogin);
-
-  if (Cookies.get('token')) {
-    if (!isLogin) {
-      dispatch(setLogin())
-      dispatch(setData({
-        token: Cookies.get('token'),
-        level: Cookies.get('level'),
-      }))
-    }
-    myHistory.push('/dashboard');
-  }
+const MainPage = ({ themeChanger, width, sound }) => {
 
   //console.log(width);
   const classes = useStyles();
 
   const { currentTheme } = useContext(ThemeContext);
 
-  const color = currentTheme === "light" ? theme.dark : theme.light;
   const renderStars = () => {
     const stars = [
       { top: "calc(36% - 18px)", left: "calc(23% - 11px)", delay: 2 + "s" },
@@ -103,9 +83,9 @@ const MainPage = ({ themeChanger, width,sound }) => {
 
   return (
     <>
-    
-      <Box fixed className={classes.mainContainer}>
-      {<SmileRain sound={sound} />}
+
+      <Box fixed='true' className={classes.mainContainer}>
+        {<SmileRain sound={sound} />}
         <div
           style={{
             position: "fixed",
@@ -115,19 +95,24 @@ const MainPage = ({ themeChanger, width,sound }) => {
             bottom: 0,
             maxWidth: "100%",
             height: "100%",
-            overflow:'hidden'
+            overflow: 'hidden'
           }}
         >
           {starsJSX}
         </div>
-        <Box 
-        className='animate__animated animate__fadeIn'
-        style={{  marginBottom: "40px" }}>
+        <Box
+          className='animate__animated animate__fadeIn'
+          style={{ marginBottom: "40px",zIndex:'9999' }}>
           <Typography
             variant="h1"
             align="center"
             gutterBottom
-            style={{color: currentTheme === 'dark' ? 'white' : 'black', fontFamily: "RobotoBold", fontSize: width === "xs" && 65 }}
+            style={{ 
+              color: currentTheme === 'dark' ? 'white' : 'black', 
+              fontFamily: "RobotoBold", 
+              fontSize: width === "xs" && 65,
+              zIndex:'9999' 
+            }}
           >
             Logo
           </Typography>
@@ -138,20 +123,29 @@ const MainPage = ({ themeChanger, width,sound }) => {
               color: currentTheme === 'dark' ? 'white' : 'black',
               fontFamily: "RobotoRegular",
               fontSize: width === "xs" && 16,
+              zIndex:'9999'
             }}
           >
             Снимай сливки с трафика вместе с нами!
           </Typography>
         </Box>
-        <Box>
+        <Box style={{zIndex:'9999'}}>
           <NavLink
-          style={{
-            textDecoration: "none",
-          }}
-          to='register' exact>
-          <Button variant="contained" color="primary" className={`${classes.gsBtn} animate__animated animate__fadeIn`}>
-          Начать зарабатывать
-          </Button>
+            style={{
+              textDecoration: "none",
+            }}
+            to='register' exact>
+            <div class="btn-contain">
+              <div class="btn-underline-contain">
+                <div class="btn-underline" style={{
+                  color: currentTheme === 'dark' ? 'white' : 'black',
+                  border: currentTheme === 'dark' ? '2px solid white' : '2px solid black',
+                  backgroundColor: currentTheme === 'dark' ? 'rgb(20, 19, 34)' : 'white',
+                  }}>
+                  <span>Стать партнером</span>
+                </div>
+              </div>
+            </div>
           </NavLink>
         </Box>
       </Box>

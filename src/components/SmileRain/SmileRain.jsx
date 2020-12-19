@@ -111,6 +111,7 @@ const SmileRain = ({ width, sound }) => {
           left={left}
           duration={duration}
           sound={sound}
+          key={i}
         />
       );
       elements.push(element);
@@ -119,7 +120,7 @@ const SmileRain = ({ width, sound }) => {
     return elements;
   };
 
-  const [items, setItems] = useState(renderPhrases(phrases));
+  const [items] = useState(renderPhrases(phrases));
 
   return <div className={classes.smileOverlay}>{items}</div>;
 };

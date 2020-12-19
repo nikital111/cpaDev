@@ -1,11 +1,8 @@
 import React, { useContext } from "react";
 import withWidth from "@material-ui/core/withWidth";
-import { useTheme } from '@material-ui/core/styles';
-import { makeStyles, Box, Typography, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText, Divider } from "@material-ui/core";
-import { People, Close, ChevronRight, ChevronLeft } from '@material-ui/icons';
-import clsx from 'clsx';
+import { makeStyles, Box, Typography } from "@material-ui/core";
 import { ThemeContext } from "../../../context/themeContext";
-import { Area, AreaChart, CartesianGrid, Label, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
 
 const StatisticsMonthly = ({ width }) => {
     const { currentTheme } = useContext(ThemeContext);
@@ -20,6 +17,7 @@ const StatisticsMonthly = ({ width }) => {
             padding: '15px',
             margin:'10px 10px',
             border: currentTheme === 'dark' ? '1px solid #232135' : 'none',
+            borderRadius:'5px',
         }
     }));
 
@@ -33,16 +31,20 @@ const StatisticsMonthly = ({ width }) => {
         { name: 'G', uv: 2300, pv: 2400 },
     ]
 
+    // const formatXAxis = (tickItem) => {
+    //     return tickItem.fill = 'red'
+    //   }
+
     const createLine = data => {
         return (
-            <ResponsiveContainer width='98%' height={200}>
+            <ResponsiveContainer width='98%' height={200} >
                 <LineChart
                 data={dataLine}
-                syncId="test"
+                
             >
-                {/* <CartesianGrid stroke='none' verticalFill={['#0c0c1b', '#0c0c1b']} horizontalFill={['rgb(117, 117, 163)', 'rgb(117, 117, 163)']} /> */}
-                <XAxis dataKey="name" axisLine={{ stroke: 'rgb(117, 117, 163)' }} />
-                {/* <Tooltip itemStyle={{color:'rgb(117, 117, 163)'}} /> */}
+                <CartesianGrid horizontal={false} stroke="rgb(174, 174, 224)" strokeDasharray="1 2" />
+                <XAxis dataKey="name" interval={0} tickLine={false} axisLine={false} />
+                <Tooltip itemStyle={{color:'rgb(117, 117, 163)'}} />
                 <Line type='monotone' dataKey='uv' stroke='#4b7cf3' strokeWidth="4px" />
             </LineChart>
             </ResponsiveContainer>
@@ -86,7 +88,7 @@ const StatisticsMonthly = ({ width }) => {
                             color: currentTheme === 'dark' ? '#aeaee0' : 'black',
                         }}>
                             <Typography variant={width === 'xs' ? 'h5' : 'h4'}>78,367</Typography>
-                            <Typography variant={width === 'xs' ? 'h7' : 'h6'}>Всего продаж</Typography>
+                            <Typography variant={width === 'xs' ? 'subtitle2' : 'h6'}>Всего продаж</Typography>
                         </Box>
                         <Box>{createLine}</Box>
                     </Box>
@@ -101,7 +103,7 @@ const StatisticsMonthly = ({ width }) => {
                             color: currentTheme === 'dark' ? '#aeaee0' : 'black',
                         }}>
                             <Typography variant={width === 'xs' ? 'h5' : 'h4'}>+90%</Typography>
-                            <Typography variant={width === 'xs' ? 'h7' : 'h6'}>Рост продаж</Typography>
+                            <Typography variant={width === 'xs' ? 'subtitle2' : 'h6'}>Рост продаж</Typography>
                         </Box>
                         <Box>{createLine}</Box>
                     </Box>
@@ -116,7 +118,7 @@ const StatisticsMonthly = ({ width }) => {
                             color: currentTheme === 'dark' ? '#aeaee0' : 'black',
                         }}>
                             <Typography variant={width === 'xs' ? 'h5' : 'h4'}>900</Typography>
-                            <Typography variant={width === 'xs' ? 'h7' : 'h6'}>Завершено</Typography>
+                            <Typography variant={width === 'xs' ? 'subtitle2' : 'h6'}>Завершено</Typography>
                         </Box>
                         <Box>{createLine}</Box>
                     </Box>
@@ -131,7 +133,7 @@ const StatisticsMonthly = ({ width }) => {
                             color: currentTheme === 'dark' ? '#aeaee0' : 'black',
                         }}>
                             <Typography variant={width === 'xs' ? 'h5' : 'h4'}>$78.62M</Typography>
-                            <Typography variant={width === 'xs' ? 'h7' : 'h6'}>Оплачено в крипте</Typography>
+                            <Typography variant={width === 'xs' ? 'subtitle2' : 'h6'}>Оплачено в крипте</Typography>
                         </Box>
                         <Box>{createLine}</Box>
 

@@ -1,11 +1,8 @@
 import React, { useContext } from "react";
 import withWidth from "@material-ui/core/withWidth";
-import { useTheme } from '@material-ui/core/styles';
-import { makeStyles, Box, Typography, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText, Divider } from "@material-ui/core";
-import { People, Close, ChevronRight, ChevronLeft } from '@material-ui/icons';
-import clsx from 'clsx';
+import { makeStyles, Box, Typography } from "@material-ui/core";
 import { ThemeContext } from "../../../context/themeContext";
-import { Area, AreaChart, CartesianGrid, Label, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Area, AreaChart, ResponsiveContainer, Tooltip } from "recharts";
 
 const StatisticsToday = ({ width }) => {
     const { currentTheme } = useContext(ThemeContext);
@@ -15,10 +12,18 @@ const StatisticsToday = ({ width }) => {
             display: 'flex',
             justifyContent: 'space-between',
             backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
-            width: width === 'lg' ? '25vw' : width === 'xl' ? '25vw' : width === 'md' ? '100vw' : width === 'sm' ? '100vw' : '100vw',
+            width: width === 'lg' ? '25vw' : width === 'xl' ? '27vw' : width === 'md' ? '100vw' : width === 'sm' ? '100vw' : '100vw',
             padding: '15px',
             margin: '10px 10px',
             border: currentTheme === 'dark' ? '1px solid #232135' : 'none',
+            height:'80px',
+            position:'relative',
+            borderRadius:'5px',
+            '& .recharts-responsive-container':{
+                position:'absolute',
+                bottom:'-5px',
+                right:'-5px'
+            }
         }
     }));
 
@@ -34,7 +39,7 @@ const StatisticsToday = ({ width }) => {
 
     const createLine = data => {
         return (
-            <ResponsiveContainer width={width === 'xs' ? '40%' : '30%'} height={100}>
+            <ResponsiveContainer className='resCont' width={width === 'xs' ? '40%' : '30%'} height={100} >
                 <AreaChart   data={dataLine}
                 >
                     <defs>
@@ -44,13 +49,14 @@ const StatisticsToday = ({ width }) => {
                         </linearGradient>
                     </defs>
                     {/* <Tooltip /> */}
+                    <Tooltip itemStyle={{color:'rgb(117, 117, 163)'}} />
                     <Area
                         type="monotone"
                         dataKey="uv"
                         stroke="#0088FE"
                         strokeWidth="2"
                         fillOpacity="1"
-                        fill="url(#MyGradient)"
+                        fill={currentTheme === 'dark' ? "rgba(75,124,243,.1)" : 'white'}
                         dot
                     />
                 </AreaChart>
@@ -93,7 +99,7 @@ const StatisticsToday = ({ width }) => {
                             color: currentTheme === 'dark' ? '#aeaee0' : 'black',
                         }}>
                             <Typography variant={width === 'xs' ? 'h5' : 'h4'}>1240</Typography>
-                            <Typography variant={width === 'xs' ? 'h7' : 'h6'}>Транзакций</Typography>
+                            <Typography variant={width === 'xs' ? 'subtitle2' : 'h6'}>Транзакций</Typography>
                         </Box>
                         <Box>{createLine}</Box>
                     </Box>
@@ -108,7 +114,7 @@ const StatisticsToday = ({ width }) => {
                             color: currentTheme === 'dark' ? '#aeaee0' : 'black',
                         }}>
                             <Typography variant={width === 'xs' ? 'h5' : 'h4'}>$256.12</Typography>
-                            <Typography variant={width === 'xs' ? 'h7' : 'h6'}>Доход</Typography>
+                            <Typography variant={width === 'xs' ? 'subtitle2' : 'h6'}>Доход</Typography>
                         </Box>
                         <Box>{createLine}</Box>
                     </Box>
@@ -123,7 +129,7 @@ const StatisticsToday = ({ width }) => {
                             color: currentTheme === 'dark' ? '#aeaee0' : 'black',
                         }}>
                             <Typography variant={width === 'xs' ? 'h5' : 'h4'}>$56.12</Typography>
-                            <Typography variant={width === 'xs' ? 'h7' : 'h6'}>Результат</Typography>
+                            <Typography variant={width === 'xs' ? 'subtitle2' : 'h6'}>Результат</Typography>
                         </Box>
                         <Box>{createLine}</Box>
                     </Box>

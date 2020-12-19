@@ -1,14 +1,11 @@
 import React, { useContext, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import Button from "@material-ui/core/Button";
 import withWidth from "@material-ui/core/withWidth";
-import { TextField, makeStyles, Box, Typography, Paper, IconButton, Icon, withStyles, createStyles } from "@material-ui/core";
+import { TextField, makeStyles, Box, Typography, Paper, IconButton, Icon, withStyles } from "@material-ui/core";
 import { Visibility, VisibilityOff, People, Close } from '@material-ui/icons';
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Snackbar from 'node-snackbar';
 import { ThemeContext } from "../../../context/themeContext";
-import Cookies from 'js-cookie';
-import { setData, setLogin } from "../../../actions/actions";
 
 
 const CssTextField = withStyles({
@@ -104,7 +101,6 @@ const CssTextField2 = withStyles({
 
 const Register = ({ width }) => {
   const { currentTheme } = useContext(ThemeContext);
-  const [mess, setMess] = useState('');
   const [vis, setVis] = useState(false);
   const [err, setErr] = useState({
     name: '',
@@ -112,20 +108,6 @@ const Register = ({ width }) => {
 
   });
 
-  const dispatch = useDispatch();
-  const myHistory = useHistory()
-  const isLogin = useSelector(state => state.isLogin);
-
-  if (Cookies.get('token')) {
-    if (!isLogin) {
-      dispatch(setLogin())
-      dispatch(setData({
-        token: Cookies.get('token'),
-        level: Cookies.get('level'),
-      }))
-    }
-    myHistory.push('/dashboard');
-  }
 
   const useStyles = makeStyles(theme =>({
     regButt:{
@@ -139,8 +121,6 @@ const Register = ({ width }) => {
     setErr({ ...err, name: '' })
     let value = e.target.value;
 
-
-    const containsLetters = /^.*[a-zA-Z0-9]+.*$/
     const notContainsLetters = /^.*[а-яА-Я]+.*$/
 
     if(!value) {
@@ -161,8 +141,6 @@ const Register = ({ width }) => {
     setErr({ ...err, pass: '' })
     let value = e.target.value;
 
-
-    const containsLetters = /^.*[a-zA-Z0-9]+.*$/
     const notContainsLetters = /^.*[а-яА-Я]+.*$/
 
     if(!value) {
@@ -315,7 +293,6 @@ const Register = ({ width }) => {
                 helperText={err.name}
                 style={{
                   margin: '30px 0px 10px 0px',
-                  width: '264px',
                   backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   width: '100%'
                 }}
@@ -331,9 +308,9 @@ const Register = ({ width }) => {
                 helperText={err.name}
                 style={{
                   margin: '30px 0px 10px 0px',
-                  width: '264px',
                   backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
-                  width: '100%'
+                  width: '100%',
+                  border: '1px solid #e4e9f0'
                 }}
               />}
             <Icon style={{
@@ -364,7 +341,6 @@ const Register = ({ width }) => {
                 helperText={err.pass}
                 style={{
                   margin: '10px 0px',
-                  width: '264px',
                   backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   color: currentTheme === 'dark' ? '#aeaee0' : '',
                   width: '100%'
@@ -382,10 +358,10 @@ const Register = ({ width }) => {
                 helperText={err.pass}
                 style={{
                   margin: '10px 0px',
-                  width: '264px',
                   backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   color: currentTheme === 'dark' ? '#aeaee0' : '',
-                  width: '100%'
+                  width: '100%',
+                  border: '1px solid #e4e9f0'
                 }}
                 type={!vis ? 'password' : ''}
               />}

@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Button from "@material-ui/core/Button";
 import withWidth from "@material-ui/core/withWidth";
-import { TextField, makeStyles, Box, Typography, Paper, Icon, IconButton, withStyles, createStyles} from "@material-ui/core";
+import { TextField, makeStyles, Box, Typography, Paper, Icon, IconButton, withStyles } from "@material-ui/core";
 import { Visibility, VisibilityOff, People, Close } from '@material-ui/icons';
 import Snackbar from 'node-snackbar';
-import { Redirect, Route, Switch, useHistory, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { ThemeContext } from "../../../context/themeContext";
 import Cookies from 'js-cookie';
 import { setData, setLogin } from "../../../actions/actions";
@@ -100,24 +100,10 @@ const useStyles = makeStyles(theme =>({
 const Login = ({ width }) => {
 
   const dispatch = useDispatch();
-  const myHistory = useHistory()
-  const isLogin = useSelector(state => state.isLogin);
+  
 
-  if (Cookies.get('token')) {
-    console.log('oop')
-    if (!isLogin) {
-      console.log('oop')
-      dispatch(setLogin())
-      dispatch(setData({
-        token: Cookies.get('token'),
-        level: Cookies.get('level'),
-      }))
-    }
-    myHistory.push('/dashboard');
-  }
 
   console.log(width)
-  const [mess, setMess] = useState('');
   const [vis, setVis] = useState(false);
   const { currentTheme } = useContext(ThemeContext);
 
@@ -151,7 +137,7 @@ const Login = ({ width }) => {
           }))
           dispatch(setLogin())
           showMess('Авторизация прошла успешно!');
-          myHistory.push('/dashboard')
+         // myHistory.push('/dashboard')
         }
         else {
           showMess('Что-то пошло не так, попробуйте еще раз.')
@@ -254,7 +240,6 @@ const Login = ({ width }) => {
                 required
                 style={{
                   margin: '30px 0px 10px 0px',
-                  width: '264px',
                   backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   width: '100%'
                 }}
@@ -267,9 +252,9 @@ const Login = ({ width }) => {
                 required
                 style={{
                   margin: '30px 0px 10px 0px',
-                  width: '264px',
                   backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
-                  width: '100%'
+                  width: '100%',
+                  border: '1px solid #e4e9f0'
                 }}
               />}
             <Icon style={{
@@ -297,7 +282,6 @@ const Login = ({ width }) => {
                 required
                 style={{
                   margin: '10px 0px',
-                  width: '264px',
                   backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   color: currentTheme === 'dark' ? '#aeaee0' : '',
                   width: '100%'
@@ -312,10 +296,10 @@ const Login = ({ width }) => {
                 required
                 style={{
                   margin: '10px 0px',
-                  width: '264px',
                   backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                   color: currentTheme === 'dark' ? '#aeaee0' : '',
-                  width: '100%'
+                  width: '100%',
+                  border: '1px solid #e4e9f0'
                 }}
                 type={!vis ? 'password' : ''}
               />}

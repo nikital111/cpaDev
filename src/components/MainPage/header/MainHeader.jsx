@@ -1,10 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
+import {  useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { ThemeChanger } from "./ThemeChanger/ThemeChanger";
@@ -24,7 +24,8 @@ const MainHeader = ({ themeChanger, width }) => {
 
   const dispatch = useDispatch();
   const isLogin = useSelector(state => state.isLogin);
-  const openPanel = useSelector(state => state.openPanel);
+  const myHistory = useHistory();
+
   if (Cookies.get('token')) {
     if (!isLogin) {
       dispatch(setLogin())
@@ -32,8 +33,12 @@ const MainHeader = ({ themeChanger, width }) => {
         token: Cookies.get('token'),
         level: Cookies.get('level'),
       }))
+      myHistory.push('/dashboard')
     }
+    else myHistory.push('/dashboard')
   }
+
+
   const { currentTheme } = useContext(ThemeContext);
 
 
@@ -99,6 +104,8 @@ const MainHeader = ({ themeChanger, width }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
+
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -112,8 +119,10 @@ const MainHeader = ({ themeChanger, width }) => {
       className={classes.root}
     >
       <AppBar position="fixed" style={{
-        boxShadow: "0 1px 6px 0 rgba(32,33,36,.28)",
-        transition: "box-shadow 250ms"
+        boxShadow: currentTheme === 'dark' ? 'none' : "rgb(212 215 225 / 28%) 0px 1px 6px",
+        transition: "box-shadow 250ms",
+        zIndex: isLogin ? '2001' : '',
+        borderBottom: currentTheme === 'dark' ? '1px solid #232135' : 'none',
       }}>
         <Toolbar
           style={{
@@ -122,31 +131,39 @@ const MainHeader = ({ themeChanger, width }) => {
             boxShadow: 'none'
           }}
         >
-          <Typography
-            variant="h4"
+          <div
             className={classes.title}
             style={{
               fontSize: width === "xs" && 30,
             }}
           >
+            {isLogin ? 
+             width === 'xs' ?
+             <NavLink
+           to="/dashboard"
+           exact
+           style={{
+             textDecoration: "none",
+             color: currentTheme === "light" ? theme.dark : theme.light,
+           }}
+         >
+           <Typography style={{ color: currentTheme === 'dark' ? '#7575a3' : '', zIndex:'112'}} variant="h5">Logo</Typography>
+           </NavLink>
+             :
+             null
+            : 
             <NavLink
-              to="/"
-              exact
-              style={{
-                textDecoration: "none",
-                color: currentTheme === "light" ? theme.dark : theme.light,
-              }}
-            >
-              {isLogin ? '' : 'Logo'}
-              {isLogin ? 
-            !openPanel ?
-              <Typography style={{ color: currentTheme === 'dark' ? '#7575a3' : '', zIndex:'112'}} variant="h5">Logo</Typography>
-              :
-              <Typography style={{ color: currentTheme === 'dark' ? '#7575a3' : '', zIndex:'112'}} variant="h5">PlatinumPay</Typography>
-            : null
-            }
+            to="/"
+            exact
+            style={{
+              textDecoration: "none",
+              color: currentTheme === "light" ? theme.dark : theme.light,
+            }}
+          >
+            <Typography style={{ color: currentTheme === 'dark' ? 'white' : 'black', zIndex:'112'}} variant="h5">PlatinumPay</Typography>
             </NavLink>
-          </Typography>
+            }
+          </div>
           {width !== "xs" ?
             !isLogin ?
               (

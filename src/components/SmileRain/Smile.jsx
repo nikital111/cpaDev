@@ -1,9 +1,7 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState} from "react";
 import { makeStyles, withWidth } from "@material-ui/core";
 import { CSSTransition } from "react-transition-group";
 import "./smile.scss";
-import { ThemeContext } from "../../context/themeContext";
-import { theme } from "../../state/consts";
 
 const useStyles = makeStyles((theme) => ({
   smileObj: {
@@ -23,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
 
 export const Smile = ({ id, phrase, duration, sound, left, width }) => {
   const classes = useStyles();
-  const { currentTheme } = useContext(ThemeContext);
   //Audio
   const [audioFlag, setAudioFlag] = useState(true);
 
@@ -70,7 +67,7 @@ export const Smile = ({ id, phrase, duration, sound, left, width }) => {
       <div
         onClick={smileHandler}
         duration={duration}
-        className={classes.smileObj + " " + `smile webkit smile${id}`}
+        className={`${classes.smileObj} smile webkit smile${id}`}
         style={{
           left: `${left}%`,
           width: width === "xs" ? "4%" : "6%",

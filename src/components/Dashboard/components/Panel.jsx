@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import withWidth from "@material-ui/core/withWidth";
 import { useTheme } from '@material-ui/core/styles';
-import { makeStyles, Box, Typography, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText, Divider, Icon, Hidden, Accordion, AccordionSummary, AccordionDetails } from "@material-ui/core";
-import { People, Close, ChevronRight, ChevronLeft } from '@material-ui/icons';
+import { makeStyles, Typography, IconButton, Drawer, List, ListItem, ListItemIcon, Divider, Icon, Hidden, Accordion, AccordionSummary, AccordionDetails, Box } from "@material-ui/core";
+import {  ChevronRight, ChevronLeft } from '@material-ui/icons';
 import HomeIconOutlined from '@material-ui/icons/HomeOutlined';
 import AppsIconOutlined from '@material-ui/icons/AppsOutlined';
 import StorageIconOutlined from '@material-ui/icons/StorageOutlined';
@@ -14,14 +14,12 @@ import PieChartOutlinedIcon from '@material-ui/icons/PieChartOutlined';
 import clsx from 'clsx';
 import { ThemeContext } from "../../../context/themeContext";
 import MenuIcon from "@material-ui/icons/Menu";
-import { setOpenPanel } from "../../../actions/actions";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const Panel = ({ width }) => {
     const { currentTheme } = useContext(ThemeContext);
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
-    const dispatch = useDispatch();
     const drawerWidth = width === 'xs' ? '' : '280px';
 
     const useStyles = makeStyles((theme) => ({
@@ -29,15 +27,19 @@ const Panel = ({ width }) => {
             display: 'none',
         },
         drawer: {
-
+            '& .MuiDrawer-paperAnchorDockedLeft':{
+                borderRight:'none'
+            },
             flexShrink: 0,
 
             whiteSpace: 'nowrap',
             '& .MuiDrawer-paper': {
-                top: '63px',
+                top: '0px',
                 bottom: '40px',
                 right: width === 'xs' ? '0px' : 'auto',
-                boxShadow: '2px 1px 16px 5px rgba(0,0,0,0.35)',
+                boxShadow: currentTheme === 'dark' ? 'none' : "rgb(212 215 225 / 28%) 0px 1px 6px",
+                overflow: 'visible',
+                zIndex:'2002',
                 '&::-webkit-scrollbar': {
                     width: '5px',
                     backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
@@ -84,21 +86,44 @@ const Panel = ({ width }) => {
             }),
             width: drawerWidth
         },
-        secret:{
-            display:'none',
-            top:'-10px',
-            right:'-50px',
-            width:'60px',
-            minHeight:'150px',
-            zIndex:'9999'
+        secret: {
+            display: 'none',
+            top: '0px',
+            left: '64px',
+            minWidth: '120px',
+            zIndex: '9999',
+            position: 'absolute',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            textDecoration: 'none',
+            color: currentTheme === 'dark' ? '#aeaee0' : '#595c97',
+            backgroundColor: currentTheme === 'dark' ? '#232135' : 'white',
+            boxShadow: currentTheme === 'dark' ? 'none' : '0px 0px 20px -11px rgba(0,0,0,0.8)',
+            '& ul': {
+                listStyle: 'none',
+                padding: '0px',
+                width: '100%',
+                '& li': {
+                    margin: '20px',
+                    fontSize: '0.95rem',
+                    width: '100%',
+                    textAlign: 'left',
+                    '&:hover': {
+                        color: '#4b7cf3'
+                    }
+                }
+            }
+
         },
         root: {
             '& .MuiIcon-root': {
-                position:'relative',
+                position: 'relative',
                 width: '80%',
                 height: 'auto',
                 borderRadius: '10px',
                 cursor: 'pointer',
+                overflow: 'visible',
                 '&:hover': {
                     backgroundColor: currentTheme === 'dark' ? '#232135' : '#e4e9f0',
                     color: '#4b7cf3',
@@ -141,7 +166,7 @@ const Panel = ({ width }) => {
             },
 
             textAlign: !open ? 'center' : '',
-            display: 'flex',
+            display: open && width === 'xs' ? 'block' : 'flex',
             flexDirection: 'column',
             alignItems: !open ? 'center' : '',
             justifyContent: !open ? 'center' : '',
@@ -153,7 +178,7 @@ const Panel = ({ width }) => {
             margin: '5px 0px',
             color: 'rgb(117, 117, 163)',
             textAlign: 'left',
-            fontSize:'0.95rem',
+            fontSize: '0.95rem',
             '&:hover': {
                 color: '#4b7cf3'
             }
@@ -165,24 +190,23 @@ const Panel = ({ width }) => {
         },
         icons: {
             margin: '11.6px 0px!important',
-            fontSize:'1.13rem'
+            fontSize: '1.13rem'
         },
         heading: {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             width: '100%',
-            fontSize:'0.95rem',
-            '& svg':{
-                fontSize:'1.13rem!important',
+            fontSize: '0.95rem',
+            '& svg': {
+                fontSize: '1.13rem!important',
             }
         },
-        
+
     }));
 
     const handleDrawer = () => {
         setOpen(!open);
-        dispatch(setOpenPanel())
     };
 
     const classes = useStyles();
@@ -203,7 +227,7 @@ const Panel = ({ width }) => {
                         color: 'red'
                     }}>
                     <MenuIcon style={{
-                        color: '#aeaee0'
+                        color: currentTheme === 'dark' ? '#aeaee0' : 'white'
                     }}></MenuIcon>
                 </IconButton>
             </Hidden>
@@ -230,7 +254,24 @@ const Panel = ({ width }) => {
 
                 <List>
 
+                <NavLink
+              to="/dashboard"
+              exact
+              style={{
+                textDecoration: "none",
+                color: currentTheme === "light" ? theme.dark : theme.light,
 
+              }}
+            >
+              {
+            !open
+             ?
+              <Typography style={{ color: currentTheme === 'dark' ? '#7575a3' : '', zIndex:'112',margin:'10px 0px 10px 10px'}} variant="h5">Logo</Typography>
+              :
+              <Typography style={{ color: currentTheme === 'dark' ? '#7575a3' : '', zIndex:'112',margin:'10px 0px 10px 10px'}} variant="h5">PlatinumPay</Typography>
+            
+            }
+            </NavLink>
 
                     <div className={classes.root}>
                         {open ?
@@ -257,7 +298,7 @@ const Panel = ({ width }) => {
                                         id="panel1a-header"
                                     // onClick={open ? null : handleDrawer}
                                     >
-                                        <Typography className={classes.heading}>Home <div><ExpandMoreIcon /><HomeIconOutlined /></div> </Typography>
+                                        <Box className={classes.heading}>Home <div><ExpandMoreIcon /><HomeIconOutlined /></div> </Box>
                                     </AccordionSummary>
                                     <AccordionDetails>
 
@@ -280,17 +321,20 @@ const Panel = ({ width }) => {
                                         height: '30px',
                                         margin: '5px 0px'
                                     }}></HomeIconOutlined>
-                                {/* <div 
-                                className={`${classes.secret} blocSec`}
-                                style={{
-                                    position:'absolute'
-                                }}>
-                                    <a href="#">Link 1</a>
-                                    <a href="#">Link 2</a>
-                                    <a href="#">Link 3</a>
-                                </div> */}
+                                <div
+                                    className={`${classes.secret} blocSec`}
+                                >
+                                    <ul>
+                                        <li>Profile</li>
+                                        <li>Calendar</li>
+                                        <li>Gallery</li>
+                                        <li>Mail</li>
+                                    </ul>
+                                </div>
                             </Icon>
                         }
+
+
 
                         {open ?
                             <Typography variant='h7'
@@ -318,7 +362,7 @@ const Panel = ({ width }) => {
                                         id="panel1a-header"
                                     // onClick={open ? null : handleDrawer}
                                     >
-                                        <Typography className={classes.heading}>Apps <div><ExpandMoreIcon /><AppsIconOutlined /></div></Typography>
+                                        <Box className={classes.heading}>Apps <div><ExpandMoreIcon /><AppsIconOutlined /></div></Box>
                                     </AccordionSummary>
                                     <AccordionDetails>
 
@@ -335,13 +379,24 @@ const Panel = ({ width }) => {
 
                             </>
                             :
-                            <Icon>
+                            <Icon className='iconSec'>
                                 <AppsIconOutlined
                                     className={classes.icons}
                                     style={{
                                         height: '30px',
                                         margin: '5px 0px'
                                     }}></AppsIconOutlined >
+                                <div
+                                    className={`${classes.secret} blocSec`}
+                                >
+                                    <ul>
+                                        <li>Profile</li>
+                                        <li>Calendar</li>
+                                        <li>Gallery</li>
+                                        <li>Mail</li>
+                                    </ul>
+                                </div>
+
                             </Icon>
                         }
                         {open ?
@@ -353,7 +408,7 @@ const Panel = ({ width }) => {
                                         id="panel1a-header"
                                     // onClick={open ? null : handleDrawer}
                                     >
-                                        <Typography className={classes.heading}>Extra apps <div><ExpandMoreIcon /><StorageIconOutlined /></div></Typography>
+                                        <Box className={classes.heading}>Extra apps <div><ExpandMoreIcon /><StorageIconOutlined /></div> </Box>
                                     </AccordionSummary>
                                     <AccordionDetails>
 
@@ -370,13 +425,23 @@ const Panel = ({ width }) => {
 
                             </>
                             :
-                            <Icon>
+                            <Icon className='iconSec'>
                                 <StorageIconOutlined
                                     className={classes.icons}
                                     style={{
                                         height: '30px',
                                         margin: '5px 0px'
                                     }}></StorageIconOutlined >
+                                <div
+                                    className={`${classes.secret} blocSec`}
+                                >
+                                    <ul>
+                                        <li>Profile</li>
+                                        <li>Calendar</li>
+                                        <li>Gallery</li>
+                                        <li>Mail</li>
+                                    </ul>
+                                </div>
                             </Icon>
                         }
                         {open ?
@@ -388,7 +453,7 @@ const Panel = ({ width }) => {
                                         id="panel1a-header"
                                     // onClick={open ? null : handleDrawer}
                                     >
-                                        <Typography className={classes.heading}>Ecommerce <div><ExpandMoreIcon /><ShoppingCartIconOutlined /></div></Typography>
+                                        <Box className={classes.heading}>Ecommerce <div><ExpandMoreIcon /><ShoppingCartIconOutlined /></div></Box>
                                     </AccordionSummary>
                                     <AccordionDetails>
 
@@ -405,13 +470,23 @@ const Panel = ({ width }) => {
 
                             </>
                             :
-                            <Icon>
+                            <Icon className='iconSec'>
                                 <ShoppingCartIconOutlined
                                     className={classes.icons}
                                     style={{
                                         height: '30px',
                                         margin: '5px 0px'
                                     }}></ShoppingCartIconOutlined >
+                                <div
+                                    className={`${classes.secret} blocSec`}
+                                >
+                                    <ul>
+                                        <li>Profile</li>
+                                        <li>Calendar</li>
+                                        <li>Gallery</li>
+                                        <li>Mail</li>
+                                    </ul>
+                                </div>
                             </Icon>
                         }
                         {open ?
@@ -423,7 +498,7 @@ const Panel = ({ width }) => {
                                         id="panel1a-header"
                                     // onClick={open ? null : handleDrawer}
                                     >
-                                        <Typography className={classes.heading}>Gallery <div><ExpandMoreIcon /><PhotoOutlinedIcon /></div></Typography>
+                                        <Box className={classes.heading}>Gallery <div><ExpandMoreIcon /><PhotoOutlinedIcon /></div></Box>
                                     </AccordionSummary>
                                     <AccordionDetails>
 
@@ -440,13 +515,23 @@ const Panel = ({ width }) => {
 
                             </>
                             :
-                            <Icon>
+                            <Icon className='iconSec'>
                                 <PhotoOutlinedIcon
                                     className={classes.icons}
                                     style={{
                                         height: '30px',
                                         margin: '5px 0px'
                                     }}></PhotoOutlinedIcon >
+                                <div
+                                    className={`${classes.secret} blocSec`}
+                                >
+                                    <ul>
+                                        <li>Profile</li>
+                                        <li>Calendar</li>
+                                        <li>Gallery</li>
+                                        <li>Mail</li>
+                                    </ul>
+                                </div>
                             </Icon>
                         }
                         {open ?
@@ -473,7 +558,7 @@ const Panel = ({ width }) => {
                                         id="panel1a-header"
                                     // onClick={open ? null : handleDrawer}
                                     >
-                                        <Typography className={classes.heading}>Cards <div><ExpandMoreIcon /><CreditCardOutlinedIcon /></div></Typography>
+                                        <Box className={classes.heading}>Cards <div><ExpandMoreIcon /><CreditCardOutlinedIcon /></div></Box>
                                     </AccordionSummary>
                                     <AccordionDetails>
 
@@ -490,13 +575,23 @@ const Panel = ({ width }) => {
 
                             </>
                             :
-                            <Icon>
+                            <Icon className='iconSec'>
                                 <CreditCardOutlinedIcon
                                     className={classes.icons}
                                     style={{
                                         height: '30px',
                                         margin: '5px 0px'
                                     }}></CreditCardOutlinedIcon >
+                                <div
+                                    className={`${classes.secret} blocSec`}
+                                >
+                                    <ul>
+                                        <li>Profile</li>
+                                        <li>Calendar</li>
+                                        <li>Gallery</li>
+                                        <li>Mail</li>
+                                    </ul>
+                                </div>
                             </Icon>
                         }
                         {open ?
@@ -508,7 +603,7 @@ const Panel = ({ width }) => {
                                         id="panel1a-header"
                                     // onClick={open ? null : handleDrawer}
                                     >
-                                        <Typography className={classes.heading}>Charts <div><ExpandMoreIcon /><PieChartOutlinedIcon /></div></Typography>
+                                        <Box className={classes.heading}>Charts <div><ExpandMoreIcon /><PieChartOutlinedIcon /></div></Box>
                                     </AccordionSummary>
                                     <AccordionDetails>
 
@@ -525,13 +620,23 @@ const Panel = ({ width }) => {
 
                             </>
                             :
-                            <Icon>
-                                <PieChartOutlinedIcon ple
+                            <Icon className='iconSec'>
+                                <PieChartOutlinedIcon ple='true'
                                     className={classes.icons}
                                     style={{
                                         height: '30px',
                                         margin: '5px 0px'
                                     }}></PieChartOutlinedIcon >
+                                <div
+                                    className={`${classes.secret} blocSec`}
+                                >
+                                    <ul>
+                                        <li>Profile</li>
+                                        <li>Calendar</li>
+                                        <li>Gallery</li>
+                                        <li>Mail</li>
+                                    </ul>
+                                </div>
                             </Icon>
                         }
 
@@ -546,7 +651,7 @@ const Panel = ({ width }) => {
                         })
                         }
                         classes={{
-                            paper: clsx({
+                            alignItemsFlexStart: clsx({
                                 [classes.buttOpen]: open,
                                 [classes.buttClose]: !open,
                             }),

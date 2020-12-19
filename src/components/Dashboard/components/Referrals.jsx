@@ -1,9 +1,6 @@
 import React, { useContext } from "react";
 import withWidth from "@material-ui/core/withWidth";
-import { useTheme } from '@material-ui/core/styles';
-import { makeStyles, Box, Typography, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText, Divider } from "@material-ui/core";
-import { People, Close, ChevronRight, ChevronLeft } from '@material-ui/icons';
-import clsx from 'clsx';
+import { makeStyles, Typography } from "@material-ui/core";
 import { ThemeContext } from "../../../context/themeContext";
 import { DataGrid } from '@material-ui/data-grid';
 
@@ -39,7 +36,7 @@ const Referrals = ({ width }) => {
             '& .MuiDataGrid-root': {
                 border: 'none',
                 color: currentTheme === 'dark' ? '#aeaee0!important' : '#595c97!important',
-                backgroundColor: currentTheme === 'dark' ? 'rgb(20, 19, 34)' : 'white',
+                backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                 margin: '15px',
                 fontSize: width === 'xs' ? '15px' : width === 'sm' ? '15px' : width === 'md' ? '15px' : '21px',
                 
@@ -47,11 +44,11 @@ const Referrals = ({ width }) => {
             '& .MuiDataGrid-root .MuiDataGrid-window':{
                 '&::-webkit-scrollbar':{
                     width: '5px',
-                    backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
+                    backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
                     
                   },
                   '&::-webkit-scrollbar-thumb':{
-                    backgroundColor: currentTheme === 'dark' ? '#32304b!important' : '#c8c4db',
+                    backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '#c8c4db', 
                   }
             }
         }
@@ -95,21 +92,9 @@ const Referrals = ({ width }) => {
 
     return (
         <>
-            <Box style={{
-                display: 'flex',
-                justifyContent: 'center',
-                flexDirection: 'column',
-                margin: '20px 10px',
-                backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : 'white',
-                border: currentTheme === 'dark' ? '1px solid #232135' : 'none',
-                padding: width === 'xs' ? '15px 23px 0px 7px' : '15px',
-                width: 'fit-content'
-            }}>
-
-
-                <Typography variant={width === 'xs' ? 'h6' : 'h5'} style={{
+        <Typography variant={width === 'xs' ? 'h6' : 'h5'} style={{
                     color: currentTheme === 'dark' ? '#aeaee0' : 'black',
-                    width: width === 'xs' ? 'calc(100vw - 106px)' : 'calc(100vw - 210px)',
+                    
                     
                     margin: '20px 10px',
                     // borderBottom:'1px solid rgb(174, 174, 224)'
@@ -120,13 +105,12 @@ const Referrals = ({ width }) => {
 
                     <div className={classes.grid} style={{
                          height: 400, 
-                         width: width === 'xs' ? 'calc(100vw - 100px)' : 'calc(100vw - 225px)',
+                         width: width === 'xs' ? 'calc(100vw - 60px)' : 'calc(100vw - 170px)',
                          marginBottom:'25px'
                          }}>
                         <DataGrid rows={rows} columns={columns} pageSize={5} />
                     </div>
 
-            </Box>
         </>
     );
 };

@@ -1,13 +1,9 @@
 import React, { useContext } from "react";
 import withWidth from "@material-ui/core/withWidth";
-import { useTheme } from '@material-ui/core/styles';
-import { makeStyles, Box, Typography, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText, Divider, Icon } from "@material-ui/core";
-import { People, Close, ChevronRight, ChevronLeft } from '@material-ui/icons';
+import { makeStyles, Box, Typography, Icon } from "@material-ui/core";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import clsx from 'clsx';
 import { ThemeContext } from "../../../context/themeContext";
-import { Area, AreaChart, CartesianGrid, Label, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
 
 const Accounts = ({ width }) => {
     const { currentTheme } = useContext(ThemeContext);
@@ -22,9 +18,9 @@ const Accounts = ({ width }) => {
             backgroundColor: currentTheme === 'dark' ? '#0c0c1b' : '',
             width: '100vw',
             border: currentTheme === 'dark' ? '1px solid #232135' : 'none',
-            borderRadius:'8px',
             borderLeft:'5px #41b883 solid',
             margin: '10px', 
+            borderRadius:'5px',
         }
     }));
 
@@ -71,7 +67,7 @@ const Accounts = ({ width }) => {
                                padding:'20px 20px'
                            }}>
                                <Typography variant={width === 'xs' ? 'h6' : 'h5'} style={{width:'100%'}}>+$10,264</Typography>
-                               <Typography variant={width === 'xs' ? 'h7' : 'h6'} style={{width:'100%',color: currentTheme === 'light' ? '#595c97' : ''}}>4512-XXXX-1678-7528</Typography>
+                               <Typography variant={width === 'xs' ? 'subtitle2' : 'h6'} style={{width:'100%',color: currentTheme === 'light' ? '#595c97' : ''}}>4512-XXXX-1678-7528</Typography>
                            </Box>
                            <Icon style={{
                             width: 'auto',
@@ -119,7 +115,7 @@ const Accounts = ({ width }) => {
                                padding:'20px 20px'
                            }}>
                                <Typography variant={width === 'xs' ? 'h6' : 'h5'} style={{width:'100%'}}>-$1,125</Typography>
-                               <Typography variant={width === 'xs' ? 'h7' : 'h6'} style={{width:'100%',color: currentTheme === 'light' ? '#595c97' : ''}}>4512-XXXX-1678-7528</Typography>
+                               <Typography variant={width === 'xs' ? 'subtitle2' : 'h6'} style={{width:'100%',color: currentTheme === 'light' ? '#595c97' : ''}}>4512-XXXX-1678-7528</Typography>
                            </Box>
                            <Icon style={{
                             width: 'auto',
@@ -164,7 +160,7 @@ const Accounts = ({ width }) => {
                                padding:'20px 20px'
                            }}>
                                <Typography variant={width === 'xs' ? 'h6' : 'h5'} style={{width:'100%'}}>+$10,264</Typography>
-                               <Typography variant={width === 'xs' ? 'h7' : 'h6'} style={{width:'100%',color: currentTheme === 'light' ? '#595c97' : ''}}>4512-XXXX-1678-7528</Typography>
+                               <Typography variant={width === 'xs' ? 'subtitle2' : 'h6'} style={{width:'100%',color: currentTheme === 'light' ? '#595c97' : ''}}>4512-XXXX-1678-7528</Typography>
                            </Box>
                            <Icon style={{
                             width: 'auto',
@@ -212,7 +208,7 @@ const Accounts = ({ width }) => {
                                padding:'20px 20px'
                            }}>
                                <Typography variant={width === 'xs' ? 'h6' : 'h5'} style={{width:'100%'}}>-$1,125</Typography>
-                               <Typography variant={width === 'xs' ? 'h7' : 'h6'} style={{width:'100%',color: currentTheme === 'light' ? '#595c97' : ''}}>4512-XXXX-1678-7528</Typography>
+                               <Typography variant={width === 'xs' ? 'subtitle2' : 'h6'} style={{width:'100%',color: currentTheme === 'light' ? '#595c97' : ''}}>4512-XXXX-1678-7528</Typography>
                            </Box>
                            <Icon style={{
                             width: 'auto',
